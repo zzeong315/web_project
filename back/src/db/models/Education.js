@@ -1,10 +1,8 @@
 import { UserModel } from "../schemas/user";
 
 class Education {
-  static async findAll(email) {
-    const users = await UserModel.find({ email });
-    console.log(users);
-    console.log(users[0].educations);
+  static async findAll(id) {
+    const users = await UserModel.find({ id });
     const educations = users[0].educations;
     return educations;
   }

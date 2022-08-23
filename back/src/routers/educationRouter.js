@@ -4,11 +4,22 @@ import { educationService } from "../services/educationService";
 
 const educationRouter = Router();
 
-educationRouter.get("/", async (req, res, next) => {
+educationRouter.get("/", login_required, async (req, res, next) => {
   try {
-    // 전체 교육사항 목록을 얻음
-    const email = "sample@gmail.com";
-    const educations = await educationService.getEducations(email);
+    // 자신의 전체 교육사항 목록을 얻음
+    console.log(req.currentUserId);
+    const id = req.currentUserId;
+    const educations = await educationService.getEducations(id);
+    res.status(200).send(educations);
+  } catch (error) {
+    next(error);
+  }
+});
+educationRouter.get("/:id", login_required, async (req, res, next) => {
+  try {
+    // 다른 사람의 전체 교육사항 목록을 얻음
+    const id = req.params.id;
+    const educations = await educationService.getEducations(id);
     res.status(200).send(educations);
   } catch (error) {
     next(error);
