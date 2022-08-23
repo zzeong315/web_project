@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import Award from "./Award";
 
 const AwardList = ({ setIsEditing }) => {
@@ -7,14 +7,15 @@ const AwardList = ({ setIsEditing }) => {
   const [description, setDescription] = useState("");
 
   return (
-    <Form className="d-flex align-items-center">
+    <Row className="d-flex align-items-center mb-4">
       <Col>
-        <Form.Text className="d-block">수상내역</Form.Text>
-        <Form.Text className="d-block">상세내역</Form.Text>
+        <span className="d-block">수상내역</span>
+        <span className="text-muted">상세내역</span>
       </Col>
-      <Col>
+      <Col lg="2">
         <Button
           variant="outline-info"
+          size="sm"
           type="click"
           onClick={(e) => {
             e.preventDefault();
@@ -24,7 +25,7 @@ const AwardList = ({ setIsEditing }) => {
           편집
         </Button>
       </Col>
-    </Form>
+    </Row>
   );
 };
 

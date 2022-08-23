@@ -1,13 +1,13 @@
 import React from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 
-const AwardEditForm = ({ setIsEditing }) => {
+const AwardAddForm = ({ setIsAdding }) => {
   return (
     <Form>
-      <Form.Group className="mb-3" controlId="awardAddTitle">
-        <Form.Control type="text" placeholder="수상내역" />
+      <Form.Group className="mb-3" controlId="awardEditTitle">
+        <Form.Control type="text" placeholder="수상이력" />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="awardAddDescription">
+      <Form.Group className="mb-3" controlId="awardEditDescription">
         <Form.Control type="text" placeholder="상세내역" />
       </Form.Group>
       <Row className="mb-5">
@@ -18,7 +18,7 @@ const AwardEditForm = ({ setIsEditing }) => {
           <Button
             variant="secondary"
             onClick={(e) => {
-              setIsEditing(false);
+              setIsAdding(false);
             }}
           >
             취소
@@ -28,5 +28,4 @@ const AwardEditForm = ({ setIsEditing }) => {
     </Form>
   );
 };
-
-export default AwardEditForm;
+export default AwardAddForm;
