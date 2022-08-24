@@ -14,9 +14,11 @@ const AwardEditForm = ({ index, awardList, setAwardList }) => {
 
   const onEditSumit = (e) => {
     const newAward = [...awardList];
-    newAward[index].isEditing = false;
-    newAward[index].title = title;
-    newAward[index].description = description;
+    newAward[index] = {
+      title,
+      description,
+      isEditing: false,
+    };
     setAwardList(newAward);
   };
   const onEditCancel = (e) => {
