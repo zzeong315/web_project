@@ -2,11 +2,11 @@ import { Schema, model } from "mongoose";
 
 const ProjectSchema = new Schema(
   {
-    projName: {
+    projectName: {
       type: String,
       required: true,
     },
-    projDescription: {
+    projectDescription: {
       type: String,
       required: false,
       default: "프로젝트 설명이 아직 없습니다. 추가해주세요",
@@ -16,5 +16,6 @@ const ProjectSchema = new Schema(
     timestamps: true,
   }
 );
+const ProjectModel = model("Project", ProjectSchema);
 
-export { ProjectSchema };
+export { ProjectModel, ProjectSchema };

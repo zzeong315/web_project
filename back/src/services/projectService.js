@@ -1,8 +1,8 @@
 import { Project } from "../db";
 
 class projectService {
-  static async getProjects(id) {
-    const projects = await Project.findAll(id);
+  static async getProjectsById(id) {
+    const projects = await Project.findById(id);
 
     if (projects.length === 0) {
       const errorMessage =
@@ -12,6 +12,20 @@ class projectService {
     }
 
     return projects;
+  }
+
+  static async getProjects() {
+    const projects = await Project.findAll();
+
+    return projects;
+  }
+
+  static async addProject({ projectName, projectDescription }) {
+    const newProject = { projectName, projectDescription };
+    const createdNewProject = await Project.create({ newProject });
+    createdNewProject.errorMessage = null;
+
+    return createdNewProject;
   }
 }
 export { projectService };
