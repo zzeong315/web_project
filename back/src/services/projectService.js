@@ -20,9 +20,8 @@ class projectService {
     return projects;
   }
 
-  static async addProject({ projectName, projectDescription }) {
-    const newProject = { projectName, projectDescription };
-    const createdNewProject = await Project.create({ newProject });
+  static async addProject(id, newProject) {
+    const createdNewProject = await Project.create(id, newProject);
     createdNewProject.errorMessage = null;
 
     return createdNewProject;

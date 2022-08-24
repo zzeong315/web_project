@@ -1,5 +1,6 @@
 import { UserModel } from "../schemas/user";
 import { ProjectModel } from "../schemas/project";
+import { User } from "./User";
 
 class Project {
   // id별로 프로젝트 목록 보기
@@ -15,8 +16,10 @@ class Project {
   }
 
   // 프로젝트 생성
-  static async create({ newProject }) {
-    const createdNewProject = await ProjectModel.create(newProject);
+  static async create(id, newProject) {
+    const user = await UserModel.findOne({ id });
+    user.projects.push(newProject);
+    const createdNewProject = await user.save();
     return createdNewProject;
   }
 }
