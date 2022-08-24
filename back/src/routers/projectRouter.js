@@ -10,7 +10,9 @@ projectRouter.get(
   async function (req, res, next) {
     try {
       // 전체 프로젝트 목록을 얻음
-      const projects = await projectService.getProjects();
+      console.log(req.currentUserId);
+      const id = req.currentUserId;
+      const projects = await projectService.getProjects(id);
       res.status(200).send(projects);
     } catch (error) {
       next(error);
@@ -18,25 +20,15 @@ projectRouter.get(
   }
 );
 
-projectRouter.get(
-  "/project/current",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const user_id = req.currentUserId;
-      const currentProjectInfo = await projectService.getProjectInfo({
-        user_id,
-      });
+projectRouter.get("/:id", login_required, async function (req, res, next) {
+  try {
+    const id = req.params.id;
+    const projects = await projectService.getProjects(id);
 
-      if (currentProjectInfo.errorMessage) {
-        throw new Error(currentProjectInfo.errorMessage);
-      }
-
-      res.status(200).send(currentProjectInfo);
-    } catch (error) {
-      next(error);
-    }
+    res.status(200).send(projects);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 export { projectRouter };

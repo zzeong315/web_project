@@ -1,7 +1,7 @@
 import { Project } from "../db";
 
 class projectService {
-  static async getProjectInfo({ id }) {
+  static async getProject({ id }) {
     const project = await Project.findById({ id });
 
     if (!project) {
@@ -15,8 +15,8 @@ class projectService {
   }
 
   // projectlist 반환
-  static async getProjects() {
-    const projects = await Project.findAll();
+  static async getProjects({ id }) {
+    const projects = await Project.findAll({ id });
     return projects;
   }
 }
