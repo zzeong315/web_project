@@ -9,7 +9,7 @@ projectRouter.get("/", login_required, async function (req, res, next) {
   try {
     console.log(req.currentUserId);
     const id = req.currentUserId;
-    const projects = await projectService.getProjectsById(id);
+    const projects = await projectService.getProjects();
 
     res.status(200).send(projects);
   } catch (error) {
@@ -18,8 +18,10 @@ projectRouter.get("/", login_required, async function (req, res, next) {
 });
 
 projectRouter.get("/:id", login_required, async function (req, res, next) {
+  console.log("hello");
   try {
     const id = req.params.id;
+
     const projects = await projectService.getProjectsById(id);
     res.status(200).send(projects);
   } catch (error) {
