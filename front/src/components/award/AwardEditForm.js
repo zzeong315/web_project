@@ -23,7 +23,7 @@ const AwardEditForm = ({ index, awardList, setAwardList }) => {
   };
   const onEditCancel = (e) => {
     const newAward = [...awardList];
-    newAward[index].description = description;
+    newAward[index].isEditing = false;
     setAwardList(newAward);
   };
   return (
