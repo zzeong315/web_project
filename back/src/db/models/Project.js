@@ -1,18 +1,10 @@
-import { ProjectModel } from "../schemas/project";
+// import { ProjectModel } from "../schemas/project";
+import { UserModel } from "../schemas/user";
 
 class Project {
-  // static async findByEmail({ email }) {
-  //   const project = await ProjectModel.findOne({ email });
-  //   return project;
-  // }
-
-  // static async findById({ id }) {
-  //   const project = await ProjectModel.findOne({ id: id });
-  //   return project;
-  // }
-
-  static async findAll() {
-    const projects = await ProjectModel.find({});
+  static async findAll(id) {
+    const user = await UserModel.find({ id });
+    const projects = user[0].projects;
     return projects;
   }
 }
