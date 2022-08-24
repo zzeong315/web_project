@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card, Row, Col } from "react-bootstrap";
-const CertificateList = ({ certificate, onEditMode, onEditCancle }) => {
-  const { index, title, description, date } = certificate;
+const CertificateList = ({ index, certificate, onEditMode, onDelete }) => {
+  const { title, description, date } = certificate;
 
   const dateFormat = (date) => {
     let month = date.getMonth() + 1;
@@ -21,11 +21,26 @@ const CertificateList = ({ certificate, onEditMode, onEditCancle }) => {
         <span className="text-muted">{dateFormat(date)}</span>
       </Col>
       <Col className="d-flex justify-content-center" md="2">
-        <Button className="me-2" variant="outline-info" size="sm" type="click">
+        <Button
+          className="me-2"
+          variant="outline-info"
+          size="sm"
+          type="click"
+          onClick={(e) => {
+            onEditMode(index);
+          }}
+        >
           편집
         </Button>
 
-        <Button variant="outline-danger" size="sm" type="click">
+        <Button
+          variant="outline-danger"
+          size="sm"
+          type="click"
+          onClick={(e) => {
+            onDelete(index);
+          }}
+        >
           삭제
         </Button>
       </Col>

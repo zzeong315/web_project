@@ -15,13 +15,48 @@ const Certificate = () => {
     },
   ]);
 
-  const addCertification = (title, description, date) => {
-    const newCertification = [
+  // add certificate
+  const addCertificate = (title, description, date) => {
+    const newCertificate = [
       ...certificates,
       { title, description, date, isEditing: false },
     ];
-    console.log(newCertification);
-    setCertificates(newCertification);
+    setCertificates(newCertificate);
+  };
+
+  // certificate editmode
+  const changeEditMode = (index) => {
+    const newCertificate = [...certificates];
+    newCertificate[index].isEditing = true;
+
+    setCertificates(newCertificate);
+  };
+
+  //delete
+
+  const deleteCertificate = (index) => {
+    const newCertificate = [...certificates];
+
+    newCertificate.splice(index, 1);
+
+    setCertificates(newCertificate);
+  };
+
+  // edit
+
+  const confirmEdit = (index, changeData) => {
+    const newCertificate = [...certificates];
+    newCertificate[index] = {
+      ...changeData,
+      isEditing: false,
+    };
+    setCertificates(newCertificate);
+  };
+
+  const cancelEdit = (index) => {
+    const newCertificate = [...certificates];
+    newCertificate[index] = { ...certificates[index], isEditing: false };
+    setCertificates(newCertificate);
   };
 
   return (
@@ -32,17 +67,23 @@ const Certificate = () => {
         {certificates &&
           certificates.map((certificate, index) => {
             return certificate.isEditing ? (
-              <CertificateEditForm />
+              <CertificateEditForm
+                index={index}
+                certificate={certificate}
+                onEditSubmit={confirmEdit}
+                onEditCancel={cancelEdit}
+              />
             ) : (
-              <CertificateList index={index} certificate={certificate} />
+              <CertificateList
+                index={index}
+                certificate={certificate}
+                onEditMode={changeEditMode}
+                onDelete={deleteCertificate}
+              />
             );
           })}
 
-        <CertificateAddForm onAddCertification={addCertification} />
-
-        {/* <CertificateList />
-        <CertificateEditForm />
-        <CertificateAddForm /> */}
+        <CertificateAddForm onAddnCertificate={addCertificate} />
       </Card.Body>
     </Card>
   );
