@@ -5,6 +5,11 @@ class educationService {
     const educations = await Education.findAll(id);
     return educations;
   }
+
+  static async addEducation(id, newEducation) {
+    const addedEducation = await Education.add(id, newEducation);
+    return addedEducation;
+  }
 }
 
 export { educationService };
