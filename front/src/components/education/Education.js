@@ -1,60 +1,75 @@
+import {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
-import { Button, Card, Form, Row, Col } from 'react-bootstrap';
+import {Button, Card, Form, Row, Col} from 'react-bootstrap';
 import EducationForm from './EducationForm';
 import EducationList from './EducationList'
 
-function Education() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [edus, setEdus] = useState([{
-    school: "",
-    major: "",
-    position: "",
-  }])
+export default function Education() {
 
-  const onAddEdu = () => {
-    const newEdu = {
-      id: Math.floor(Math.random() * 10000),
-      school: "",
-      major: "",
-      position: "",
-    }
-    setEdus([...edus, newEdu])
-    // console.log(edus)
+    const [edus, setEdus] = useState([]);
 
-    return(
-      <div>
-        {edus.map(edu => (<EducationList edus={edu}/>))}
-      </div>
-    )
-  }
-  
-  return (
-    <Card>
-      <Card.Body>
-        <h5>학력</h5>
-        {edus? onAddEdu : ""}
-        <div class="mt-3 text-center mb-4 row">
-            <div class="col-sm-20">
-                <button 
-                    type="button" 
-                    class="btn btn-primary"
-                    onClick={() => setIsEditing(true)}
-                >
-                    +
-                </button>
-            </div>
-        </div>
-        {isEditing ? 
-          <EducationForm 
-            edus={edus}
-            setEdus={setEdus}
-            onAddEdu={onAddEdu}
-          /> : ""} 
-        
-      </Card.Body>
-    </Card>
-  );
+    const [isAdding, setIsAdding] = useState(false);
+    const handleAddEductionClick = () => {
+        if (isAdding) {
+            setIsAdding(false);
+        } else {
+            setIsAdding(true);
+        }
+    };
+
+    const confirmAddEduction = (targetEducation) => {
+        const educationObj = {
+            ...targetEducation,
+            id: Math.floor(Math.random() * 10000),
+        };
+        setEdus([...edus, educationObj]);
+        setIsAdding(false);
+    };
+
+    const cancelAddEducation = () => {
+        setIsAdding(false);
+    };
+
+    const updateEducation = (editedEducationObj) => {
+        const updatedEdus = [...edus];
+        updatedEdus[edus.findIndex(edu => edu.id === editedEducationObj.id)] = {
+            ...editedEducationObj
+        };
+        setEdus([...updatedEdus]);
+    };
+
+    return (
+        <Card>
+            <Card.Body>
+                <h5>학력</h5>
+                {edus.length > 0 && edus.map((eduObj, index) => {
+                    return (
+                        <EducationList key={index} edu={eduObj} updateEdu={updateEducation}/>
+                    )
+                })}
+                <div className="mt-3 text-center mb-4 row">
+                    <div className="col-sm-20">
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={handleAddEductionClick}
+                        >
+                            +
+                        </button>
+                    </div>
+                </div>
+                {isAdding ?
+                    <EducationForm
+                        edu={{
+                            id: null,
+                            school: '',
+                            major: '',
+                            position: '재학중',
+                        }}
+                        onConfirm={confirmAddEduction}
+                        onCancel={cancelAddEducation}
+                    /> : ""}
+            </Card.Body>
+        </Card>
+    );
 }
-
-export default Education;
