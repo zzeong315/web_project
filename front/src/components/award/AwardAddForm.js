@@ -10,6 +10,9 @@ const AwardAddForm = ({ onAddAward }) => {
     e.preventDefault();
     onAddAward(title, description);
     setIsAdding(false);
+
+    setTitle("");
+    setDescription("");
   };
 
   return (

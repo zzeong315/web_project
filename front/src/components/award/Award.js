@@ -17,7 +17,11 @@ const Award = () => {
     newAward[index].isEditing = true;
     setAwardList(newAward);
   };
-
+  const cancelEditMode = (index) => {
+    const newAward = [...awardList];
+    newAward.splice(index, 1);
+    setAwardList(newAward);
+  };
   // 테스트용 데이터
   const [awardList, setAwardList] = useState([
     {
@@ -47,6 +51,7 @@ const Award = () => {
                 index={index}
                 award={award}
                 onEditMode={changeEditMode}
+                onEditCancle={cancelEditMode}
               />
             );
           })}
