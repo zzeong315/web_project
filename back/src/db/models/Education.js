@@ -13,6 +13,18 @@ class Education {
     const addednewEducation = await user.save();
     return addednewEducation;
   }
+
+  static async update(userId, educationId, newEducation) {
+    const user = await UserModel.findOne({ id: userId });
+    const educations = user.educations;
+    educations.forEach((education) => {
+      if (education._id === educationId) {
+        education.name = newEducation.name;
+        education.major = newEducation.major;
+        education.status = newEducation.status;
+      }
+    });
+  }
 }
 
 export { Education };

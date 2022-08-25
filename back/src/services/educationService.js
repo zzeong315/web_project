@@ -10,6 +10,15 @@ class educationService {
     const addedEducation = await Education.add(id, newEducation);
     return addedEducation;
   }
+
+  static async updateEducation(userId, educationId, newEducation) {
+    const updatedEducation = await Education.update(
+      userId,
+      educationId,
+      newEducation
+    );
+    return updatedEducation;
+  }
 }
 
 export { educationService };
