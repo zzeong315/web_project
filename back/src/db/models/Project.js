@@ -27,11 +27,11 @@ class Project {
     const projects = user.projects;
     projects.forEach((project) => {
       if (project._id.valueOf() === projectId) {
-        if (toUpdate.projectName) {
-          project.projectName = toUpdate.projectName;
+        if (toUpdate.name) {
+          project.name = toUpdate.name;
         }
-        if (toUpdate.projectDescription) {
-          project.projectDescription = toUpdate.projectDescription;
+        if (toUpdate.description) {
+          project.description = toUpdate.description;
         }
       }
     });

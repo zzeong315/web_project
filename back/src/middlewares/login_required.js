@@ -17,7 +17,7 @@ function login_required(req, res, next) {
     const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
     const jwtDecoded = jwt.verify(userToken, secretKey);
     const user_id = jwtDecoded.user_id;
-    req.currentUserId = user_id;
+    req.userId = user_id;
     next();
   } catch (error) {
     res.status(400).send("정상적인 토큰이 아닙니다. 다시 한 번 확인해 주세요.");

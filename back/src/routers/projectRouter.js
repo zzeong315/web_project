@@ -7,8 +7,8 @@ const projectRouter = Router();
 
 projectRouter.get("/project", login_required, async function (req, res, next) {
   try {
-    console.log(req.currentUserId);
-    const id = req.currentUserId;
+    console.log(req.userId);
+    const id = req.userId;
     const projects = await projectService.getProjectsById(id);
 
     res.status(200).send(projects);
@@ -38,11 +38,11 @@ projectRouter.post(
           "headers의 Content-Type을 application/json으로 설정해주세요"
         );
       }
-      const id = req.currentUserId;
+      const id = req.userId;
 
-      const projectName = req.body.projectName;
-      const projectDescription = req.body.projectDescription;
-      const newProject = { projectName, projectDescription };
+      const name = req.body.name;
+      const description = req.body.description;
+      const newProject = { name, description };
 
       const createdProject = await projectService.addProject(id, newProject);
 
@@ -79,13 +79,13 @@ projectRouter.patch(
   async function (req, res, next) {
     console.log("patch");
     try {
-      const userId = req.currentUserId;
+      const userId = req.userId;
 
       const projectId = req.body.projectId;
-      const projectName = req.body.projectName;
-      const projectDescription = req.body.projectDescription;
+      const name = req.body.name;
+      const description = req.body.description;
 
-      const toUpdate = { projectName, projectDescription };
+      const toUpdate = { name, description };
 
       const updatedProject = await projectService.setProject(
         userId,
@@ -98,6 +98,17 @@ projectRouter.patch(
       }
 
       res.status(200).json(updatedProject);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+projectRouter.delete(
+  "/project/delete",
+  login_required,
+  async function (req, res, next) {
+    try {
     } catch (error) {
       next(error);
     }

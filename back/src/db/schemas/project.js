@@ -2,11 +2,11 @@ import { Schema, model } from "mongoose";
 
 const ProjectSchema = new Schema(
   {
-    projectName: {
+    name: {
       type: String,
       required: true,
     },
-    projectDescription: {
+    description: {
       type: String,
       required: false,
       default: "프로젝트 설명이 아직 없습니다. 추가해주세요",
