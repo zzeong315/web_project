@@ -4,7 +4,18 @@ import AwardEditForm from "./AwardEditForm";
 import AwardList from "./AwardList";
 import AwardAddForm from "./AwardAddForm";
 
-const Award = () => {
+const Award = ({ isEditable }) => {
+  console.log("Award", isEditable);
+
+  // 테스트용 데이터
+  const [awardList, setAwardList] = useState([
+    {
+      title: "수상내역",
+      description: "상세",
+      isEditing: false,
+    },
+  ]);
+
   // award list add
   const addAward = (title, description) => {
     const newAward = [...awardList, { title, description, isEditing: false }];
@@ -22,17 +33,9 @@ const Award = () => {
     newAward.splice(index, 1);
     setAwardList(newAward);
   };
-  // 테스트용 데이터
-  const [awardList, setAwardList] = useState([
-    {
-      title: "수상내역",
-      description: "상세",
-      isEditing: false,
-    },
-  ]);
 
   return (
-    <Card style={{ width: "80rem" }}>
+    <Card>
       <Card.Body>
         <Card.Title>수상이력</Card.Title>
 
@@ -52,13 +55,14 @@ const Award = () => {
                 award={award}
                 onEditMode={changeEditMode}
                 onEditCancle={cancelEditMode}
+                isEditable={isEditable}
               />
             );
           })}
 
         {/* AwardAddList */}
 
-        <AwardAddForm onAddAward={addAward} />
+        {isEditable && <AwardAddForm onAddAward={addAward} />}
       </Card.Body>
     </Card>
   );
