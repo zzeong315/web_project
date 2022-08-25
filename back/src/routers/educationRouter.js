@@ -7,7 +7,7 @@ const educationRouter = Router();
 educationRouter.get("/educations", login_required, async (req, res, next) => {
   try {
     // 자신의 전체 교육사항 목록을 얻음
-    const id = req.currentUserId;
+    const id = req.userId;
     const educations = await educationService.getEducations(id);
     res.status(200).send(educations);
   } catch (error) {
@@ -32,7 +32,7 @@ educationRouter.get(
 
 educationRouter.post("/education", login_required, async (req, res, next) => {
   try {
-    const id = req.currentUserId;
+    const id = req.userId;
     const { name, major, status } = req.body;
     const newEducation = { name, major, status };
     const addedEducation = await educationService.addEducation(
@@ -47,7 +47,7 @@ educationRouter.post("/education", login_required, async (req, res, next) => {
 
 educationRouter.patch("/education", login_required, async (req, res, next) => {
   try {
-    const userId = req.currentUserId;
+    const userId = req.userId;
     const { educationId, name, major, status } = req.body;
     const newEducation = { name, major, status };
     const updatedEducation = await educationService.updateEducation(

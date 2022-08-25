@@ -18,12 +18,14 @@ class Education {
     const user = await UserModel.findOne({ id: userId });
     const educations = user.educations;
     educations.forEach((education) => {
-      if (education._id === educationId) {
+      if (education._id.valueOf() === educationId) {
         education.name = newEducation.name;
         education.major = newEducation.major;
         education.status = newEducation.status;
       }
     });
+    const updatedEducation = await user.save();
+    return updatedEducation;
   }
 }
 
