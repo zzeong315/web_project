@@ -4,7 +4,7 @@ import CertificateEditForm from "./CertificateEditForm";
 import CertificateList from "./CertificateList";
 import CertificateAddForm from "./CertificateAddForm";
 
-const Certificate = () => {
+const Certificate = ({ isEditable }) => {
   //가짜데이터
   const [certificates, setCertificates] = useState([
     {
@@ -60,7 +60,7 @@ const Certificate = () => {
   };
 
   return (
-    <Card style={{ width: "80rem" }}>
+    <Card>
       <Card.Body>
         <Card.Title>자격증</Card.Title>
 
@@ -79,11 +79,14 @@ const Certificate = () => {
                 certificate={certificate}
                 onEditMode={changeEditMode}
                 onDelete={deleteCertificate}
+                isEditable={isEditable}
               />
             );
           })}
 
-        <CertificateAddForm onAddnCertificate={addCertificate} />
+        {isEditable && (
+          <CertificateAddForm onAddnCertificate={addCertificate} />
+        )}
       </Card.Body>
     </Card>
   );
