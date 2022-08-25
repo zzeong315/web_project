@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Card, Form, Row, Col} from 'react-bootstrap';
+import {Card} from 'react-bootstrap';
 import EducationForm from './EducationForm';
-import EducationList from './EducationList'
+import EducationList from './EducationList';
 
 export default function Education() {
 
@@ -38,13 +38,23 @@ export default function Education() {
         setEdus([...updatedEdus]);
     };
 
+    const deleteEducation = (selectedEduId) => {
+        const newEdus = [...edus];
+        setEdus(newEdus.filter(edu => edu.id !== selectedEduId))
+    }
+
     return (
         <Card>
             <Card.Body>
-                <h5>학력</h5>
+                <Card.Title>학력</Card.Title>
                 {edus.length > 0 && edus.map((eduObj, index) => {
                     return (
-                        <EducationList key={index} edu={eduObj} updateEdu={updateEducation}/>
+                        <EducationList 
+                            key={index} 
+                            edu={eduObj}     
+                            updateEdu={updateEducation}
+                            deleteEdu={deleteEducation}
+                        />
                     )
                 })}
                 <div className="mt-3 text-center mb-4 row">

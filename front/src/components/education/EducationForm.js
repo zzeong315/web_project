@@ -1,6 +1,6 @@
 import {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Card, Form, Row, Col} from 'react-bootstrap';
+import {Button, Form, Row, Col} from 'react-bootstrap';
 
 
 const ATTENDING = '재학중';
@@ -19,10 +19,12 @@ export default function EducationForm({edu, onConfirm, onCancel}) {
         })
     };
 
+    // 확인
     const confirmEducation = () => {
         onConfirm({...targetEducation});
     };
 
+    // 취소
     const cancelEducation = () => {
         onCancel();
     };
