@@ -12,6 +12,17 @@ const CertificateEditForm = ({
   const [description, setDescription] = useState("");
   const [certifiedDate, setCertifiedDate] = useState(new Date());
 
+  const onHandleClick = (e) => {
+    e.preventDefault();
+    if (title && description) {
+      onEditSubmit(index, {
+        title,
+        description,
+        date: certifiedDate,
+      });
+    }
+  };
+
   useEffect(() => {
     setTitle(certificate.title);
     setDescription(certificate.description);
@@ -46,10 +57,7 @@ const CertificateEditForm = ({
             className="me-3"
             variant="primary"
             type="submit"
-            onClick={(e) => {
-              e.preventDefault();
-              onEditSubmit(index, { title, description, date: certifiedDate });
-            }}
+            onClick={(e) => onHandleClick(e)}
           >
             확인
           </Button>{" "}

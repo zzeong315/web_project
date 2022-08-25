@@ -17,8 +17,10 @@ const CertificateAddForm = ({ onAddnCertificate }) => {
 
   const handleAddSubmit = (e) => {
     e.preventDefault();
-    onAddnCertificate(title, description, certifiedDate);
-    clearForm();
+    if (title && description) {
+      onAddnCertificate(title, description, certifiedDate);
+      clearForm();
+    }
   };
 
   return (
