@@ -33,6 +33,12 @@ class Project {
         if (toUpdate.description) {
           project.description = toUpdate.description;
         }
+        if (toUpdate.start) {
+          project.start = toUpdate.start;
+        }
+        if (toUpdate.end) {
+          project.end = toUpdate.end;
+        }
       }
     });
 

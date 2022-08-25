@@ -40,9 +40,8 @@ projectRouter.post(
       }
       const id = req.userId;
 
-      const name = req.body.name;
-      const description = req.body.description;
-      const newProject = { name, description };
+      const { name, description, start, end } = req.body;
+      const newProject = { name, description, start, end };
 
       const createdProject = await projectService.addProject(id, newProject);
 
@@ -74,18 +73,16 @@ projectRouter.get(
 );
 
 projectRouter.patch(
-  "/project/",
+  "/project",
   login_required,
   async function (req, res, next) {
     console.log("patch");
     try {
       const userId = req.userId;
 
-      const projectId = req.body.projectId;
-      const name = req.body.name;
-      const description = req.body.description;
+      const { projectId, name, description, start, end } = req.body;
 
-      const toUpdate = { name, description };
+      const toUpdate = { name, description, start, end };
 
       const updatedProject = await projectService.setProject(
         userId,
@@ -104,15 +101,15 @@ projectRouter.patch(
   }
 );
 
-projectRouter.delete(
-  "/project/delete",
-  login_required,
-  async function (req, res, next) {
-    try {
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+// projectRouter.delete(
+//   "/project/delete",
+//   login_required,
+//   async function (req, res, next) {
+//     try {
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
 
 export { projectRouter };
