@@ -1,14 +1,23 @@
-import {useState} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card} from 'react-bootstrap';
+import {useState, useEffect} from 'react';
 import EducationForm from './EducationForm';
 import EducationList from './EducationList';
+import * as Api from "../../api"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Card} from 'react-bootstrap';
+import Portfolio from '../Portfolio';
+export default function Education({PortfolioOwnerId, isEditable}) {
 
-export default function Education() {
+    console.log(isEditable);
 
     const [edus, setEdus] = useState([]);
-
     const [isAdding, setIsAdding] = useState(false);
+
+    // get 요청
+    useEffect(() => {
+        Api.get("educations", PortfolioOwnerId)
+            .then((res) => setEdus(res.data))
+    }, [PortfolioOwnerId])       
+
     const handleAddEductionClick = () => {
         if (isAdding) {
             setIsAdding(false);
@@ -29,7 +38,7 @@ export default function Education() {
     const cancelAddEducation = () => {
         setIsAdding(false);
     };
-
+    // 수정
     const updateEducation = (editedEducationObj) => {
         const updatedEdus = [...edus];
         updatedEdus[edus.findIndex(edu => edu.id === editedEducationObj.id)] = {
@@ -37,7 +46,7 @@ export default function Education() {
         };
         setEdus([...updatedEdus]);
     };
-
+    // 삭제
     const deleteEducation = (selectedEduId) => {
         const newEdus = [...edus];
         setEdus(newEdus.filter(edu => edu.id !== selectedEduId))
@@ -54,9 +63,11 @@ export default function Education() {
                             edu={eduObj}     
                             updateEdu={updateEducation}
                             deleteEdu={deleteEducation}
+                            isEditable={isEditable}
                         />
                     )
                 })}
+                {isEditable && 
                 <div className="mt-3 text-center mb-4 row">
                     <div className="col-sm-20">
                         <button
@@ -68,13 +79,15 @@ export default function Education() {
                         </button>
                     </div>
                 </div>
+                }
+
                 {isAdding ?
                     <EducationForm
                         edu={{
                             id: null,
-                            school: '',
+                            name: '',
                             major: '',
-                            position: '재학중',
+                            status: '재학중',
                         }}
                         onConfirm={confirmAddEduction}
                         onCancel={cancelAddEducation}

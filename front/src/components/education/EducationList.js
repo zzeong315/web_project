@@ -38,10 +38,11 @@ export default function EducationList({edu, updateEdu, deleteEdu , isEditable}) 
                 />) : (
                 <Row className="align-items-center">
                 <Col className="col">
-                    <span>{edu.school}</span>
+                    <span>{edu.name}</span>
                     <br/>
-                    <span className="text-muted">{`${edu.major} (${edu.position || ""})`}</span>
+                    <span className="text-muted">{`${edu.major} (${edu.status || ""})`}</span>
                 </Col>
+                {isEditable &&
                     <Col className="d-flex justify-content-center" md="2">
                         <Button
                         variant="outline-info"
@@ -60,6 +61,7 @@ export default function EducationList({edu, updateEdu, deleteEdu , isEditable}) 
                         삭제
                         </Button>
                     </Col>
+                }
                 </Row>
                 )}
         </Card.Text>

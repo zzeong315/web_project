@@ -35,10 +35,10 @@ export default function EducationForm({edu, onConfirm, onCancel}) {
                 <Row className="justify-content-md-center">
                     <Form.Group className="mb-3" controlId="formSchool">
                         <Form.Control
-                            type="school"
-                            name="school"
+                            type="name"
+                            name="name"
                             placeholder="학교 이름"
-                            value={targetEducation.school}
+                            value={targetEducation.name}
                             onChange={handleChange}
                         />
                     </Form.Group>
@@ -57,41 +57,41 @@ export default function EducationForm({edu, onConfirm, onCancel}) {
                     <Form.Check
                         inline
                         label="재학중"
-                        name="position"
+                        name="status"
                         value={ATTENDING}
                         type="radio"
                         id={`inline-radio-1`}
-                        checked={targetEducation.position === ATTENDING}
+                        checked={targetEducation.status === ATTENDING}
                         onChange={handleChange}
                     />
                     <Form.Check
                         inline
                         label="학사졸업"
-                        name='position'
+                        name='status'
                         value={BACHELOR_DEGREE}
                         type="radio"
                         id={`inline-radio-2`}
-                        checked={targetEducation.position === BACHELOR_DEGREE}
+                        checked={targetEducation.status === BACHELOR_DEGREE}
                         onChange={handleChange}
                     />
                     <Form.Check
                         inline
                         label="석사졸업"
                         type="radio"
-                        name='position'
+                        name='status'
                         value={MASTER_GRADUATION}
                         id={`inline-radio-3`}
-                        checked={targetEducation.position === MASTER_GRADUATION}
+                        checked={targetEducation.status === MASTER_GRADUATION}
                         onChange={handleChange}
                     />
                     <Form.Check
                         inline
                         label="박사졸업"
                         type="radio"
-                        name='position'
+                        name='status'
                         value={PHD_GRADUATION}
                         id={`inline-radio-4`}
-                        checked={targetEducation.position === PHD_GRADUATION}
+                        checked={targetEducation.status === PHD_GRADUATION}
                         onChange={handleChange}
                     />
                 </div>
