@@ -26,5 +26,10 @@ class projectService {
 
     return createdNewProject;
   }
+
+  static async setProject(userId, projectId, toUpdate) {
+    const updatedProject = await Project.update(userId, projectId, toUpdate);
+    return updatedProject;
+  }
 }
 export { projectService };

@@ -1,12 +1,11 @@
 import { UserModel } from "../schemas/user";
 import { ProjectModel } from "../schemas/project";
-import { User } from "./User";
 
 class Project {
   // id별로 프로젝트 목록 보기
   static async findById(id) {
-    const user = await UserModel.find({ id });
-    const projects = user[0].projects;
+    const user = await UserModel.findOne({ id });
+    const projects = user.projects;
     return projects;
   }
 
@@ -21,6 +20,24 @@ class Project {
     user.projects.push(newProject);
     const createdNewProject = await user.save();
     return createdNewProject;
+  }
+
+  static async update(userId, projectId, toUpdate) {
+    const user = await UserModel.findOne({ id: userId });
+    const projects = user.projects;
+    projects.forEach((project) => {
+      if (project._id.valueOf() === projectId) {
+        if (toUpdate.projectName) {
+          project.projectName = toUpdate.projectName;
+        }
+        if (toUpdate.projectDescription) {
+          project.projectDescription = toUpdate.projectDescription;
+        }
+      }
+    });
+
+    const updatedProject = await user.save();
+    return updatedProject;
   }
 }
 

@@ -39,6 +39,7 @@ projectRouter.post(
         );
       }
       const id = req.currentUserId;
+
       const projectName = req.body.projectName;
       const projectDescription = req.body.projectDescription;
       const newProject = { projectName, projectDescription };
@@ -66,6 +67,37 @@ projectRouter.get(
 
       const projects = await projectService.getProjectsById(id);
       res.status(200).send(projects);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+projectRouter.patch(
+  "/project/",
+  login_required,
+  async function (req, res, next) {
+    console.log("patch");
+    try {
+      const userId = req.currentUserId;
+
+      const projectId = req.body.projectId;
+      const projectName = req.body.projectName;
+      const projectDescription = req.body.projectDescription;
+
+      const toUpdate = { projectName, projectDescription };
+
+      const updatedProject = await projectService.setProject(
+        userId,
+        projectId,
+        toUpdate
+      );
+
+      if (updatedProject.errorMessage) {
+        throw new Error(updatedProject.errorMessage);
+      }
+
+      res.status(200).json(updatedProject);
     } catch (error) {
       next(error);
     }
