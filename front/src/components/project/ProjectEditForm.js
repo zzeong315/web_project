@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 
-const ProjectEditForm = ({list, i, changeDateStr, handleEditClick, projectData, setProjectData}) => {
+const ProjectEditForm = ({list, i, changeDateStr, handleEditClick, projects, setProjects}) => {
   const [editStr, setEditStr] = useState({title: list.title, detail: list.detail});
   const [editStartDate, seteditStartDate] = useState(new Date(list.start));
   const [editEndDate, setEditEndDate] = useState(new Date(list.end));
@@ -17,10 +17,10 @@ const ProjectEditForm = ({list, i, changeDateStr, handleEditClick, projectData, 
   const handleEditSubmit = (e) => {
     e.preventDefault();
     const newList = {...editStr ,start: changeDateStr(editStartDate), end: changeDateStr(editEndDate)};
-    const newProjectData = [...projectData];
-    newProjectData.splice(i, 1, newList);
+    const newProjects = [...projects];
+    newProjects.splice(i, 1, newList);
 
-    setProjectData(newProjectData);
+    setProjects(newProjects);
     handleEditClick();
   }
 
@@ -46,23 +46,17 @@ const ProjectEditForm = ({list, i, changeDateStr, handleEditClick, projectData, 
           />
         </div>
 
-        <div className='calendars mt-3'>
+        <div className='calendars mt-3' style={{display: 'flex'}}>
           <div>
-            <DatePicker
-              selected={editStartDate}
-              onChange={data => seteditStartDate(data)}
-            />
+            <DatePicker className='me-3' selected={editStartDate} onChange={data => seteditStartDate(data)}/>
           </div>
 
           <div>            
-            <DatePicker
-              selected={editEndDate}
-              onChange={data => setEditEndDate(data)}
-            />
+            <DatePicker selected={editEndDate} onChange={data => setEditEndDate(data)}/>
           </div>
         </div>
 
-        <div class="col-sm-20 mt-3">
+        <div class="col-sm-20 mt-3 text-center">
           <button type="submit" class="me-3 btn btn-primary">확인</button>
           <button type="button" class="btn btn-secondary" onClick={handleEditClick}>취소</button>
         </div>
