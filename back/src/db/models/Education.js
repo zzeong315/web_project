@@ -29,9 +29,11 @@ class Education {
   }
 
   static async delete(userId, educationId) {
-    const user = await UserModel.findOne({ id: userId });
-    const educations = user.educations;
-    educations.filter((education) => education._id.valueOf() !== educationId);
+    let user = await UserModel.findOne({ id: userId });
+    let educations = user.educations;
+    user.educations = educations.filter((education) => {
+      return education._id.valueOf() !== educationId;
+    });
     const deletedEducation = await user.save();
     return deletedEducation;
   }
