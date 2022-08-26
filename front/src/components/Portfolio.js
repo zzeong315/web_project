@@ -67,11 +67,22 @@ function Portfolio() {
         </Col>
         <Col>
           <div>
-            학력 목록, 수상이력 목록, 프로젝트 목록, 자격증 목록 만들기
-            <Education isEditable={portfolioOwner.id === userState.user?.id} />
-            <Award isEditable={portfolioOwner.id === userState.user?.id} />
-            <Project isEditable={portfolioOwner.id === userState.user?.id} />
-            <Certificate isEditable={portfolioOwner.id === userState.user?.id} />
+            <Education
+              portfolioOwnerId={portfolioOwner.id}
+              isEditable={portfolioOwner.id === userState.user?.id}
+            />
+            <Award
+              portfolioOwnerId={portfolioOwner.id}
+              isEditable={portfolioOwner.id === userState.user?.id}
+            />
+            <Project
+              portfolioOwnerId={portfolioOwner.id}
+              isEditable={portfolioOwner.id === userState.user?.id}
+            />
+            <Certificate
+              portfolioOwnerId={portfolioOwner.id}
+              isEditable={portfolioOwner.id === userState.user?.id}
+            />
           </div>
         </Col>
       </Row>
