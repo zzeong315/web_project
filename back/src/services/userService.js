@@ -80,8 +80,7 @@ class userAuthService {
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
-      const errorMessage =
-        "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+      const errorMessage = "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
 
@@ -124,6 +123,11 @@ class userAuthService {
     }
 
     return user;
+  }
+
+  static async deleteUser(user_id) {
+    const deletedUser = await User.delete(user_id);
+    return deletedUser;
   }
 }
 
