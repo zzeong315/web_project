@@ -95,6 +95,7 @@ export default function Education({ portfolioOwnerId, isEditable }) {
 
     const res = await Api.get("educations", userId);
     setEducations(res.data);
+    
 
   };
 
