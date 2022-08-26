@@ -12,7 +12,7 @@ const AwardEditForm = ({ index, award, confirmEdit, cancelEdit }) => {
 
   const handleEditSumit = (e) => {
     if (name && description) {
-      confirmEdit(index, { name, description });
+      confirmEdit(index, { awardId: award._id, name, description });
     }
   };
 
