@@ -20,8 +20,7 @@ class Award {
     awards.forEach((award) => {
       if (award._id.valueOf() === awardId) {
         award.name = newAward.name;
-        award.major = newAward.major;
-        award.status = newAward.status;
+        award.description = newAward.description;
       }
     });
     const updatedAward = await user.save();
