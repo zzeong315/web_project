@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 
-const ProjectEditForm = ({list, i, changeDateStr, handleEditClick, projects, setProjects}) => {
-  const [editStr, setEditStr] = useState({title: list.title, detail: list.detail});
-  const [editStartDate, seteditStartDate] = useState(new Date(list.start));
-  const [editEndDate, setEditEndDate] = useState(new Date(list.end));
+const ProjectEditForm = ({project, index, dateFormat, handleEditClick, projects, setProjects}) => {
+  const [editStr, setEditStr] = useState({name: project.name, detail: project.detail});
+  const [editStartDate, seteditStartDate] = useState(new Date(project.start));
+  const [editEndDate, setEditEndDate] = useState(new Date(project.end));
 
   const handleEditStrChange = (e) => {
     const {name, value} = e.target;
@@ -16,23 +16,24 @@ const ProjectEditForm = ({list, i, changeDateStr, handleEditClick, projects, set
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    const newList = {...editStr ,start: changeDateStr(editStartDate), end: changeDateStr(editEndDate)};
-    const newProjects = [...projects];
-    newProjects.splice(i, 1, newList);
+    if(!editStr.name || !editStr.detail) return;
+    const newList = {...editStr ,start: dateFormat(editStartDate), end: dateFormat(editEndDate)};
+    const newprojects = [...projects];
+    newprojects.splice(index, 1, newList);
 
-    setProjects(newProjects);
+    setProjects(newprojects);
     handleEditClick();
   }
 
   return (
     <>
-      <Form onSubmit={handleEditSubmit} key={i}>
+      <Form onSubmit={handleEditSubmit} key={index}>
         <div className="mt-3">
           <Form.Control 
             type="text" 
-            name='title' 
+            name='name' 
             placeholder="프로젝트 제목" 
-            value={editStr.title}
+            value={editStr.name}
             onChange={handleEditStrChange}
           />
         </div>

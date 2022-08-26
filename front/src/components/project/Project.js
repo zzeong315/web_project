@@ -7,20 +7,19 @@ import ProjectEditForm from './ProjectEditForm';
 import ProjectList from './ProjectList';
 
 const Project = ({isEditable}) => {
-  console.log(isEditable);
   const [projects, setProjects] = useState([
-    {title: '웹프로젝트1', detail: '포트폴리오사이트',  start: '2022-08-23', end: '2022-09-03'},
-    {title: '웹프로젝트2', detail: '포트폴리오사이트2',  start: '2022-08-24', end: '2022-09-07'},
+    {name: '웹프로젝트1', description: '포트폴리오사이트',  start: '2022-08-23', end: '2022-09-03'},
+    {name: '웹프로젝트2', description: '포트폴리오사이트2',  start: '2022-08-24', end: '2022-09-07'},
   ]);
 
-  const changeDateStr = (day) => {
+  const dateFormat = (day) => {
     const [year, month, date] = [day.getFullYear(), day.getMonth()+1, day.getDate()];
     return `${year}-${month < 10 ? `0${month}` : month }-${date < 10 ? `0${date}` : date }`
   }
 
   // 모달
-  const [addModal, setAddModal] = useState(0);
-  const [editModal, setEditModal] = useState([0, 0]);
+  const [isAdding, setIsAdding] = useState(0);
+  const [isEditing, setIsEditing] = useState([0, 0]);
 
   return (
     <Card className='mb-2'>
@@ -28,24 +27,24 @@ const Project = ({isEditable}) => {
         <div className="card-title h5">프로젝트</div>
         <ul style={{paddingLeft: 0 }}>
           {
-            projects.map((list, i) => {
+            projects.map((project, index) => {
               const handleEditClick = () => {
-                const newEditModal = [...editModal];
-                newEditModal[i] = !newEditModal[i];
-                setEditModal(newEditModal);
+                const newisEditing = [...isEditing];
+                newisEditing[index] = !newisEditing[index];
+                setIsEditing(newisEditing);
               }
 
               const handleDeleteClick = () => {
-                const newProjects = [...projects];
-                newProjects.splice(i, 1);
-                setProjects(newProjects);
+                const newprojects = [...projects];
+                newprojects.splice(index, 1);
+                setProjects(newprojects);
               }
 
               return (
                 <>
-                  {editModal[i] ? 
-                  <ProjectEditForm list={list} i={i} changeDateStr={changeDateStr} handleEditClick={handleEditClick} projects={projects} setProjects={setProjects}/> : 
-                  <ProjectList list={list} i={i} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} isEditable={isEditable}/>}
+                  {isEditing[index] ? 
+                  <ProjectEditForm project={project} index={index} dateFormat={dateFormat} handleEditClick={handleEditClick} projects={projects} setProjects={setProjects}/> : 
+                  <ProjectList project={project} index={index} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} isEditable={isEditable}/>}
                 </>
               )
             })
@@ -54,13 +53,13 @@ const Project = ({isEditable}) => {
 
         <div className='text-center'>
           {
-            isEditable ? <button type="button" className="btn btn-primary" onClick={()=>{setAddModal(1)}}>+</button> : null
+            isEditable ? <button type="button" className="btn btn-primary" onClick={()=>{setIsAdding(1)}}>+</button> : null
           }
         </div>
 
         { 
-          addModal ? 
-          <ProjectAddForm addModal={addModal} setAddModal={setAddModal} changeDateStr={changeDateStr} projects={projects} setProjects={setProjects}/> : 
+          isAdding ? 
+          <ProjectAddForm isAdding={isAdding} setIsAdding={setIsAdding} dateFormat={dateFormat} projects={projects} setProjects={setProjects}/> : 
           null 
         }
       </Card.Body>

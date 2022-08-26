@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import {Form} from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 
-const ProjectAddForm = ({addModal, setAddModal, projects, setProjects, changeDateStr}) => {
+const ProjectAddForm = ({isAdding, setIsAdding, projects, setProjects, dateFormat}) => {
     // add
-    const [addStr, setAddStr] = useState({title: '', detail: ''});
+    const [addStr, setAddStr] = useState({name: '', description: ''});
     const [addStartDate, setAddStartDate] = useState(new Date());
     const [addEndDate, setAddEndDate] = useState(new Date());
   
-    const reset = () => {
-      setAddStr({title: '', detail: ''});
+    const clearForm = () => {
+      setAddStr({name: '', description: ''});
       setAddStartDate(new Date());
       setAddEndDate(new Date());
-      setAddModal(!addModal);
+      setIsAdding(!isAdding);
     }
   
     const handleAddStrChange = (e) => {
@@ -24,10 +24,10 @@ const ProjectAddForm = ({addModal, setAddModal, projects, setProjects, changeDat
   
     const handleAddSubmit = (e) => {
       e.preventDefault();
-      if(!addStr.title || !addStr.detail) return;
-      const newList = { ...addStr ,start: changeDateStr(addStartDate), end: changeDateStr(addEndDate)};
+      if(!addStr.name || !addStr.description) return;
+      const newList = { ...addStr ,start: dateFormat(addStartDate), end: dateFormat(addEndDate)};
       setProjects([...projects, newList]);
-      reset();
+      clearForm();
     }
 
   return (
@@ -36,18 +36,18 @@ const ProjectAddForm = ({addModal, setAddModal, projects, setProjects, changeDat
             <div class="mt-3">
               <Form.Control 
                 type="text" 
-                name='title' 
+                name='name' 
                 placeholder="프로젝트 제목" 
-                value={addStr.title}
+                value={addStr.name}
                 onChange={handleAddStrChange}
               />
             </div>
             <div class="mt-3">
               <Form.Control 
                 type="text" 
-                name='detail'
+                name='description'
                 placeholder="상세내역"
-                value={addStr.detail}
+                value={addStr.description}
                 onChange={handleAddStrChange}
               />
             </div>
@@ -64,7 +64,7 @@ const ProjectAddForm = ({addModal, setAddModal, projects, setProjects, changeDat
 
             <div class="col-sm-20 mt-3 text-center">
               <button type="submit" class="me-3 btn btn-primary">확인</button>
-              <button type="button" class="btn btn-secondary" onClick={()=>setAddModal(0)}>취소</button>
+              <button type="button" class="btn btn-secondary" onClick={()=>setIsAdding(0)}>취소</button>
             </div>
         </Form>
     </>
