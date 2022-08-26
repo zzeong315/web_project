@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Form} from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 
-const ProjectAddForm = ({addModal, setAddModal, projectData, setProjectData, changeDateStr}) => {
+const ProjectAddForm = ({addModal, setAddModal, projects, setProjects, changeDateStr}) => {
     // add
     const [addStr, setAddStr] = useState({title: '', detail: ''});
     const [addStartDate, setAddStartDate] = useState(new Date());
@@ -24,8 +24,9 @@ const ProjectAddForm = ({addModal, setAddModal, projectData, setProjectData, cha
   
     const handleAddSubmit = (e) => {
       e.preventDefault();
+      if(!addStr.title || !addStr.detail) return;
       const newList = { ...addStr ,start: changeDateStr(addStartDate), end: changeDateStr(addEndDate)};
-      setProjectData([...projectData, newList]);
+      setProjects([...projects, newList]);
       reset();
     }
 
@@ -51,23 +52,17 @@ const ProjectAddForm = ({addModal, setAddModal, projectData, setProjectData, cha
               />
             </div>
 
-            <div className='calendars mt-3'>
+            <div className='calendars mt-3' style={{display: 'flex'}}>
               <div>
-                <DatePicker
-                  selected={addStartDate}
-                  onChange={data => setAddStartDate(data)}
-                />
+                <DatePicker className='me-3' selected={addStartDate} onChange={data => setAddStartDate(data)}/>
               </div>
 
               <div>            
-                <DatePicker
-                  selected={addEndDate}
-                  onChange={data => setAddEndDate(data)}
-                />
+                <DatePicker selected={addEndDate} onChange={data => setAddEndDate(data)}/>
               </div>
             </div>
 
-            <div class="col-sm-20 mt-3">
+            <div class="col-sm-20 mt-3 text-center">
               <button type="submit" class="me-3 btn btn-primary">확인</button>
               <button type="button" class="btn btn-secondary" onClick={()=>setAddModal(0)}>취소</button>
             </div>

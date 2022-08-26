@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {Card} from 'react-bootstrap';
 import "react-datepicker/dist/react-datepicker.css";
 
-import './Project.css';
 import ProjectAddForm from './ProjectAddForm';
 import ProjectEditForm from './ProjectEditForm';
 import ProjectList from './ProjectList';
 
-const Project = () => {
-  const [projectData, setProjectData] = useState([
+const Project = ({isEditable}) => {
+  console.log(isEditable);
+  const [projects, setProjects] = useState([
     {title: '웹프로젝트1', detail: '포트폴리오사이트',  start: '2022-08-23', end: '2022-09-03'},
     {title: '웹프로젝트2', detail: '포트폴리오사이트2',  start: '2022-08-24', end: '2022-09-07'},
   ]);
@@ -23,12 +23,12 @@ const Project = () => {
   const [editModal, setEditModal] = useState([0, 0]);
 
   return (
-    <Card>
+    <Card className='mb-2'>
       <Card.Body>
-        <div className="card-title h5" style={{textAlign: 'left'}}>프로젝트</div>
+        <div className="card-title h5">프로젝트</div>
         <ul style={{paddingLeft: 0 }}>
           {
-            projectData.map((list, i) => {
+            projects.map((list, i) => {
               const handleEditClick = () => {
                 const newEditModal = [...editModal];
                 newEditModal[i] = !newEditModal[i];
@@ -36,26 +36,31 @@ const Project = () => {
               }
 
               const handleDeleteClick = () => {
-                const newProjectData = [...projectData];
-                newProjectData.splice(i, 1);
-                setProjectData(newProjectData);
+                const newProjects = [...projects];
+                newProjects.splice(i, 1);
+                setProjects(newProjects);
               }
 
               return (
                 <>
                   {editModal[i] ? 
-                  <ProjectEditForm list={list} i={i} changeDateStr={changeDateStr} handleEditClick={handleEditClick} projectData={projectData} setProjectData={setProjectData}/> : 
-                  <ProjectList list={list} i={i} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick}/>}
+                  <ProjectEditForm list={list} i={i} changeDateStr={changeDateStr} handleEditClick={handleEditClick} projects={projects} setProjects={setProjects}/> : 
+                  <ProjectList list={list} i={i} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} isEditable={isEditable}/>}
                 </>
               )
             })
           }
         </ul>
 
-        <button type="button" className="btn btn-primary" onClick={()=>{setAddModal(!addModal)}}>+</button>
+        <div className='text-center'>
+          {
+            isEditable ? <button type="button" className="btn btn-primary" onClick={()=>{setAddModal(1)}}>+</button> : null
+          }
+        </div>
+
         { 
           addModal ? 
-          <ProjectAddForm addModal={addModal} setAddModal={setAddModal} changeDateStr={changeDateStr} projectData={projectData} setProjectData={setProjectData}/> : 
+          <ProjectAddForm addModal={addModal} setAddModal={setAddModal} changeDateStr={changeDateStr} projects={projects} setProjects={setProjects}/> : 
           null 
         }
       </Card.Body>
