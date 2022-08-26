@@ -39,7 +39,7 @@ const ProjectEditForm = ({project, index, dateFormat, handleEditClick, projects,
         </div>
         <div className="mt-3">
           <Form.Control 
-            type="text" 
+            type="text"
             name='detail' 
             placeholder="상세내역"
             value={editStr.detail}
