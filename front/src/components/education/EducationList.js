@@ -21,20 +21,6 @@ export default function EducationList({education, setEducations, updateEducation
 
     const confirmEditEducation = async (targetEducation) => {
         updateEducation(targetEducation);
-        
-        const currentEducation = targetEducation;
-
-        const userId = PortfolioOwnerId;
-
-        await Api.patch(`education${userId}`, {
-          educationId: currentEducation.id,
-          name: currentEducation.name,
-          major: currentEducation.major,
-          status: currentEducation.status,
-        });
-    
-        const res = await Api.get("educations", userId);
-        setEducations(res.data);
 
         setIsEditing(false);
     };
@@ -50,8 +36,8 @@ export default function EducationList({education, setEducations, updateEducation
                     education={{
                         ...education,
                     }}
-                    confirmAddEducation={confirmEditEducation}
-                    cancelAddEducation={cancelEditEducation}
+                    confirmEducation={confirmEditEducation}
+                    cancelEducation={cancelEditEducation}
                 />) : (
                 <Row className="align-items-center">
                 <Col className="col">

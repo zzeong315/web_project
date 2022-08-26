@@ -35,7 +35,6 @@ export default function Education({ portfolioOwnerId, isEditable }) {
         const userId = portfolioOwnerId;
 
         await Api.post("education", {
-          id: targetEducation.id,
           name: targetEducation.name,
           major: targetEducation.major,
           status: targetEducation.status,
@@ -56,12 +55,27 @@ export default function Education({ portfolioOwnerId, isEditable }) {
   };
 
   // 수정
-  const updateEducation = (editedEducationObj) => {
-    const updatedEducations = [...educations];
-    updatedEducations[educations.findIndex((education) => education.id === editedEducationObj.id)] = {
-      ...editedEducationObj,
-    };
-    setEducations([...updatedEducations]);
+  const updateEducation = async (editedEducationObj) => {
+
+        
+        const userId = portfolioOwnerId;
+
+        await Api.patch(`education`, {
+          educationId: editedEducationObj._id,
+          name: editedEducationObj.name,
+          major: editedEducationObj.major,
+          status: editedEducationObj.status,
+        });
+        console.log(editedEducationObj)
+    
+        const res = await Api.get("educations", userId);
+        setEducations(res.data);
+
+    // const updatedEducations = [...educations];
+    // updatedEducations[educations.findIndex((education) => education.id === editedEducationObj.id)] = {
+    //   ...editedEducationObj,
+    // };
+    // setEducations([...updatedEducations]);
   };
 
   // 삭제
@@ -78,11 +92,12 @@ export default function Education({ portfolioOwnerId, isEditable }) {
           educations.map((education, index) => {
             return (
               <EducationList
-                key={index}
+                key={education._id}
                 education={education}
                 updateEducation={updateEducation}
                 deleteEducation={deleteEducation}
                 isEditable={isEditable}
+                setEducations={setEducations}
               />
             );
           })}
@@ -108,8 +123,8 @@ export default function Education({ portfolioOwnerId, isEditable }) {
               major: "",
               status: "재학중",
             }}
-            confirmAddEducation={confirmAddEduction}
-            cancelAddEducation={cancelAddEducation}
+            confirmEducation={confirmAddEduction}
+            cancelEducation={cancelAddEducation}
             setIsAdding={setIsAdding}
           />
         ) : (

@@ -7,7 +7,7 @@ const BACHELOR_DEGREE = "학사졸업";
 const MASTER_GRADUATION = "석사졸업";
 const PHD_GRADUATION = "박사졸업";
 
-export default function EducationForm({ education, confirmAddEducation, cancelAddEducation, setIsAdding }) {
+export default function EducationForm({ education, confirmEducation, cancelEducation, setIsAdding }) {
   const [targetEducation, setTargetEducation] = useState({ ...education });
 
   const handleChange = (e) => {
@@ -25,14 +25,14 @@ export default function EducationForm({ education, confirmAddEducation, cancelAd
   const isFormValid = isNameValid && isMajorValid;
 
   // 확인
-  const confirmEducation = () => {
-    confirmAddEducation({ ...targetEducation });
+  const handleconfirmClick = () => {
+    confirmEducation({ ...targetEducation });
     setIsAdding(false);
   };
 
   // 취소
-  const cancelEducation = () => {
-    cancelAddEducation();
+  const handleCancelClick = () => {
+    cancelEducation();
   };
 
   return (
@@ -110,7 +110,7 @@ export default function EducationForm({ education, confirmAddEducation, cancelAd
               variant="primary"
               type="button"
               className="me-3"
-              onClick={confirmEducation}
+              onClick={handleconfirmClick}
               disabled={!isFormValid}
             >
               확인
@@ -119,7 +119,7 @@ export default function EducationForm({ education, confirmAddEducation, cancelAd
               variant="secondary"
               type="submit"
               className="me-3"
-              onClick={cancelEducation}
+              onClick={handleCancelClick}
             >
               취소
             </Button>
