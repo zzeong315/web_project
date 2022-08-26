@@ -64,7 +64,6 @@ const CertificateAddForm = ({ onAddnCertificate }) => {
                 variant="secondary"
                 onClick={(e) => {
                   clearForm();
-                  setIsAdding(false);
                 }}
               >
                 취소
