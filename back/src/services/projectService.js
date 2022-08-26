@@ -31,5 +31,10 @@ class projectService {
     const updatedProject = await Project.update(userId, projectId, toUpdate);
     return updatedProject;
   }
+
+  static async deleteProject(userId, projectId) {
+    const deletedProject = await Project.delete(userId, projectId);
+    return deletedProject;
+  }
 }
 export { projectService };
