@@ -66,7 +66,7 @@ export default function Education({ portfolioOwnerId, isEditable }) {
           major: editedEducationObj.major,
           status: editedEducationObj.status,
         });
-        console.log(editedEducationObj)
+        // console.log(editedEducationObj)
     
         const res = await Api.get("educations", userId);
         setEducations(res.data);
@@ -79,9 +79,23 @@ export default function Education({ portfolioOwnerId, isEditable }) {
   };
 
   // 삭제
-  const deleteEducation = (selectedEduId) => {
-    const newEducations = [...educations];
-    setEducations(newEducations.filter((education) => education.id !== selectedEduId));
+  const deleteEducation = async (deltedEducationObj) => {
+    // const newEducations = [...educations];
+    // setEducations(newEducations.filter((education) => education.id !== selectedEduId));
+
+    const userId = portfolioOwnerId;
+
+    await Api.delete(`education`, {
+      educationId: deltedEducationObj._id,
+      name: deltedEducationObj.name,
+      major: deltedEducationObj.major,
+      status: deltedEducationObj.status,
+    });
+    console.log(deltedEducationObj)
+
+    const res = await Api.get("educations", userId);
+    setEducations(res.data);
+
   };
 
   return (

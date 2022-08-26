@@ -15,8 +15,8 @@ export default function EducationList({education, setEducations, updateEducation
         }
     };
 
-    const handleDeleteClick = (e) => {
-        deleteEducation(education.id)
+    const handleDeleteClick = (targetEducation) => {
+        deleteEducation(targetEducation)
     }
 
     const confirmEditEducation = async (targetEducation) => {
