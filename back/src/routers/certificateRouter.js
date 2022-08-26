@@ -109,15 +109,28 @@ certificateRouter.patch(
   }
 );
 
-// projectRouter.delete(
-//   "/project/delete",
-//   login_required,
-//   async function (req, res, next) {
-//     try {
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
+certificateRouter.delete(
+  "/certificate/delete",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const userId = req.userId;
+      const { certificateId } = req.body;
+
+      const deletedCertificate = await certificateService.deleteCertificate(
+        userId,
+        certificateId
+      );
+
+      if (deletedCertificate.errorMessage) {
+        throw new Error(deletedCertificate.errorMessage);
+      }
+
+      res.status(200).json(deletedCertificate);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 export { certificateRouter };

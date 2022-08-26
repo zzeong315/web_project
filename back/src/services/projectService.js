@@ -29,11 +29,13 @@ class projectService {
 
   static async setProject(userId, projectId, toUpdate) {
     const updatedProject = await Project.update(userId, projectId, toUpdate);
+
     return updatedProject;
   }
 
   static async deleteProject(userId, projectId) {
     const deletedProject = await Project.delete(userId, projectId);
+
     return deletedProject;
   }
 }

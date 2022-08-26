@@ -25,6 +25,7 @@ class Project {
   static async update(userId, projectId, toUpdate) {
     const user = await UserModel.findOne({ id: userId });
     const projects = user.projects;
+
     projects.forEach((project) => {
       if (project._id.valueOf() === projectId) {
         if (toUpdate.name) {
@@ -44,6 +45,17 @@ class Project {
 
     const updatedProject = await user.save();
     return updatedProject;
+  }
+
+  static async delete(userId, projectId) {
+    let user = await UserModel.findOne({ id: userId });
+    let projects = user.projects;
+    user.projects = projects.filter(function (elem) {
+      return elem._id.valueOf() !== projectId;
+    });
+
+    const deletedProject = await user.save();
+    return deletedProject;
   }
 }
 
