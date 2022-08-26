@@ -5,15 +5,16 @@ import * as Api from "../../api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Card } from "react-bootstrap";
 import Portfolio from "../Portfolio";
-export default function Education({ PortfolioOwnerId, isEditable }) {
+
+export default function Education({ portfolioOwnerId, isEditable }) {
 
   const [educations, setEducations] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
   // get 요청
   useEffect(() => {
-    Api.get("/educations", PortfolioOwnerId).then((res) => setEducations(res.data));
-  }, []);
+    Api.get("educations", portfolioOwnerId).then((res) => setEducations(res.data));
+  }, [portfolioOwnerId]);
 
   const handleAddEductionClick = () => {
     if (isAdding) {
@@ -24,25 +25,30 @@ export default function Education({ PortfolioOwnerId, isEditable }) {
   };
 
   const confirmAddEduction = async (targetEducation) => {
-    const educationObj = {
-      ...targetEducation,
-      id: Math.floor(Math.random() * 10000),
-    };
-    setEducations([...educations, educationObj]);
+    // const educationObj = {
+    //   ...targetEducation,
+    //   id: Math.floor(Math.random() * 10000),
+    // };
+    // setEducations([...educations, educationObj]);
+    
+    try {
+        const userId = portfolioOwnerId;
 
-    const userId = PortfolioOwnerId;
-
-    await Api.post("/education", {
-      id: educations.id,
-      name: educations.name,
-      major: educations.major,
-      status: educations.status,
-    });
-
-    const res = await Api.get("educations", PortfolioOwnerId);
-    setEducations(res.data);
-
-    setIsAdding(false);
+        await Api.post("education", {
+          id: targetEducation.id,
+          name: targetEducation.name,
+          major: targetEducation.major,
+          status: targetEducation.status,
+        });
+    
+        const res = await Api.get("educations", userId);
+        setEducations(res.data);
+    
+        setIsAdding(false);
+        
+    } catch (error) {
+        console.log('error')
+    }
   };
 
   const cancelAddEducation = () => {

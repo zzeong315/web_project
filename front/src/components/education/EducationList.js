@@ -2,8 +2,10 @@ import {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Card, Row, Col} from 'react-bootstrap';
 import EducationForm from "./EducationForm";
+import * as Api from "../../api";
+import Portfolio from "../Portfolio";
 
-export default function EducationList({education, updateEducation, deleteEducation , isEditable}) {
+export default function EducationList({education, setEducations, updateEducation, deleteEducation ,PortfolioOwnerId, isEditable}) {
     const [isEditing, setIsEditing] = useState(false);
     const handleEditClick = () => {
         if (isEditing) {
@@ -17,8 +19,23 @@ export default function EducationList({education, updateEducation, deleteEducati
         deleteEducation(education.id)
     }
 
-    const confirmEditEducation = (educationObj) => {
-        updateEducation(educationObj);
+    const confirmEditEducation = async (targetEducation) => {
+        updateEducation(targetEducation);
+        
+        const currentEducation = targetEducation;
+
+        const userId = PortfolioOwnerId;
+
+        await Api.patch(`education${userId}`, {
+          educationId: currentEducation.id,
+          name: currentEducation.name,
+          major: currentEducation.major,
+          status: currentEducation.status,
+        });
+    
+        const res = await Api.get("educations", userId);
+        setEducations(res.data);
+
         setIsEditing(false);
     };
 
