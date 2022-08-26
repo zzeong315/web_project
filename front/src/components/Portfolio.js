@@ -6,6 +6,11 @@ import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
 
+import Education from "./education/Education";
+import Award from "./award/Award";
+import Project from "./project/Project";
+import Certificate from "./certificate/Certificate";
+
 function Portfolio() {
   const navigate = useNavigate();
   const params = useParams();
@@ -61,11 +66,13 @@ function Portfolio() {
           />
         </Col>
         <Col>
-
-          <div style={{ textAlign: "center" }}>
+          <div>
             학력 목록, 수상이력 목록, 프로젝트 목록, 자격증 목록 만들기
+            <Education isEditable={portfolioOwner.id === userState.user?.id} />
+            <Award isEditable={portfolioOwner.id === userState.user?.id} />
+            <Project isEditable={portfolioOwner.id === userState.user?.id} />
+            <Certificate isEditable={portfolioOwner.id === userState.user?.id} />
           </div>
-
         </Col>
       </Row>
     </Container>
