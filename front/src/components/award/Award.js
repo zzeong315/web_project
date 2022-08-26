@@ -37,6 +37,10 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
         name,
         description,
       });
+
+      Api.get("awards", portfolioOwnerId).then((res) => {
+        setAwards(res.data);
+      });
     } catch (err) {
       console.log(err);
     }
@@ -54,6 +58,31 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
     setAwards(newAward);
   };
 
+  const confirmEdit = async (index, changeData) => {
+    console.log("confirmEdit!!");
+
+    // const data = await Api.patch("award", { ...changeData });
+    // await Api.patch("award", { ...changeData });
+
+    // Api.get("awards", portfolioOwnerId).then((res) => {
+    //   setAwards(res.data);
+    // });
+
+    const newAward = [...awards];
+    newAward[index] = {
+      ...changeData,
+      isEditing: false,
+    };
+    setAwards(newAward);
+  };
+
+  const cancelEdit = (index) => {
+    console.log("cancelEdit!!");
+    const newAward = [...awards];
+    newAward[index].isEditing = false;
+    setAwards(newAward);
+  };
+
   return (
     <Card>
       <Card.Body>
@@ -66,8 +95,9 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
             return award.isEditing ? (
               <AwardEditForm
                 index={index}
-                awards={awards}
-                setAwards={setAwards}
+                award={award}
+                confirmEdit={confirmEdit}
+                cancelEdit={cancelEdit}
               />
             ) : (
               <AwardList
