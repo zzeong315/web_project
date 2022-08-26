@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 
-const AwardEditForm = ({ index, awards, setAwards }) => {
-  const award = awards[index];
-
+const AwardEditForm = ({ index, award, confirmEdit, cancelEdit }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
@@ -14,20 +12,10 @@ const AwardEditForm = ({ index, awards, setAwards }) => {
 
   const handleEditSumit = (e) => {
     if (name && description) {
-      const newAward = [...awards];
-      newAward[index] = {
-        name,
-        description,
-        isEditing: false,
-      };
-      setAwards(newAward);
+      confirmEdit(index, { awardId: award._id, name, description });
     }
   };
-  const handleEditCancel = (e) => {
-    const newAward = [...awards];
-    newAward[index].isEditing = false;
-    setAwards(newAward);
-  };
+
   return (
     <Form>
       <Form.Group className="mb-3" controlId="awardAddTitle">
@@ -52,7 +40,12 @@ const AwardEditForm = ({ index, awards, setAwards }) => {
           <Button className="me-3" variant="primary" onClick={handleEditSumit}>
             확인
           </Button>{" "}
-          <Button variant="secondary" onClick={handleEditCancel}>
+          <Button
+            variant="secondary"
+            onClick={(e) => {
+              cancelEdit(index);
+            }}
+          >
             취소
           </Button>{" "}
         </Col>

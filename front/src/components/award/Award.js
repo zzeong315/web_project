@@ -10,6 +10,7 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
     try {
       Api.get("awards", portfolioOwnerId).then((res) => {
         setAwards(res.data);
+        console.log(res.data);
       });
     } catch (err) {
       console.log(err);
@@ -37,6 +38,10 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
         name,
         description,
       });
+
+      Api.get("awards", portfolioOwnerId).then((res) => {
+        setAwards(res.data);
+      });
     } catch (err) {
       console.log(err);
     }
@@ -54,6 +59,36 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
     setAwards(newAward);
   };
 
+  const confirmEdit = async (index, changeData) => {
+    console.log("confirmEdit!!");
+    console.log(changeData);
+
+    // const data = await Api.patch("award", { ...changeData });
+    try {
+      console.log("changeData", changeData);
+      await Api.patch("award", { ...changeData }); // awardId
+      Api.get("awards", portfolioOwnerId).then((res) => {
+        setAwards(res.data);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
+    // const newAward = [...awards];
+    // newAward[index] = {
+    //   ...changeData,
+    //   isEditing: false,
+    // };
+    // setAwards(newAward);
+  };
+
+  const cancelEdit = (index) => {
+    console.log("cancelEdit!!");
+    const newAward = [...awards];
+    newAward[index].isEditing = false;
+    setAwards(newAward);
+  };
+
   return (
     <Card>
       <Card.Body>
@@ -65,12 +100,15 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
           awards.map((award, index) => {
             return award.isEditing ? (
               <AwardEditForm
+                key={award._id}
                 index={index}
-                awards={awards}
-                setAwards={setAwards}
+                award={award}
+                confirmEdit={confirmEdit}
+                cancelEdit={cancelEdit}
               />
             ) : (
               <AwardList
+                key={award._id}
                 index={index}
                 award={award}
                 changeEditMode={changeEditMode}
