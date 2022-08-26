@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { EducationSchema } from "./education";
 import { ProjectSchema } from "./project";
 
 const UserSchema = new Schema(
@@ -24,6 +25,7 @@ const UserSchema = new Schema(
       required: false,
       default: "설명이 아직 없습니다. 추가해 주세요.",
     },
+    educations: [EducationSchema],
     projects: [ProjectSchema],
   },
   {
