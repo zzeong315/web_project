@@ -19,11 +19,6 @@ class educationService {
     );
     return updatedEducation;
   }
-
-  static async deleteEducation(userId, educationId) {
-    const deletedEducation = await Education.delete(userId, educationId);
-    return deletedEducation;
-  }
 }
 
 export { educationService };
