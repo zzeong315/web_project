@@ -2,6 +2,7 @@ import { Schema, model } from "mongoose";
 import { EducationSchema } from "./education";
 import { ProjectSchema } from "./project";
 import { CertificateSchema } from "./certificate";
+import { AwardSchema } from "./award";
 
 const UserSchema = new Schema(
   {
@@ -29,6 +30,7 @@ const UserSchema = new Schema(
     educations: [EducationSchema],
     projects: [ProjectSchema],
     certificates: [CertificateSchema],
+    awards: [AwardSchema],
   },
   {
     timestamps: true,
