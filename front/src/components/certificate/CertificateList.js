@@ -3,8 +3,8 @@ import { Button, Card, Row, Col } from "react-bootstrap";
 const CertificateList = ({
   index,
   certificate,
-  onEditMode,
-  onDelete,
+  changeEditMode,
+  deleteCertificate,
   isEditable,
 }) => {
   const { title, description, date } = certificate;
@@ -34,7 +34,7 @@ const CertificateList = ({
             size="sm"
             type="click"
             onClick={(e) => {
-              onEditMode(index);
+              changeEditMode(index);
             }}
           >
             편집
@@ -45,7 +45,7 @@ const CertificateList = ({
             size="sm"
             type="click"
             onClick={(e) => {
-              onDelete(index);
+              deleteCertificate(index);
             }}
           >
             삭제

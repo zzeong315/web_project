@@ -5,8 +5,8 @@ import DatePicker from "react-datepicker";
 const CertificateEditForm = ({
   index,
   certificate,
-  onEditSubmit,
-  onEditCancel,
+  confirmEdit,
+  cancelEdit,
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -15,7 +15,7 @@ const CertificateEditForm = ({
   const onHandleClick = (e) => {
     e.preventDefault();
     if (title && description) {
-      onEditSubmit(index, {
+      confirmEdit(index, {
         title,
         description,
         date: certifiedDate,
@@ -64,7 +64,7 @@ const CertificateEditForm = ({
           <Button
             variant="secondary"
             onClick={(e) => {
-              onEditCancel(index);
+              cancelEdit(index);
             }}
           >
             취소
