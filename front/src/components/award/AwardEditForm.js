@@ -4,19 +4,19 @@ import { Button, Form, Row, Col } from "react-bootstrap";
 const AwardEditForm = ({ index, awards, setAwards }) => {
   const award = awards[index];
 
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    setTitle(award.title);
+    setName(award.name);
     setDescription(award.description);
   }, []);
 
   const handleEditSumit = (e) => {
-    if (title && description) {
+    if (name && description) {
       const newAward = [...awards];
       newAward[index] = {
-        title,
+        name,
         description,
         isEditing: false,
       };
@@ -34,8 +34,8 @@ const AwardEditForm = ({ index, awards, setAwards }) => {
         <Form.Control
           type="text"
           placeholder="수상내역"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </Form.Group>
 

@@ -3,21 +3,43 @@ import { Card, Col } from "react-bootstrap";
 import AwardEditForm from "./AwardEditForm";
 import AwardList from "./AwardList";
 import AwardAddForm from "./AwardAddForm";
+import * as Api from "../../api";
 
-const Award = ({ isEditable }) => {
+const Award = ({ isEditable, portfolioOwnerId }) => {
+  useEffect(() => {
+    try {
+      Api.get("awards", portfolioOwnerId).then((res) => {
+        setAwards(res.data);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, [portfolioOwnerId]);
+
   // 테스트용 데이터
   const [awards, setAwards] = useState([
     {
-      title: "수상내역",
+      name: "수상내역",
       description: "상세",
       isEditing: false,
     },
   ]);
 
   // award list add
-  const addAward = (title, description) => {
-    const newAward = [...awards, { title, description, isEditing: false }];
-    setAwards(newAward);
+  const addAward = async (name, description) => {
+    // const newAward = [...awards, { name, description, isEditing: false }];
+    // setAwards(newAward);
+    console.log(name, description);
+
+    try {
+      // "user" 엔드포인트로 post요청함.
+      await Api.post("award", {
+        name,
+        description,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // award list edit
@@ -60,7 +82,7 @@ const Award = ({ isEditable }) => {
 
         {/* AwardAddList */}
 
-        {isEditable && <AwardAddForm onAddAward={addAward} />}
+        {isEditable && <AwardAddForm addAward={addAward} />}
       </Card.Body>
     </Card>
   );

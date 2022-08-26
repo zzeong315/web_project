@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 
-const AwardAddForm = ({ onAddAward }) => {
-  const [title, setTitle] = useState("");
+const AwardAddForm = ({ addAward }) => {
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
   const clearForm = () => {
     setIsAdding(false);
-    setTitle("");
+    setName("");
     setDescription("");
   };
 
   const handleAddSubmit = (e) => {
     e.preventDefault();
 
-    if (title && description) {
-      onAddAward(title, description);
+    if (name && description) {
+      addAward(name, description);
       clearForm();
     }
   };
@@ -37,8 +37,8 @@ const AwardAddForm = ({ onAddAward }) => {
             <Form.Control
               type="text"
               placeholder="수상이력"
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
+              onChange={(e) => setName(e.target.value)}
+              value={name}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="awardEditDescription">

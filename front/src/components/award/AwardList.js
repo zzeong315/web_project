@@ -8,11 +8,11 @@ const AwardList = ({
   deleteAward,
   isEditable,
 }) => {
-  const { title, description } = award;
+  const { name, description } = award;
   return (
     <Row className="d-flex align-items-center mb-4">
       <Col md="10">
-        <span className="d-block">{title}</span>
+        <span className="d-block">{name}</span>
         <span className="text-muted">{description}</span>
       </Col>
       {isEditable && (
