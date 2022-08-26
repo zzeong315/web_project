@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 
-const AwardEditForm = ({ index, awardList, setAwardList }) => {
-  const award = awardList[index];
+const AwardEditForm = ({ index, awards, setAwards }) => {
+  const award = awards[index];
 
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    setTitle(award.title);
+    setName(award.name);
     setDescription(award.description);
   }, []);
 
-  const onEditSumit = (e) => {
-    if (title && description) {
-      const newAward = [...awardList];
+  const handleEditSumit = (e) => {
+    if (name && description) {
+      const newAward = [...awards];
       newAward[index] = {
-        title,
+        name,
         description,
         isEditing: false,
       };
-      setAwardList(newAward);
+      setAwards(newAward);
     }
   };
-  const onEditCancel = (e) => {
-    const newAward = [...awardList];
+  const handleEditCancel = (e) => {
+    const newAward = [...awards];
     newAward[index].isEditing = false;
-    setAwardList(newAward);
+    setAwards(newAward);
   };
   return (
     <Form>
@@ -34,8 +34,8 @@ const AwardEditForm = ({ index, awardList, setAwardList }) => {
         <Form.Control
           type="text"
           placeholder="수상내역"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </Form.Group>
 
@@ -49,10 +49,10 @@ const AwardEditForm = ({ index, awardList, setAwardList }) => {
       </Form.Group>
       <Row className="mb-5">
         <Col className="text-center">
-          <Button className="me-3" variant="primary" onClick={onEditSumit}>
+          <Button className="me-3" variant="primary" onClick={handleEditSumit}>
             확인
           </Button>{" "}
-          <Button variant="secondary" onClick={onEditCancel}>
+          <Button variant="secondary" onClick={handleEditCancel}>
             취소
           </Button>{" "}
         </Col>

@@ -3,35 +3,55 @@ import { Card, Col } from "react-bootstrap";
 import AwardEditForm from "./AwardEditForm";
 import AwardList from "./AwardList";
 import AwardAddForm from "./AwardAddForm";
+import * as Api from "../../api";
 
-const Award = ({ isEditable }) => {
-  console.log("Award", isEditable);
+const Award = ({ isEditable, portfolioOwnerId }) => {
+  useEffect(() => {
+    try {
+      Api.get("awards", portfolioOwnerId).then((res) => {
+        setAwards(res.data);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, [portfolioOwnerId]);
 
   // 테스트용 데이터
-  const [awardList, setAwardList] = useState([
+  const [awards, setAwards] = useState([
     {
-      title: "수상내역",
+      name: "수상내역",
       description: "상세",
       isEditing: false,
     },
   ]);
 
   // award list add
-  const addAward = (title, description) => {
-    const newAward = [...awardList, { title, description, isEditing: false }];
-    setAwardList(newAward);
+  const addAward = async (name, description) => {
+    // const newAward = [...awards, { name, description, isEditing: false }];
+    // setAwards(newAward);
+    console.log(name, description);
+
+    try {
+      // "user" 엔드포인트로 post요청함.
+      await Api.post("award", {
+        name,
+        description,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // award list edit
   const changeEditMode = (index) => {
-    const newAward = [...awardList];
+    const newAward = [...awards];
     newAward[index].isEditing = true;
-    setAwardList(newAward);
+    setAwards(newAward);
   };
-  const cancelEditMode = (index) => {
-    const newAward = [...awardList];
+  const deleteAward = (index) => {
+    const newAward = [...awards];
     newAward.splice(index, 1);
-    setAwardList(newAward);
+    setAwards(newAward);
   };
 
   return (
@@ -39,22 +59,22 @@ const Award = ({ isEditable }) => {
       <Card.Body>
         <Card.Title>수상이력</Card.Title>
 
-        {/* AwardList  & AwardEditForm */}
+        {/* Awards  & AwardEditForm */}
 
-        {awardList &&
-          awardList.map((award, index) => {
+        {awards &&
+          awards.map((award, index) => {
             return award.isEditing ? (
               <AwardEditForm
                 index={index}
-                awardList={awardList}
-                setAwardList={setAwardList}
+                awards={awards}
+                setAwards={setAwards}
               />
             ) : (
               <AwardList
                 index={index}
                 award={award}
-                onEditMode={changeEditMode}
-                onEditCancle={cancelEditMode}
+                changeEditMode={changeEditMode}
+                deleteAward={deleteAward}
                 isEditable={isEditable}
               />
             );
@@ -62,7 +82,7 @@ const Award = ({ isEditable }) => {
 
         {/* AwardAddList */}
 
-        {isEditable && <AwardAddForm onAddAward={addAward} />}
+        {isEditable && <AwardAddForm addAward={addAward} />}
       </Card.Body>
     </Card>
   );

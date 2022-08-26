@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col } from "react-bootstrap";
 
-const AwardList = ({ index, award, onEditMode, onEditCancle, isEditable }) => {
-  const { title, description } = award;
+const AwardList = ({
+  index,
+  award,
+  changeEditMode,
+  deleteAward,
+  isEditable,
+}) => {
+  const { name, description } = award;
   return (
     <Row className="d-flex align-items-center mb-4">
       <Col md="10">
-        <span className="d-block">{title}</span>
+        <span className="d-block">{name}</span>
         <span className="text-muted">{description}</span>
       </Col>
       {isEditable && (
@@ -17,7 +23,7 @@ const AwardList = ({ index, award, onEditMode, onEditCancle, isEditable }) => {
             size="sm"
             type="click"
             onClick={(e) => {
-              onEditMode(index);
+              changeEditMode(index);
             }}
           >
             편집
@@ -28,7 +34,7 @@ const AwardList = ({ index, award, onEditMode, onEditCancle, isEditable }) => {
             size="sm"
             type="click"
             onClick={(e) => {
-              onEditCancle(index);
+              deleteAward(index);
             }}
           >
             삭제
