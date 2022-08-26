@@ -6,13 +6,19 @@ const AwardAddForm = ({ onAddAward }) => {
   const [description, setDescription] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
-  const handleAddSubmit = (e) => {
-    e.preventDefault();
-    onAddAward(title, description);
+  const clearForm = () => {
     setIsAdding(false);
-
     setTitle("");
     setDescription("");
+  };
+
+  const handleAddSubmit = (e) => {
+    e.preventDefault();
+
+    if (title && description) {
+      onAddAward(title, description);
+      clearForm();
+    }
   };
 
   return (
@@ -51,7 +57,7 @@ const AwardAddForm = ({ onAddAward }) => {
               <Button
                 variant="secondary"
                 onClick={(e) => {
-                  setIsAdding(false);
+                  clearForm();
                 }}
               >
                 취소
