@@ -5,10 +5,8 @@ import AwardList from "./AwardList";
 import AwardAddForm from "./AwardAddForm";
 
 const Award = ({ isEditable }) => {
-  console.log("Award", isEditable);
-
   // 테스트용 데이터
-  const [awardList, setAwardList] = useState([
+  const [awards, setAwards] = useState([
     {
       title: "수상내역",
       description: "상세",
@@ -18,20 +16,20 @@ const Award = ({ isEditable }) => {
 
   // award list add
   const addAward = (title, description) => {
-    const newAward = [...awardList, { title, description, isEditing: false }];
-    setAwardList(newAward);
+    const newAward = [...awards, { title, description, isEditing: false }];
+    setAwards(newAward);
   };
 
   // award list edit
   const changeEditMode = (index) => {
-    const newAward = [...awardList];
+    const newAward = [...awards];
     newAward[index].isEditing = true;
-    setAwardList(newAward);
+    setAwards(newAward);
   };
-  const cancelEditMode = (index) => {
-    const newAward = [...awardList];
+  const deleteAward = (index) => {
+    const newAward = [...awards];
     newAward.splice(index, 1);
-    setAwardList(newAward);
+    setAwards(newAward);
   };
 
   return (
@@ -39,22 +37,22 @@ const Award = ({ isEditable }) => {
       <Card.Body>
         <Card.Title>수상이력</Card.Title>
 
-        {/* AwardList  & AwardEditForm */}
+        {/* Awards  & AwardEditForm */}
 
-        {awardList &&
-          awardList.map((award, index) => {
+        {awards &&
+          awards.map((award, index) => {
             return award.isEditing ? (
               <AwardEditForm
                 index={index}
-                awardList={awardList}
-                setAwardList={setAwardList}
+                awards={awards}
+                setAwards={setAwards}
               />
             ) : (
               <AwardList
                 index={index}
                 award={award}
-                onEditMode={changeEditMode}
-                onEditCancle={cancelEditMode}
+                changeEditMode={changeEditMode}
+                deleteAward={deleteAward}
                 isEditable={isEditable}
               />
             );
