@@ -7,12 +7,12 @@ import { Card } from "react-bootstrap";
 import Portfolio from "../Portfolio";
 export default function Education({ PortfolioOwnerId, isEditable }) {
 
-  const [edus, setEdus] = useState([]);
+  const [educations, setEducations] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
   // get 요청
   useEffect(() => {
-    Api.get("/educations", PortfolioOwnerId).then((res) => setEdus(res.data));
+    Api.get("/educations", PortfolioOwnerId).then((res) => setEducations(res.data));
   }, []);
 
   const handleAddEductionClick = () => {
@@ -28,19 +28,19 @@ export default function Education({ PortfolioOwnerId, isEditable }) {
       ...targetEducation,
       id: Math.floor(Math.random() * 10000),
     };
-    setEdus([...edus, educationObj]);
+    setEducations([...educations, educationObj]);
 
     const userId = PortfolioOwnerId;
 
     await Api.post("/education", {
-      id: edus.id,
-      name: edus.name,
-      major: edus.major,
-      status: edus.status,
+      id: educations.id,
+      name: educations.name,
+      major: educations.major,
+      status: educations.status,
     });
 
     const res = await Api.get("educations", PortfolioOwnerId);
-    setEdus(res.data);
+    setEducations(res.data);
 
     setIsAdding(false);
   };
@@ -51,31 +51,31 @@ export default function Education({ PortfolioOwnerId, isEditable }) {
 
   // 수정
   const updateEducation = (editedEducationObj) => {
-    const updatedEdus = [...edus];
-    updatedEdus[edus.findIndex((edu) => edu.id === editedEducationObj.id)] = {
+    const updatedEducations = [...educations];
+    updatedEducations[educations.findIndex((education) => education.id === editedEducationObj.id)] = {
       ...editedEducationObj,
     };
-    setEdus([...updatedEdus]);
+    setEducations([...updatedEducations]);
   };
 
   // 삭제
   const deleteEducation = (selectedEduId) => {
-    const newEdus = [...edus];
-    setEdus(newEdus.filter((edu) => edu.id !== selectedEduId));
+    const newEducations = [...educations];
+    setEducations(newEducations.filter((education) => education.id !== selectedEduId));
   };
 
   return (
     <Card>
       <Card.Body>
         <Card.Title>학력</Card.Title>
-        {edus.length > 0 &&
-          edus.map((eduObj, index) => {
+        {educations.length > 0 &&
+          educations.map((education, index) => {
             return (
               <EducationList
                 key={index}
-                edu={eduObj}
-                updateEdu={updateEducation}
-                deleteEdu={deleteEducation}
+                education={education}
+                updateEducation={updateEducation}
+                deleteEducation={deleteEducation}
                 isEditable={isEditable}
               />
             );
@@ -96,14 +96,14 @@ export default function Education({ PortfolioOwnerId, isEditable }) {
 
         {isAdding ? (
           <EducationForm
-            edu={{
+            education={{
               id: null,
               name: "",
               major: "",
               status: "재학중",
             }}
-            onConfirm={confirmAddEduction}
-            onCancel={cancelAddEducation}
+            confirmAddEducation={confirmAddEduction}
+            cancelAddEducation={cancelAddEducation}
             setIsAdding={setIsAdding}
           />
         ) : (

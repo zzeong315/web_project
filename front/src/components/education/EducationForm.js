@@ -7,8 +7,9 @@ const BACHELOR_DEGREE = "학사졸업";
 const MASTER_GRADUATION = "석사졸업";
 const PHD_GRADUATION = "박사졸업";
 
-export default function EducationForm({ edu, onConfirm, onCancel, setIsAdding }) {
-  const [targetEducation, setTargetEducation] = useState({ ...edu });
+export default function EducationForm({ education, confirmAddEducation, cancelAddEducation, setIsAdding }) {
+  const [targetEducation, setTargetEducation] = useState({ ...education });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTargetEducation({
@@ -16,16 +17,22 @@ export default function EducationForm({ edu, onConfirm, onCancel, setIsAdding })
       [name]: value,
     });
   };
+  // 학교이름 1글자 이상인가 확인
+  const isNameValid = targetEducation.name.length >= 1;
+  // 전공이름 1글자 이상인가 확인
+  const isMajorValid = targetEducation.major.length >= 1;
+  // 위 2개 조건이 동시에 만족되는 확인
+  const isFormValid = isNameValid && isMajorValid;
 
   // 확인
   const confirmEducation = () => {
-    onConfirm({ ...targetEducation });
+    confirmAddEducation({ ...targetEducation });
     setIsAdding(false);
   };
 
   // 취소
   const cancelEducation = () => {
-    onCancel();
+    cancelAddEducation();
   };
 
   return (
@@ -104,6 +111,7 @@ export default function EducationForm({ edu, onConfirm, onCancel, setIsAdding })
               type="button"
               className="me-3"
               onClick={confirmEducation}
+              disabled={!isFormValid}
             >
               확인
             </Button>
