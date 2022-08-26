@@ -15,6 +15,11 @@ class awardService {
     const updatedAward = await Award.update(userId, awardId, newAward);
     return updatedAward;
   }
+
+  static async deleteAward(userId, awardId) {
+    const deletedAward = await Award.delete(userId, awardId);
+    return deletedAward;
+  }
 }
 
 export { awardService };

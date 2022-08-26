@@ -27,6 +27,16 @@ class Award {
     const updatedAward = await user.save();
     return updatedAward;
   }
+
+  static async delete(userId, awardId) {
+    let user = await UserModel.findOne({ id: userId });
+    let awards = user.awards;
+    user.awards = awards.filter((award) => {
+      return award._id.valueOf() !== awardId;
+    });
+    const deletedAward = await user.save();
+    return deletedAward;
+  }
 }
 
 export { Award };
