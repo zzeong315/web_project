@@ -19,7 +19,7 @@ const Project = ({portfolioOwnerId, isEditable}) => {
 
   //데이터 테스트
   useEffect(() => {
-    Api.get(`project/${portfolioOwnerId}`, portfolioOwnerId).then((res) => setProjects(res.data));
+    Api.get(`project/${portfolioOwnerId}`).then((res) => setProjects(res.data));
   }, [portfolioOwnerId]); 
 
   const dateFormat = (day) => {
@@ -40,10 +40,18 @@ const Project = ({portfolioOwnerId, isEditable}) => {
                 setIsEditing(newisEditing);
               }
 
-              const handleDeleteClick = () => {
-                const newprojects = [...projects];
-                newprojects.splice(index, 1);
-                setProjects(newprojects);
+              const handleDeleteClick = async () => {
+                console.log(project._id);
+                const newList = {projectId: project._id};
+
+                const res = await Api.delete('project/delete', newList);
+                const updateProject = res.data.projects;
+                console.log('updateProject', updateProject)
+
+                setProjects(updateProject);
+                // const newprojects = [...projects];
+                // newprojects.splice(index, 1);
+                // setProjects(newprojects);
               }
 
               return (
