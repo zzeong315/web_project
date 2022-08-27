@@ -10,7 +10,6 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
     try {
       Api.get("awards", portfolioOwnerId).then((res) => {
         setAwards(res.data);
-        console.log(res.data);
       });
     } catch (err) {
       console.log(err);
@@ -18,20 +17,10 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
   }, [portfolioOwnerId]);
 
   // 테스트용 데이터
-  const [awards, setAwards] = useState([
-    {
-      name: "수상내역",
-      description: "상세",
-      isEditing: false,
-    },
-  ]);
+  const [awards, setAwards] = useState([]);
 
   // award list add
   const addAward = async (name, description) => {
-    // const newAward = [...awards, { name, description, isEditing: false }];
-    // setAwards(newAward);
-    console.log(name, description);
-
     try {
       // "user" 엔드포인트로 post요청함.
       await Api.post("award", {
@@ -53,19 +42,18 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
     newAward[index].isEditing = true;
     setAwards(newAward);
   };
-  const deleteAward = (index) => {
-    const newAward = [...awards];
-    newAward.splice(index, 1);
-    setAwards(newAward);
+  const deleteAward = async (awardId) => {
+    try {
+      const res = await Api.delete("award", awardId);
+      const updateAward = res.data.awards;
+      setAwards(updateAward);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const confirmEdit = async (index, changeData) => {
-    console.log("confirmEdit!!");
-    console.log(changeData);
-
-    // const data = await Api.patch("award", { ...changeData });
     try {
-      console.log("changeData", changeData);
       await Api.patch("award", { ...changeData }); // awardId
       Api.get("awards", portfolioOwnerId).then((res) => {
         setAwards(res.data);
@@ -73,17 +61,9 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
     } catch (err) {
       console.log(err);
     }
-
-    // const newAward = [...awards];
-    // newAward[index] = {
-    //   ...changeData,
-    //   isEditing: false,
-    // };
-    // setAwards(newAward);
   };
 
   const cancelEdit = (index) => {
-    console.log("cancelEdit!!");
     const newAward = [...awards];
     newAward[index].isEditing = false;
     setAwards(newAward);
