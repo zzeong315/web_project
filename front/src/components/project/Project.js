@@ -19,8 +19,8 @@ const Project = ({portfolioOwnerId, isEditable}) => {
 
   //데이터 테스트
   useEffect(() => {
-    Api.get("project", portfolioOwnerId).then((res) => setProjects(res.data));
-  }, [portfolioOwnerId]);  
+    Api.get(`project/${portfolioOwnerId}`, portfolioOwnerId).then((res) => setProjects(res.data));
+  }, [portfolioOwnerId]); 
 
   const dateFormat = (day) => {
     const [year, month, date] = [day.getFullYear(), day.getMonth()+1, day.getDate()];
