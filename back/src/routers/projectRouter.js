@@ -17,16 +17,6 @@ projectRouter.get("/project", login_required, async function (req, res, next) {
   }
 });
 
-projectRouter.get("/projects", login_required, async function (req, res, next) {
-  try {
-    const projects = await projectService.getProjects();
-
-    res.status(200).send(projects);
-  } catch (error) {
-    next(error);
-  }
-});
-
 projectRouter.post(
   "/project/add",
   login_required,
@@ -60,7 +50,6 @@ projectRouter.get(
   "/project/:id",
   login_required,
   async function (req, res, next) {
-    console.log("hello");
     try {
       const id = req.params.id;
 
@@ -102,12 +91,12 @@ projectRouter.patch(
 );
 
 projectRouter.delete(
-  "/project/delete",
+  "/project/delete/:id",
   login_required,
   async function (req, res, next) {
     try {
       const userId = req.userId;
-      const { projectId } = req.body;
+      const projectId = req.params.id;
 
       const deletedProject = await projectService.deleteProject(
         userId,

@@ -110,12 +110,12 @@ certificateRouter.patch(
 );
 
 certificateRouter.delete(
-  "/certificate/delete",
+  "/certificate/delete/:id",
   login_required,
   async function (req, res, next) {
     try {
       const userId = req.userId;
-      const { certificateId } = req.body;
+      const certificateId = req.params.id;
 
       const deletedCertificate = await certificateService.deleteCertificate(
         userId,
