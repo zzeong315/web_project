@@ -22,46 +22,46 @@ const Project = ({portfolioOwnerId, isEditable}) => {
     return `${year}-${month < 10 ? `0${month}` : month }-${date < 10 ? `0${date}` : date }`
   }
 
+  const projectMap = (project, index) =>{
+    const handleEditClick = () => {
+      const newisEditing = [...isEditing];
+      newisEditing[index] = !newisEditing[index];
+      setIsEditing(newisEditing);
+    }
+
+    const handleDeleteClick = async () => {
+      const res = await Api.delete('project/delete', project._id);
+      setProjects([...res.data.projects]);
+    }
+
+    return (
+      <>
+        {
+          isEditing[index] ? 
+          <ProjectEditForm 
+            project={project} 
+            dateFormat={dateFormat} 
+            handleEditClick={handleEditClick}
+            setProjects={setProjects} 
+            /> : 
+          <ProjectList 
+            project={project} 
+            index={index} 
+            handleEditClick={handleEditClick} 
+            handleDeleteClick={handleDeleteClick} 
+            isEditable={isEditable}
+          />
+        }
+      </>
+    )
+  }
+
   return (
     <Card className='mb-2'>
       <Card.Body>
         <div className="card-title h5">프로젝트</div>
         <ul style={{paddingLeft: 0 }}>
-          {
-            projects.map((project, index) => {
-              const handleEditClick = () => {
-                const newisEditing = [...isEditing];
-                newisEditing[index] = !newisEditing[index];
-                setIsEditing(newisEditing);
-              }
-
-              const handleDeleteClick = async () => {
-                const res = await Api.delete('project/delete', project._id);
-                setProjects([...res.data.projects]);
-              }
-
-              return (
-                <>
-                  {
-                    isEditing[index] ? 
-                    <ProjectEditForm 
-                      project={project} 
-                      dateFormat={dateFormat} 
-                      handleEditClick={handleEditClick} 
-                      setProjects={setProjects} 
-                      /> : 
-                    <ProjectList 
-                      project={project} 
-                      index={index} 
-                      handleEditClick={handleEditClick} 
-                      handleDeleteClick={handleDeleteClick} 
-                      isEditable={isEditable}
-                    />
-                  }
-                </>
-              )
-            })
-          }
+          { projects.length && projects.map(projectMap) }
         </ul>
 
         <div className='text-center'>
