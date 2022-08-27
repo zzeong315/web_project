@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import {Form} from 'react-bootstrap';
 import DatePicker from "react-datepicker";
+import * as Api from "../../api";
 
-const ProjectAddForm = ({isAdding, setIsAdding, projects, setProjects, dateFormat}) => {
+const ProjectAddForm = ({isAdding, setIsAdding, projects, setProjects, dateFormat, portfolioOwnerId}) => {
     // add
     const [addStr, setAddStr] = useState({name: '', description: ''});
     const [addStartDate, setAddStartDate] = useState(new Date());
@@ -22,11 +23,18 @@ const ProjectAddForm = ({isAdding, setIsAdding, projects, setProjects, dateForma
       setAddStr(newAddStr);
     }
   
-    const handleAddSubmit = (e) => {
+    const handleAddSubmit = async (e) => {
       e.preventDefault();
       if(!addStr.name || !addStr.description) return;
-      const newList = { ...addStr ,start: dateFormat(addStartDate), end: dateFormat(addEndDate)};
-      setProjects([...projects, newList]);
+      const newList = { ...addStr, start: dateFormat(addStartDate), end: dateFormat(addEndDate)};
+      
+      const res = await Api.post('project/add', newList);
+      const updateProject = res.data.projects;
+      setProjects(updateProject);
+
+      // await Api.post('project/add', newList);
+      // await Api.get('project', portfolioOwnerId).then((res)=>{setProjects(res.data)});
+      
       clearForm();
     }
 

@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
 import DatePicker from "react-datepicker";
+import * as Api from "../../api";
 
-const ProjectEditForm = ({project, index, dateFormat, handleEditClick, projects, setProjects}) => {
-  const [editStr, setEditStr] = useState({name: project.name, detail: project.detail});
+const ProjectEditForm = ({projects, setProjects, project, index, dateFormat, handleEditClick, portfolioOwnerId}) => {
+  const [editStr, setEditStr] = useState({name: project.name, description: project.description});
   const [editStartDate, seteditStartDate] = useState(new Date(project.start));
   const [editEndDate, setEditEndDate] = useState(new Date(project.end));
 
@@ -14,14 +15,39 @@ const ProjectEditForm = ({project, index, dateFormat, handleEditClick, projects,
     setEditStr(newEditStr);
   }
 
-  const handleEditSubmit = (e) => {
+  const handleEditSubmit = async (e) => {
     e.preventDefault();
-    if(!editStr.name || !editStr.detail) return;
-    const newList = {...editStr ,start: dateFormat(editStartDate), end: dateFormat(editEndDate)};
-    const newprojects = [...projects];
-    newprojects.splice(index, 1, newList);
 
-    setProjects(newprojects);
+    if(!editStr.name || !editStr.description) return;
+    
+    const newList = {projectId: portfolioOwnerId, ...editStr, start: dateFormat(editStartDate), end: dateFormat(editEndDate)};
+
+    const res = await Api.patch('project', newList);
+    const updateProject = res.data.projects;
+    console.log('updateProject', updateProject)
+
+    setProjects(updateProject);
+
+    // await Api.patch('project', newList);
+    // Api.get("project", portfolioOwnerId).then((res) => setProjects(res.data));
+
+    // setProjects(res.data);
+    // console.log(projects)
+    
+    // const updateProject = res.data.projects;
+    // console.log(`patch res`, res);
+    // console.log(`patch res.data`, res.data);
+    // console.log(`patch updateProject`, updateProject);
+
+
+    // setProjects(updateProject);
+
+    // const newprojects = [...projects];
+    // newprojects.splice(index, 1, newprojects);
+
+
+    // setProjects(updateProject);
+    // setProjects(res);
     handleEditClick();
   }
 
@@ -40,9 +66,9 @@ const ProjectEditForm = ({project, index, dateFormat, handleEditClick, projects,
         <div className="mt-3">
           <Form.Control 
             type="text"
-            name='detail' 
+            name='description' 
             placeholder="상세내역"
-            value={editStr.detail}
+            value={editStr.description}
             onChange={handleEditStrChange}
           />
         </div>
