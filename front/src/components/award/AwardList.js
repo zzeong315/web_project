@@ -34,7 +34,7 @@ const AwardList = ({
             size="sm"
             type="click"
             onClick={(e) => {
-              deleteAward(index);
+              deleteAward(award._id);
             }}
           >
             삭제
