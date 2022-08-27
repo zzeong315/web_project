@@ -22,15 +22,12 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
   // award list add
   const addAward = async (name, description) => {
     try {
-      // "user" 엔드포인트로 post요청함.
-      await Api.post("award", {
+      const res = await Api.post("award", {
         name,
         description,
       });
-
-      Api.get("awards", portfolioOwnerId).then((res) => {
-        setAwards(res.data);
-      });
+      const updateAward = res.data.awards; //이코드 계속 반복됨
+      setAwards(updateAward);
     } catch (err) {
       console.log(err);
     }
@@ -54,10 +51,9 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
 
   const confirmEdit = async (index, changeData) => {
     try {
-      await Api.patch("award", { ...changeData }); // awardId
-      Api.get("awards", portfolioOwnerId).then((res) => {
-        setAwards(res.data);
-      });
+      const res = await Api.patch("award", changeData);
+      const updateAward = res.data.awards;
+      setAwards(res.data.awards);
     } catch (err) {
       console.log(err);
     }
