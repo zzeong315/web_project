@@ -9,9 +9,9 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
   const [certificates, setCertificates] = useState([]);
 
   useEffect(() => {
-    Api.get(`certificate/${portfolioOwnerId}`).then((res) =>
-      setCertificates(res.data)
-    );
+    Api.get("certificate", portfolioOwnerId).then((res) => {
+      setCertificates(res.data);
+    });
   }, [portfolioOwnerId]);
 
   const dateFormat = (date) => {
@@ -87,7 +87,7 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
       <Card.Body>
         <Card.Title>자격증</Card.Title>
 
-        {certificates &&
+        {certificates.length > 0 &&
           certificates.map((certificate, index) => {
             return certificate.isEditing ? (
               <CertificateEditForm
