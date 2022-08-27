@@ -4,21 +4,21 @@ import DatePicker from "react-datepicker";
 
 const CertificateAddForm = ({ addCertificate }) => {
   const [isAdding, setIsAdding] = useState(false);
-  const [certifiedDate, setCertifiedDate] = useState(new Date());
-  const [title, setTitle] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
   const clearForm = () => {
     setIsAdding(false);
-    setTitle("");
+    setName("");
     setDescription("");
-    setCertifiedDate(new Date());
+    setDate(new Date());
   };
 
   const handleAddSubmit = (e) => {
     e.preventDefault();
-    if (title && description) {
-      addCertificate(title, description, certifiedDate);
+    if (name && description) {
+      addCertificate({ name, description, date });
       clearForm();
     }
   };
@@ -37,11 +37,11 @@ const CertificateAddForm = ({ addCertificate }) => {
 
       {isAdding && (
         <Form onSubmit={handleAddSubmit}>
-          <Form.Group className="mb-3" controlId="certificateEditTitle">
+          <Form.Group className="mb-3" controlId="certificateEditName">
             <Form.Control
               type="text"
               placeholder="자격증 제목"
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="certificateEditDescription">
@@ -52,8 +52,8 @@ const CertificateAddForm = ({ addCertificate }) => {
             />
           </Form.Group>
           <DatePicker
-            selected={certifiedDate}
-            onChange={(date) => setCertifiedDate(date)}
+            selected={date}
+            onChange={(changeDate) => setDate(changeDate)}
           />
           <Row className="mb-5">
             <Col className="text-center">
