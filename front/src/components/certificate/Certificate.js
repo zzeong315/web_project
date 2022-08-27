@@ -1,27 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { Card, Col } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import CertificateEditForm from "./CertificateEditForm";
 import CertificateList from "./CertificateList";
 import CertificateAddForm from "./CertificateAddForm";
+import * as Api from "../../api";
 
-const Certificate = ({ isEditable }) => {
-  //가짜데이터
-  const [certificates, setCertificates] = useState([
-    {
-      name: "1번 자격증",
-      description: "설명",
-      date: new Date(), // "2022/03/02"
-      isEditing: false,
-    },
-  ]);
+const Certificate = ({ isEditable, portfolioOwnerId }) => {
+  const [certificates, setCertificates] = useState([]);
+
+  useEffect(() => {
+    Api.get(`certificate/${portfolioOwnerId}`).then((res) =>
+      setCertificates(res.data)
+    );
+  }, [portfolioOwnerId]);
+
+  const dateFormat = (date) => {
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    month = month >= 10 ? month : "0" + month;
+    day = day >= 10 ? day : "0" + day;
+
+    return date.getFullYear() + "-" + month + "-" + day;
+  };
 
   // add certificate
-  const addCertificate = (name, description, date) => {
-    const newCertificate = [
-      ...certificates,
-      { name, description, date, isEditing: false },
-    ];
-    setCertificates(newCertificate);
+  const addCertificate = async (newCertificate) => {
+    const { date } = newCertificate;
+
+    try {
+      const res = await Api.post("certificate/add", {
+        ...newCertificate,
+        date: dateFormat(date),
+      });
+      const updateCertificate = res.data.certificates;
+      setCertificates(updateCertificate);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // certificate editmode
@@ -33,24 +49,31 @@ const Certificate = ({ isEditable }) => {
   };
 
   //delete
-
-  const deleteCertificate = (index) => {
-    const newCertificate = [...certificates];
-
-    newCertificate.splice(index, 1);
-
-    setCertificates(newCertificate);
+  const deleteCertificate = async (certificateId) => {
+    try {
+      const res = await Api.delete("certificate/delete", certificateId);
+      const updateCertificate = res.data.certificates;
+      setCertificates(updateCertificate);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // edit
 
-  const confirmEdit = (index, changeData) => {
-    const newCertificate = [...certificates];
-    newCertificate[index] = {
-      ...changeData,
-      isEditing: false,
-    };
-    setCertificates(newCertificate);
+  const confirmEdit = async (changeData) => {
+    const { date } = changeData;
+
+    try {
+      const res = await Api.patch("certificate", {
+        ...changeData,
+        date: dateFormat(date),
+      });
+      const updateCertificate = res.data.certificates;
+      setCertificates(updateCertificate);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const cancelEdit = (index) => {
@@ -68,6 +91,7 @@ const Certificate = ({ isEditable }) => {
           certificates.map((certificate, index) => {
             return certificate.isEditing ? (
               <CertificateEditForm
+                key={certificate._id}
                 index={index}
                 certificate={certificate}
                 confirmEdit={confirmEdit}
@@ -75,6 +99,7 @@ const Certificate = ({ isEditable }) => {
               />
             ) : (
               <CertificateList
+                key={certificate._id}
                 index={index}
                 certificate={certificate}
                 changeEditMode={changeEditMode}

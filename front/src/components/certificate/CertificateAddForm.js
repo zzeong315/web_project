@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 
 const CertificateAddForm = ({ addCertificate }) => {
   const [isAdding, setIsAdding] = useState(false);
-  const [certifiedDate, setCertifiedDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
@@ -12,13 +12,13 @@ const CertificateAddForm = ({ addCertificate }) => {
     setIsAdding(false);
     setName("");
     setDescription("");
-    setCertifiedDate(new Date());
+    setDate(new Date());
   };
 
   const handleAddSubmit = (e) => {
     e.preventDefault();
     if (name && description) {
-      addCertificate(name, description, certifiedDate);
+      addCertificate({ name, description, date });
       clearForm();
     }
   };
@@ -52,8 +52,8 @@ const CertificateAddForm = ({ addCertificate }) => {
             />
           </Form.Group>
           <DatePicker
-            selected={certifiedDate}
-            onChange={(date) => setCertifiedDate(date)}
+            selected={date}
+            onChange={(changeDate) => setDate(changeDate)}
           />
           <Row className="mb-5">
             <Col className="text-center">

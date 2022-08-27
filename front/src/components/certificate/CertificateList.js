@@ -9,22 +9,12 @@ const CertificateList = ({
 }) => {
   const { name, description, date } = certificate;
 
-  const dateFormat = (date) => {
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-
-    month = month >= 10 ? month : "0" + month;
-    day = day >= 10 ? day : "0" + day;
-
-    return date.getFullYear() + "-" + month + "-" + day;
-  };
-
   return (
     <Row className="d-flex align-items-center mb-4">
       <Col md="10">
         <span className="d-block">{name}</span>
         <span className="d-block text-muted">{description}</span>
-        <span className="text-muted">{dateFormat(date)}</span>
+        <span className="text-muted">{date}</span>
       </Col>
       {isEditable && (
         <Col className="d-flex justify-content-center" md="2">
@@ -45,7 +35,7 @@ const CertificateList = ({
             size="sm"
             type="click"
             onClick={(e) => {
-              deleteCertificate(index);
+              deleteCertificate(certificate._id);
             }}
           >
             삭제

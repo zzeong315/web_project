@@ -12,10 +12,17 @@ const CertificateEditForm = ({
   const [description, setDescription] = useState("");
   const [certifiedDate, setCertifiedDate] = useState(new Date());
 
+  useEffect(() => {
+    setName(certificate.name);
+    setDescription(certificate.description);
+    setCertifiedDate(new Date(certificate.date));
+  }, []);
+
   const onHandleClick = (e) => {
     e.preventDefault();
     if (name && description) {
-      confirmEdit(index, {
+      confirmEdit({
+        certificateId: certificate._id,
         name,
         description,
         date: certifiedDate,
@@ -23,15 +30,9 @@ const CertificateEditForm = ({
     }
   };
 
-  useEffect(() => {
-    setName(certificate.name);
-    setDescription(certificate.description);
-    setCertifiedDate(certificate.date);
-  }, []);
-
   return (
     <Form>
-      <Form.Group className="mb-3" controlId="certificateEditName">
+      <Form.Group className="mb-3" controlId="certificateEditTitle">
         <Form.Control
           type="text"
           placeholder="자격증 제목"
