@@ -61,18 +61,22 @@ educationRouter.patch("/education", login_required, async (req, res, next) => {
   }
 });
 
-educationRouter.delete("/education", login_required, async (req, res, next) => {
-  try {
-    const userId = req.userId;
-    const { educationId } = req.body;
-    const deletedEducation = await educationService.deleteEducation(
-      userId,
-      educationId
-    );
-    res.status(200).send(deletedEducation);
-  } catch (error) {
-    next(error);
+educationRouter.delete(
+  "/education/:educationId",
+  login_required,
+  async (req, res, next) => {
+    try {
+      const userId = req.userId;
+      const { educationId } = req.params;
+      const deletedEducation = await educationService.deleteEducation(
+        userId,
+        educationId
+      );
+      res.status(200).send(deletedEducation);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 export { educationRouter };
