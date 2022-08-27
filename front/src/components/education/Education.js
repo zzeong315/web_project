@@ -4,10 +4,8 @@ import EducationList from "./EducationList";
 import * as Api from "../../api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Card } from "react-bootstrap";
-import Portfolio from "../Portfolio";
 
 export default function Education({ portfolioOwnerId, isEditable }) {
-
   const [educations, setEducations] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
@@ -16,6 +14,7 @@ export default function Education({ portfolioOwnerId, isEditable }) {
     Api.get("educations", portfolioOwnerId).then((res) => setEducations(res.data));
   }, [portfolioOwnerId]);
 
+  // + 버튼 클릭
   const handleAddEductionClick = () => {
     if (isAdding) {
       setIsAdding(false);
@@ -23,80 +22,65 @@ export default function Education({ portfolioOwnerId, isEditable }) {
       setIsAdding(true);
     }
   };
-
+  // api => post 생성
   const confirmAddEduction = async (targetEducation) => {
-    // const educationObj = {
-    //   ...targetEducation,
-    //   id: Math.floor(Math.random() * 10000),
-    // };
-    // setEducations([...educations, educationObj]);
     
     try {
-        const userId = portfolioOwnerId;
+      const userId = portfolioOwnerId;
 
-        await Api.post("education", {
-          name: targetEducation.name,
-          major: targetEducation.major,
-          status: targetEducation.status,
-        });
-    
-        const res = await Api.get("educations", userId);
-        setEducations(res.data);
-    
-        setIsAdding(false);
+      await Api.post("education", {
+        name: targetEducation.name,
+        major: targetEducation.major,
+        status: targetEducation.status,
+      });
+  
+      const res = await Api.get("educations", userId);
+      setEducations(res.data);
+  
+      setIsAdding(false);
         
     } catch (error) {
-        console.log('error')
+      console.log('error')
     }
   };
 
+  // 취소
   const cancelAddEducation = () => {
     setIsAdding(false);
   };
 
   // 수정
   const updateEducation = async (editedEducationObj) => {
-
-        
-        const userId = portfolioOwnerId;
-
-        await Api.patch(`education`, {
-          educationId: editedEducationObj._id,
-          name: editedEducationObj.name,
-          major: editedEducationObj.major,
-          status: editedEducationObj.status,
-        });
-        // console.log(editedEducationObj)
     
-        const res = await Api.get("educations", userId);
-        setEducations(res.data);
+    try {
+      const userId = portfolioOwnerId;
 
-    // const updatedEducations = [...educations];
-    // updatedEducations[educations.findIndex((education) => education.id === editedEducationObj.id)] = {
-    //   ...editedEducationObj,
-    // };
-    // setEducations([...updatedEducations]);
+      await Api.patch(`education`, {
+        educationId: editedEducationObj._id,
+        name: editedEducationObj.name,
+        major: editedEducationObj.major,
+        status: editedEducationObj.status,
+      });
+  
+      const res = await Api.get("educations", userId);
+      setEducations(res.data);
+
+    } catch (error) {
+      console.log('error')
+    }
+
   };
 
   // 삭제
-  const deleteEducation = async (deltedEducationObj) => {
-    // const newEducations = [...educations];
-    // setEducations(newEducations.filter((education) => education.id !== selectedEduId));
+  const deleteEducation = async (educationId) => {
+    try {
+      const res = await Api.delete("education", educationId);
+      const updateEducation = res.data.educations
+      setEducations(updateEducation)
 
-    const userId = portfolioOwnerId;
-
-    await Api.delete(`education`, {
-      educationId: deltedEducationObj._id,
-      name: deltedEducationObj.name,
-      major: deltedEducationObj.major,
-      status: deltedEducationObj.status,
-    });
-    console.log(deltedEducationObj)
-
-    const res = await Api.get("educations", userId);
-    setEducations(res.data);
-    
-
+    } catch (error) {
+      console.log('error')
+    }
   };
 
   return (

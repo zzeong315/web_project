@@ -2,10 +2,8 @@ import {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Card, Row, Col} from 'react-bootstrap';
 import EducationForm from "./EducationForm";
-import * as Api from "../../api";
-import Portfolio from "../Portfolio";
 
-export default function EducationList({education, setEducations, updateEducation, deleteEducation ,PortfolioOwnerId, isEditable}) {
+export default function EducationList({education, updateEducation, deleteEducation , isEditable}) {
     const [isEditing, setIsEditing] = useState(false);
     const handleEditClick = () => {
         if (isEditing) {
@@ -15,16 +13,16 @@ export default function EducationList({education, setEducations, updateEducation
         }
     };
 
-    const handleDeleteClick = (targetEducation) => {
-        deleteEducation(targetEducation)
+    // 삭제
+    const handleDeleteClick = async () => {
+        deleteEducation(education._id)
     }
-
+    // 편집
     const confirmEditEducation = async (targetEducation) => {
         updateEducation(targetEducation);
-
         setIsEditing(false);
     };
-
+    // 취소
     const cancelEditEducation = () => {
         setIsEditing(false);
     };
