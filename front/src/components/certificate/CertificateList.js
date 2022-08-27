@@ -7,7 +7,7 @@ const CertificateList = ({
   deleteCertificate,
   isEditable,
 }) => {
-  const { title, description, date } = certificate;
+  const { name, description, date } = certificate;
 
   const dateFormat = (date) => {
     let month = date.getMonth() + 1;
@@ -22,7 +22,7 @@ const CertificateList = ({
   return (
     <Row className="d-flex align-items-center mb-4">
       <Col md="10">
-        <span className="d-block">{title}</span>
+        <span className="d-block">{name}</span>
         <span className="d-block text-muted">{description}</span>
         <span className="text-muted">{dateFormat(date)}</span>
       </Col>

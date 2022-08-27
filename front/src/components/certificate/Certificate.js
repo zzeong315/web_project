@@ -8,7 +8,7 @@ const Certificate = ({ isEditable }) => {
   //가짜데이터
   const [certificates, setCertificates] = useState([
     {
-      title: "1번 자격증",
+      name: "1번 자격증",
       description: "설명",
       date: new Date(), // "2022/03/02"
       isEditing: false,
@@ -16,10 +16,10 @@ const Certificate = ({ isEditable }) => {
   ]);
 
   // add certificate
-  const addCertificate = (title, description, date) => {
+  const addCertificate = (name, description, date) => {
     const newCertificate = [
       ...certificates,
-      { title, description, date, isEditing: false },
+      { name, description, date, isEditing: false },
     ];
     setCertificates(newCertificate);
   };

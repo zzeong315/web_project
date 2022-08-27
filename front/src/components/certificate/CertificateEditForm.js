@@ -8,15 +8,15 @@ const CertificateEditForm = ({
   confirmEdit,
   cancelEdit,
 }) => {
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [certifiedDate, setCertifiedDate] = useState(new Date());
 
   const onHandleClick = (e) => {
     e.preventDefault();
-    if (title && description) {
+    if (name && description) {
       confirmEdit(index, {
-        title,
+        name,
         description,
         date: certifiedDate,
       });
@@ -24,19 +24,19 @@ const CertificateEditForm = ({
   };
 
   useEffect(() => {
-    setTitle(certificate.title);
+    setName(certificate.name);
     setDescription(certificate.description);
     setCertifiedDate(certificate.date);
   }, []);
 
   return (
     <Form>
-      <Form.Group className="mb-3" controlId="certificateEditTitle">
+      <Form.Group className="mb-3" controlId="certificateEditName">
         <Form.Control
           type="text"
           placeholder="자격증 제목"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="certificateEditDescription">
