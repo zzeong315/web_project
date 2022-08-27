@@ -19,35 +19,13 @@ const ProjectEditForm = ({projects, setProjects, project, index, dateFormat, han
     e.preventDefault();
 
     if(!editStr.name || !editStr.description) return;
-    
-    const newList = {projectId: portfolioOwnerId, ...editStr, start: dateFormat(editStartDate), end: dateFormat(editEndDate)};
+    const newList = {projectId: project._id, ...editStr, start: dateFormat(editStartDate), end: dateFormat(editEndDate)};
 
     const res = await Api.patch('project', newList);
     const updateProject = res.data.projects;
     console.log('updateProject', updateProject)
 
     setProjects(updateProject);
-
-    // await Api.patch('project', newList);
-    // Api.get("project", portfolioOwnerId).then((res) => setProjects(res.data));
-
-    // setProjects(res.data);
-    // console.log(projects)
-    
-    // const updateProject = res.data.projects;
-    // console.log(`patch res`, res);
-    // console.log(`patch res.data`, res.data);
-    // console.log(`patch updateProject`, updateProject);
-
-
-    // setProjects(updateProject);
-
-    // const newprojects = [...projects];
-    // newprojects.splice(index, 1, newprojects);
-
-
-    // setProjects(updateProject);
-    // setProjects(res);
     handleEditClick();
   }
 
