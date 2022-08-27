@@ -7,7 +7,6 @@ const projectRouter = Router();
 
 projectRouter.get("/project", login_required, async function (req, res, next) {
   try {
-    console.log(req.userId);
     const id = req.userId;
     const projects = await projectService.getProjectsById(id);
 
@@ -65,7 +64,6 @@ projectRouter.patch(
   "/project",
   login_required,
   async function (req, res, next) {
-    console.log("patch");
     try {
       const userId = req.userId;
 

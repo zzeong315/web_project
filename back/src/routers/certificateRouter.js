@@ -10,7 +10,6 @@ certificateRouter.get(
   login_required,
   async function (req, res, next) {
     try {
-      console.log(req.userId);
       const id = req.userId;
       const certificates = await certificateService.getCertificatesById(id);
 

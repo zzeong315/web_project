@@ -9,11 +9,6 @@ class Project {
     return projects;
   }
 
-  static async findAll() {
-    const projects = await ProjectModel.find({});
-    return projects;
-  }
-
   // 프로젝트 생성
   static async create(id, newProject) {
     const user = await UserModel.findOne({ id });
