@@ -20,12 +20,21 @@ class Award {
     awards.forEach((award) => {
       if (award._id.valueOf() === awardId) {
         award.name = newAward.name;
-        award.major = newAward.major;
-        award.status = newAward.status;
+        award.description = newAward.description;
       }
     });
     const updatedAward = await user.save();
     return updatedAward;
+  }
+
+  static async delete(userId, awardId) {
+    let user = await UserModel.findOne({ id: userId });
+    let awards = user.awards;
+    user.awards = awards.filter((award) => {
+      return award._id.valueOf() !== awardId;
+    });
+    const deletedAward = await user.save();
+    return deletedAward;
   }
 }
 

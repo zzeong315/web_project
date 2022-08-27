@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
-const CertificateAddForm = ({ onAddnCertificate }) => {
+const CertificateAddForm = ({ addCertificate }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [certifiedDate, setCertifiedDate] = useState(new Date());
   const [title, setTitle] = useState("");
@@ -18,7 +18,7 @@ const CertificateAddForm = ({ onAddnCertificate }) => {
   const handleAddSubmit = (e) => {
     e.preventDefault();
     if (title && description) {
-      onAddnCertificate(title, description, certifiedDate);
+      addCertificate(title, description, certifiedDate);
       clearForm();
     }
   };

@@ -101,15 +101,28 @@ projectRouter.patch(
   }
 );
 
-// projectRouter.delete(
-//   "/project/delete",
-//   login_required,
-//   async function (req, res, next) {
-//     try {
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
+projectRouter.delete(
+  "/project/delete",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const userId = req.userId;
+      const { projectId } = req.body;
+
+      const deletedProject = await projectService.deleteProject(
+        userId,
+        projectId
+      );
+
+      if (deletedProject.errorMessage) {
+        throw new Error(deletedProject.errorMessage);
+      }
+
+      res.status(200).json(deletedProject);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 export { projectRouter };

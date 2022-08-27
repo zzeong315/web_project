@@ -52,4 +52,15 @@ awardRouter.patch("/award", login_required, async (req, res, next) => {
   }
 });
 
+awardRouter.delete("/award", login_required, async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    const { awardId } = req.body;
+    const deletedAward = await awardService.deleteAward(userId, awardId);
+    res.status(200).send(deletedAward);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export { awardRouter };

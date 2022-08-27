@@ -2,8 +2,10 @@ import {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Card, Row, Col} from 'react-bootstrap';
 import EducationForm from "./EducationForm";
+import * as Api from "../../api";
+import Portfolio from "../Portfolio";
 
-export default function EducationList({edu, updateEdu, deleteEdu , isEditable}) {
+export default function EducationList({education, setEducations, updateEducation, deleteEducation ,PortfolioOwnerId, isEditable}) {
     const [isEditing, setIsEditing] = useState(false);
     const handleEditClick = () => {
         if (isEditing) {
@@ -13,12 +15,13 @@ export default function EducationList({edu, updateEdu, deleteEdu , isEditable}) 
         }
     };
 
-    const handleDeleteClick = (e) => {
-        deleteEdu(edu.id)
+    const handleDeleteClick = (targetEducation) => {
+        deleteEducation(targetEducation)
     }
 
-    const confirmEditEducation = (educationObj) => {
-        updateEdu(educationObj);
+    const confirmEditEducation = async (targetEducation) => {
+        updateEducation(targetEducation);
+
         setIsEditing(false);
     };
 
@@ -30,17 +33,17 @@ export default function EducationList({edu, updateEdu, deleteEdu , isEditable}) 
         <Card.Text>
             {isEditing ?
                 (<EducationForm
-                    edu={{
-                        ...edu,
+                    education={{
+                        ...education,
                     }}
-                    onConfirm={confirmEditEducation}
-                    onCancel={cancelEditEducation}
+                    confirmEducation={confirmEditEducation}
+                    cancelEducation={cancelEditEducation}
                 />) : (
                 <Row className="align-items-center">
                 <Col className="col">
-                    <span>{edu.name}</span>
+                    <span>{education.name}</span>
                     <br/>
-                    <span className="text-muted">{`${edu.major} (${edu.status || ""})`}</span>
+                    <span className="text-muted">{`${education.major} (${education.status || ""})`}</span>
                 </Col>
                 {isEditable &&
                     <Col className="d-flex justify-content-center" md="2">

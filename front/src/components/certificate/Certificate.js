@@ -70,23 +70,21 @@ const Certificate = ({ isEditable }) => {
               <CertificateEditForm
                 index={index}
                 certificate={certificate}
-                onEditSubmit={confirmEdit}
-                onEditCancel={cancelEdit}
+                confirmEdit={confirmEdit}
+                cancelEdit={cancelEdit}
               />
             ) : (
               <CertificateList
                 index={index}
                 certificate={certificate}
-                onEditMode={changeEditMode}
-                onDelete={deleteCertificate}
+                changeEditMode={changeEditMode}
+                deleteCertificate={deleteCertificate}
                 isEditable={isEditable}
               />
             );
           })}
 
-        {isEditable && (
-          <CertificateAddForm onAddnCertificate={addCertificate} />
-        )}
+        {isEditable && <CertificateAddForm addCertificate={addCertificate} />}
       </Card.Body>
     </Card>
   );

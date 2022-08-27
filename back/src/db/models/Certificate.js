@@ -39,6 +39,17 @@ class Certificate {
     const updatedCertificate = await user.save();
     return updatedCertificate;
   }
+
+  static async delete(userId, certificateId) {
+    let user = await UserModel.findOne({ id: userId });
+    let certificates = user.certificates;
+    user.certificates = certificates.filter(function (elem) {
+      return elem._id.valueOf() !== certificateId;
+    });
+
+    const deletedCertificate = await user.save();
+    return deletedCertificate;
+  }
 }
 
 export { Certificate };

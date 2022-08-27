@@ -1,41 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 
-const AwardEditForm = ({ index, awardList, setAwardList }) => {
-  const award = awardList[index];
-
-  const [title, setTitle] = useState("");
+const AwardEditForm = ({ index, award, confirmEdit, cancelEdit }) => {
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    setTitle(award.title);
+    setName(award.name);
     setDescription(award.description);
   }, []);
 
-  const onEditSumit = (e) => {
-    if (title && description) {
-      const newAward = [...awardList];
-      newAward[index] = {
-        title,
-        description,
-        isEditing: false,
-      };
-      setAwardList(newAward);
+  const handleEditSumit = (e) => {
+    if (name && description) {
+      confirmEdit(index, { awardId: award._id, name, description });
     }
   };
-  const onEditCancel = (e) => {
-    const newAward = [...awardList];
-    newAward[index].isEditing = false;
-    setAwardList(newAward);
-  };
+
   return (
     <Form>
       <Form.Group className="mb-3" controlId="awardAddTitle">
         <Form.Control
           type="text"
           placeholder="수상내역"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </Form.Group>
 
@@ -49,10 +37,15 @@ const AwardEditForm = ({ index, awardList, setAwardList }) => {
       </Form.Group>
       <Row className="mb-5">
         <Col className="text-center">
-          <Button className="me-3" variant="primary" onClick={onEditSumit}>
+          <Button className="me-3" variant="primary" onClick={handleEditSumit}>
             확인
           </Button>{" "}
-          <Button variant="secondary" onClick={onEditCancel}>
+          <Button
+            variant="secondary"
+            onClick={(e) => {
+              cancelEdit(index);
+            }}
+          >
             취소
           </Button>{" "}
         </Col>

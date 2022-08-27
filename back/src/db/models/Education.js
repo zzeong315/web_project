@@ -27,6 +27,16 @@ class Education {
     const updatedEducation = await user.save();
     return updatedEducation;
   }
+
+  static async delete(userId, educationId) {
+    let user = await UserModel.findOne({ id: userId });
+    let educations = user.educations;
+    user.educations = educations.filter((education) => {
+      return education._id.valueOf() !== educationId;
+    });
+    const deletedEducation = await user.save();
+    return deletedEducation;
+  }
 }
 
 export { Education };
