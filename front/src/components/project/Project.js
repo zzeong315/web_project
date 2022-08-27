@@ -8,19 +8,14 @@ import ProjectEditForm from './ProjectEditForm';
 import ProjectList from './ProjectList';
 
 const Project = ({portfolioOwnerId, isEditable}) => {
-  // console.log(portfolioOwnerId) // 5e91b4b6-039c-434d-b05b-6af6fb58b6b4
-  // console.log("Project", isEditable);
-  
   const [projects, setProjects] = useState([]);
-  
-  // 모달
   const [isAdding, setIsAdding] = useState(0);
   const [isEditing, setIsEditing] = useState([]);
 
-  //데이터 테스트
   useEffect(() => {
     Api.get(`project/${portfolioOwnerId}`).then((res) => setProjects(res.data));
-  }, [portfolioOwnerId]); 
+  }, [portfolioOwnerId]);
+  console.log(projects);
 
   const dateFormat = (day) => {
     const [year, month, date] = [day.getFullYear(), day.getMonth()+1, day.getDate()];
@@ -41,17 +36,8 @@ const Project = ({portfolioOwnerId, isEditable}) => {
               }
 
               const handleDeleteClick = async () => {
-                console.log(project._id);
-                const newList = {projectId: project._id};
-
-                const res = await Api.delete('project/delete', newList);
-                const updateProject = res.data.projects;
-                console.log('updateProject', updateProject)
-
-                setProjects(updateProject);
-                // const newprojects = [...projects];
-                // newprojects.splice(index, 1);
-                // setProjects(newprojects);
+                const res = await Api.delete('project/delete', project._id);
+                setProjects([...res.data.projects]);
               }
 
               return (
@@ -60,12 +46,10 @@ const Project = ({portfolioOwnerId, isEditable}) => {
                     isEditing[index] ? 
                     <ProjectEditForm 
                       project={project} 
-                      index={index} 
                       dateFormat={dateFormat} 
                       handleEditClick={handleEditClick} 
-                      projects={projects} 
                       setProjects={setProjects} 
-                      portfolioOwnerId={portfolioOwnerId}/> : 
+                      /> : 
                     <ProjectList 
                       project={project} 
                       index={index} 
@@ -92,9 +76,8 @@ const Project = ({portfolioOwnerId, isEditable}) => {
             isAdding={isAdding} 
             setIsAdding={setIsAdding} 
             dateFormat={dateFormat} 
-            projects={projects} 
             setProjects={setProjects}
-            portfolioOwnerId={portfolioOwnerId}/> : 
+          /> : 
           null 
         }
       </Card.Body>

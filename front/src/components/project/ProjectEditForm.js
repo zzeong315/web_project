@@ -3,7 +3,7 @@ import {Form} from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 import * as Api from "../../api";
 
-const ProjectEditForm = ({projects, setProjects, project, index, dateFormat, handleEditClick, portfolioOwnerId}) => {
+const ProjectEditForm = ({setProjects, project, dateFormat, handleEditClick}) => {
   const [editStr, setEditStr] = useState({name: project.name, description: project.description});
   const [editStartDate, seteditStartDate] = useState(new Date(project.start));
   const [editEndDate, setEditEndDate] = useState(new Date(project.end));
@@ -22,16 +22,13 @@ const ProjectEditForm = ({projects, setProjects, project, index, dateFormat, han
     const newList = {projectId: project._id, ...editStr, start: dateFormat(editStartDate), end: dateFormat(editEndDate)};
 
     const res = await Api.patch('project', newList);
-    const updateProject = res.data.projects;
-    console.log('updateProject', updateProject)
-
-    setProjects(updateProject);
+    setProjects([...res.data.projects]);
     handleEditClick();
   }
 
   return (
     <>
-      <Form onSubmit={handleEditSubmit} key={index}>
+      <Form onSubmit={handleEditSubmit} key={project._id}>
         <div className="mt-3">
           <Form.Control 
             type="text" 
