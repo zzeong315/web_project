@@ -17,6 +17,7 @@ export default function EducationForm({ education, confirmEducation, cancelEduca
       [name]: value,
     });
   };
+  
   // 학교이름 1글자 이상인가 확인
   const isNameValid = targetEducation.name.length >= 1;
   // 전공이름 1글자 이상인가 확인
