@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import {Form} from 'react-bootstrap';
 import DatePicker from "react-datepicker";
+import * as Api from "../../api";
 
-const ProjectAddForm = ({addModal, setAddModal, projects, setProjects, changeDateStr}) => {
+const ProjectAddForm = ({isAdding, setIsAdding, projects, setProjects, dateFormat, portfolioOwnerId}) => {
     // add
-    const [addStr, setAddStr] = useState({title: '', detail: ''});
+    const [addStr, setAddStr] = useState({name: '', description: ''});
     const [addStartDate, setAddStartDate] = useState(new Date());
     const [addEndDate, setAddEndDate] = useState(new Date());
   
-    const reset = () => {
-      setAddStr({title: '', detail: ''});
+    const clearForm = () => {
+      setAddStr({name: '', description: ''});
       setAddStartDate(new Date());
       setAddEndDate(new Date());
-      setAddModal(!addModal);
+      setIsAdding(!isAdding);
     }
   
     const handleAddStrChange = (e) => {
@@ -22,12 +23,19 @@ const ProjectAddForm = ({addModal, setAddModal, projects, setProjects, changeDat
       setAddStr(newAddStr);
     }
   
-    const handleAddSubmit = (e) => {
+    const handleAddSubmit = async (e) => {
       e.preventDefault();
-      if(!addStr.title || !addStr.detail) return;
-      const newList = { ...addStr ,start: changeDateStr(addStartDate), end: changeDateStr(addEndDate)};
-      setProjects([...projects, newList]);
-      reset();
+      if(!addStr.name || !addStr.description) return;
+      const newList = { ...addStr, start: dateFormat(addStartDate), end: dateFormat(addEndDate)};
+      
+      const res = await Api.post('project/add', newList);
+      const updateProject = res.data.projects;
+      setProjects(updateProject);
+
+      // await Api.post('project/add', newList);
+      // await Api.get('project', portfolioOwnerId).then((res)=>{setProjects(res.data)});
+      
+      clearForm();
     }
 
   return (
@@ -36,18 +44,18 @@ const ProjectAddForm = ({addModal, setAddModal, projects, setProjects, changeDat
             <div class="mt-3">
               <Form.Control 
                 type="text" 
-                name='title' 
+                name='name' 
                 placeholder="프로젝트 제목" 
-                value={addStr.title}
+                value={addStr.name}
                 onChange={handleAddStrChange}
               />
             </div>
             <div class="mt-3">
               <Form.Control 
                 type="text" 
-                name='detail'
+                name='description'
                 placeholder="상세내역"
-                value={addStr.detail}
+                value={addStr.description}
                 onChange={handleAddStrChange}
               />
             </div>
@@ -64,7 +72,7 @@ const ProjectAddForm = ({addModal, setAddModal, projects, setProjects, changeDat
 
             <div class="col-sm-20 mt-3 text-center">
               <button type="submit" class="me-3 btn btn-primary">확인</button>
-              <button type="button" class="btn btn-secondary" onClick={()=>setAddModal(0)}>취소</button>
+              <button type="button" class="btn btn-secondary" onClick={()=>setIsAdding(0)}>취소</button>
             </div>
         </Form>
     </>
