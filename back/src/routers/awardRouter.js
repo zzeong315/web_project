@@ -14,10 +14,10 @@ awardRouter.get("/awards", login_required, async (req, res, next) => {
   }
 });
 
-awardRouter.get("/awards/:id", login_required, async (req, res, next) => {
+awardRouter.get("/awards/:userId", login_required, async (req, res, next) => {
   try {
-    const id = req.params.id;
-    const awards = await awardService.getAwards(id);
+    const userId = req.params.userId;
+    const awards = await awardService.getAwards(userId);
     res.status(200).send(awards);
   } catch (error) {
     next(error);
@@ -30,7 +30,7 @@ awardRouter.post("/award", login_required, async (req, res, next) => {
     const { name, description } = req.body;
     const newAward = { name, description };
     const addedAward = await awardService.addAward(id, newAward);
-    res.status(200).send(addedAward);
+    res.status(201).send(addedAward);
   } catch (error) {
     next(error);
   }
