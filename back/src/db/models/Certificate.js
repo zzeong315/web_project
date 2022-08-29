@@ -31,7 +31,7 @@ class Certificate {
       if (certificate._id.valueOf() === certificateId) {
         certificate.name = toUpdate.name;
         certificate.description = toUpdate.description;
-        certificate.date = toUpdate.start;
+        certificate.date = toUpdate.date;
         flag = true;
       }
     });

@@ -57,8 +57,8 @@ certificateRouter.patch(
   async (req, res, next) => {
     try {
       const userId = req.userId;
-      const { certificateId, name, description, start, end } = req.body;
-      const toUpdate = { name, description, start, end };
+      const { certificateId, name, description, date } = req.body;
+      const toUpdate = { name, description, date };
       const updatedCertificate = await certificateService.updateCertificate(
         userId,
         certificateId,
