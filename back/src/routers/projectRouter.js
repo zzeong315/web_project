@@ -1,101 +1,76 @@
-import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { projectService } from "../services/projectService";
 
 const projectRouter = Router();
 
-projectRouter.get("/projects", login_required, async function (req, res, next) {
-  const userId = req.userId;
-  projectService
-    .getProjectsById(userId)
-    .then((projects) => {
-      res.status(200).send(projects);
-    })
-    .catch((err) => {
-      next(err);
-    });
-});
-
-projectRouter.post("/project", login_required, async function (req, res, next) {
-  const userId = req.userId;
-
-  const { name, description, start, end } = req.body;
-  const newProject = { name, description, start, end };
-
-  projectService
-    .addProject(userId, newProject)
-    .then((createdProject) => {
-      res.status(201).json(createdProject);
-    })
-    .catch((err) => {
-      next(err);
-    });
+projectRouter.get("/projects", login_required, async (req, res, next) => {
+  try {
+    const id = req.userId;
+    const projects = await projectService.getProjects(id);
+    res.status(200).send(projects);
+  } catch (error) {
+    next(error);
+  }
 });
 
 projectRouter.get(
   "/projects/:userId",
   login_required,
-  async function (req, res, next) {
-    const userId = req.params.userId;
-
-    projectService
-      .getProjectsById(userId)
-      .then((projects) => {
-        res.status(200).send(projects);
-      })
-      .catch((err) => {
-        next(err);
-      });
+  async (req, res, next) => {
+    try {
+      const userId = req.params.userId;
+      const projects = await projectService.getProjects(userId);
+      res.status(200).send(projects);
+    } catch (error) {
+      next(error);
+    }
   }
 );
 
-projectRouter.patch(
-  "/project",
-  login_required,
-  async function (req, res, next) {
+projectRouter.post("/project", login_required, async (req, res, next) => {
+  try {
     const userId = req.userId;
-
-    const { projectId, name, description, start, end } = req.body;
-
-    const toUpdate = { name, description, start, end };
-
-    projectService
-      .setProject(userId, projectId, toUpdate)
-      .then((updatedProject) => {
-        res.status(200).json(updatedProject);
-      })
-      .catch((err) => {
-        next(err);
-      });
-    // try {
-    //   const updatedProject = await projectService.setProject(
-    //     userId,
-    //     projectId,
-    //     toUpdate
-    //   );
-    //   res.status(200).json(updatedProject);
-    // } catch (error) {
-    //   next(error);
-    // }
+    const { name, description, start, end } = req.body;
+    const newProject = { name, description, start, end };
+    const addedProject = await projectService.addProject(userId, newProject);
+    res.status(201).json(addedProject);
+  } catch (error) {
+    next(error);
   }
-);
+});
+
+projectRouter.patch("/project", login_required, async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    const { projectId, name, description, start, end } = req.body;
+    const toUpdate = { name, description, start, end };
+    const updatedProject = await projectService.updateProject(
+      userId,
+      projectId,
+      toUpdate
+    );
+    res.status(200).json(updatedProject);
+  } catch (error) {
+    next(error);
+  }
+});
 
 projectRouter.delete(
   "/project/:projectId",
   login_required,
   async function (req, res, next) {
-    const userId = req.userId;
-    const projectId = req.params.projectId;
-
-    projectService
-      .deleteProject(userId, projectId)
-      .then((deletedProject) => {
-        res.status(200).json(deletedProject);
-      })
-      .catch((err) => {
-        next(err);
-      });
+    try {
+      const userId = req.userId;
+      const projectId = req.params.projectId;
+      const deletedProject = await projectService.deleteProject(
+        userId,
+        projectId
+      );
+      res.status(200).json(deletedProject);
+    } catch (error) {
+      next(error);
+    }
   }
 );
 

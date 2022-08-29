@@ -1,27 +1,23 @@
 import { Project } from "../db";
 
 class projectService {
-  static async getProjectsById(userId) {
-    const projects = await Project.findById(userId);
-
+  static async getProjects(id) {
+    const projects = await Project.findAll(id);
     return projects;
   }
 
-  static async addProject(userId, newProject) {
-    const createdNewProject = await Project.create(userId, newProject);
-
-    return createdNewProject;
+  static async addProject(id, newProject) {
+    const addedProject = await Project.add(id, newProject);
+    return addedProject;
   }
 
-  static async setProject(userId, projectId, toUpdate) {
+  static async updateProject(userId, projectId, toUpdate) {
     const updatedProject = await Project.update(userId, projectId, toUpdate);
-
     return updatedProject;
   }
 
   static async deleteProject(userId, projectId) {
     const deletedProject = await Project.delete(userId, projectId);
-
     return deletedProject;
   }
 }

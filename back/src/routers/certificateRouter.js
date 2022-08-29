@@ -1,4 +1,3 @@
-import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { certificateService } from "../services/certificateService";
@@ -8,11 +7,24 @@ const certificateRouter = Router();
 certificateRouter.get(
   "/certificates",
   login_required,
-  async function (req, res, next) {
+  async (req, res, next) => {
     try {
-      const userId = req.userId;
-      const certificates = await certificateService.getCertificatesById(userId);
+      const id = req.userId;
+      const certificates = await certificateService.getCertificates(id);
+      res.status(200).send(certificates);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
+certificateRouter.get(
+  "/certificates/:userId",
+  login_required,
+  async (req, res, next) => {
+    try {
+      const userId = req.params.userId;
+      const certificates = await certificateService.getCertificates(userId);
       res.status(200).send(certificates);
     } catch (error) {
       next(error);
@@ -23,43 +35,16 @@ certificateRouter.get(
 certificateRouter.post(
   "/certificate",
   login_required,
-  async function (req, res, next) {
+  async (req, res, next) => {
     try {
-      if (is.emptyObject(req.body)) {
-        throw new Error(
-          "headers의 Content-Type을 application/json으로 설정해주세요"
-        );
-      }
       const userId = req.userId;
-
       const { name, description, date } = req.body;
       const newCertificate = { name, description, date };
-
-      const createdCertificate = await certificateService.addCertificate(
+      const addedCertificate = await certificateService.addCertificate(
         userId,
         newCertificate
       );
-
-      if (createdCertificate.errorMessage) {
-        throw new Error(createdCertificate.errorMessage);
-      }
-
-      res.status(201).json(createdCertificate);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-certificateRouter.get(
-  "/certificates/:userId",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const userId = req.params.userId;
-
-      const certificates = await certificateService.getCertificatesById(userId);
-      res.status(200).send(certificates);
+      res.status(201).json(addedCertificate);
     } catch (error) {
       next(error);
     }
@@ -69,24 +54,16 @@ certificateRouter.get(
 certificateRouter.patch(
   "/certificate",
   login_required,
-  async function (req, res, next) {
+  async (req, res, next) => {
     try {
       const userId = req.userId;
-
-      const { certificateId, name, description, date } = req.body;
-
-      const toUpdate = { name, description, date };
-
-      const updatedCertificate = await certificateService.setCertificate(
+      const { certificateId, name, description, start, end } = req.body;
+      const toUpdate = { name, description, start, end };
+      const updatedCertificate = await certificateService.updateCertificate(
         userId,
         certificateId,
         toUpdate
       );
-
-      if (updatedCertificate.errorMessage) {
-        throw new Error(updatedCertificate.errorMessage);
-      }
-
       res.status(200).json(updatedCertificate);
     } catch (error) {
       next(error);
@@ -101,16 +78,10 @@ certificateRouter.delete(
     try {
       const userId = req.userId;
       const certificateId = req.params.certificateId;
-
       const deletedCertificate = await certificateService.deleteCertificate(
         userId,
         certificateId
       );
-
-      if (deletedCertificate.errorMessage) {
-        throw new Error(deletedCertificate.errorMessage);
-      }
-
       res.status(200).json(deletedCertificate);
     } catch (error) {
       next(error);
