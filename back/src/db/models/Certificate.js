@@ -36,7 +36,7 @@ class Certificate {
       }
     });
     if (!flag) {
-      throw new Error("project is not found");
+      throw new Error("certificate is not found");
     }
 
     const updatedCertificate = await user.save();
@@ -49,6 +49,15 @@ class Certificate {
       throw new Error("user is not found");
     }
     let certificates = user.certificates;
+    let flag = false;
+    certificates.forEach((certificate) => {
+      if (certificate._id.valueOf() === certificateId) {
+        flag = true;
+      }
+    });
+    if (!flag) {
+      throw new Error("certificate is not found");
+    }
     user.certificates = certificates.filter(function (elem) {
       return elem._id.valueOf() !== certificateId;
     });

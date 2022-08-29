@@ -55,6 +55,18 @@ class Project {
     }
 
     let projects = user.projects;
+
+    let flag = false;
+    projects.forEach((project) => {
+      if (project._id.valueOf() === projectId) {
+        flag = true;
+      }
+    });
+
+    if (!flag) {
+      throw new Error("project is not found");
+    }
+
     user.projects = projects.filter(function (elem) {
       return elem._id.valueOf() !== projectId;
     });
