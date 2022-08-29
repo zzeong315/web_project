@@ -43,6 +43,7 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
     } catch (error) {
       console.log("error");
     }
+    setIsAdding(false);
   };
 
   // 취소
@@ -88,7 +89,7 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
           educations.map((education, index) => {
             return (
               <EducationList
-                key={education._id}
+                key={index}
                 education={education}
                 updateEducation={updateEducation}
                 deleteEducation={deleteEducation}

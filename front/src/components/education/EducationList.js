@@ -33,7 +33,7 @@ const EducationList = ({
   };
 
   return (
-    <Card.Text>
+    <Row>
       {isEditing ? (
         <EducationForm
           education={{
@@ -58,6 +58,7 @@ const EducationList = ({
                 size="sm"
                 onClick={handleEditClick}
                 className="me-3"
+                type="button"
               >
                 편집
               </Button>
@@ -66,6 +67,7 @@ const EducationList = ({
                 size="sm"
                 onClick={handleDeleteClick}
                 className="me-3"
+                type="button"
               >
                 삭제
               </Button>
@@ -73,7 +75,7 @@ const EducationList = ({
           )}
         </Row>
       )}
-    </Card.Text>
+    </Row>
   );
 }
 
