@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProjectList = ({project, index, handleEditClick, handleDeleteClick, isEditable}) => {
+const ProjectList = ({project, handleEditClick, handleDeleteClick, isEditable}) => {
   return (
     <li className="justify-content-between align-items-center mb-2 row" key={project._id}>
       <div className="col">
