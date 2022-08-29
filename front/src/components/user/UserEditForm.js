@@ -28,6 +28,17 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     setIsEditing(false);
   };
 
+  // 사용자 탈퇴
+  const handleDeleteClick = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await Api.delete("user", user.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Card className="mb-2">
       <Card.Body>
@@ -70,6 +81,9 @@ function UserEditForm({ user, setIsEditing, setUser }) {
             </Col>
           </Form.Group>
         </Form>
+        <Button variant="link" onClick={handleDeleteClick}>
+          회원탈퇴
+        </Button>
       </Card.Body>
     </Card>
   );
