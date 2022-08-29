@@ -3,12 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Card, Row, Col } from "react-bootstrap";
 import EducationForm from "./EducationForm";
 
-export default function EducationList({
+const EducationList = ({
   education,
   updateEducation,
   deleteEducation,
   isEditable,
-}) {
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const handleEditClick = () => {
     if (isEditing) {
@@ -76,3 +76,5 @@ export default function EducationList({
     </Card.Text>
   );
 }
+
+export default EducationList;

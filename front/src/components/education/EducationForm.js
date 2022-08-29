@@ -7,7 +7,7 @@ const BACHELOR_DEGREE = "학사졸업";
 const MASTER_GRADUATION = "석사졸업";
 const PHD_GRADUATION = "박사졸업";
 
-export default function EducationForm({ education, confirmEducation, cancelEducation, setIsAdding }) {
+const EducationForm = ({ education, confirmEducation, cancelEducation, setIsAdding }) => {
   const [targetEducation, setTargetEducation] = useState({ ...education });
 
   const handleChange = (e) => {
@@ -130,3 +130,5 @@ export default function EducationForm({ education, confirmEducation, cancelEduca
     </>
   );
 }
+
+export default EducationForm;

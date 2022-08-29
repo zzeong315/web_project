@@ -5,7 +5,7 @@ import * as Api from "../../api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Button, Card } from "react-bootstrap";
 
-export default function Education({ portfolioOwnerId, isEditable }) {
+const Education = ({ portfolioOwnerId, isEditable }) => {
   const [educations, setEducations] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
@@ -134,3 +134,5 @@ export default function Education({ portfolioOwnerId, isEditable }) {
     </Card>
   );
 }
+
+export default Education;
