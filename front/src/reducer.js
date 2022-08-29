@@ -12,6 +12,14 @@ export function loginReducer(userState, action) {
         ...userState,
         user: null,
       };
+
+    case "DELETE_USER":
+      console.log("%c회원탈퇴!", "color: #d93d1a;");
+      return {
+        ...userState,
+        user: null,
+      };
+
     default:
       return userState;
   }

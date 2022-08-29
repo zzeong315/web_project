@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../apis/api";
+import { DispatchContext } from "../../App";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 name 상태를 생성함.
@@ -9,6 +11,9 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const [email, setEmail] = useState(user.email);
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(user.description);
+
+  const navigate = useNavigate();
+  const dispatch = useContext(DispatchContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,6 +39,9 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
     try {
       const res = await Api.delete("user", user.id);
+      sessionStorage.removeItem("userToken");
+      dispatch({ type: "DELETE_USER" });
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
