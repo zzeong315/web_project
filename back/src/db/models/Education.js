@@ -48,14 +48,9 @@ class Education {
       throw new Error("user not found");
     }
     let educations = user.educations;
-    const beforeLength = educations.length;
     user.educations = educations.filter((education) => {
       return education._id.valueOf() !== educationId;
     });
-    const afterLength = educations.length;
-    if (beforeLength === afterLength) {
-      throw new Error("education not found");
-    }
     const deletedEducation = await user.save();
     return deletedEducation;
   }

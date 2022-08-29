@@ -47,14 +47,9 @@ class Award {
       throw new Error("user not found");
     }
     let awards = user.awards;
-    const beforeLength = awards.length;
     user.awards = awards.filter((award) => {
       return award._id.valueOf() !== awardId;
     });
-    const afterLength = awards.length;
-    if (beforeLength === afterLength) {
-      throw new Error("award not found");
-    }
     const deletedAward = await user.save();
     return deletedAward;
   }
