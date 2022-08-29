@@ -3,8 +3,8 @@ import { ProjectModel } from "../schemas/project";
 
 class Project {
   // id별로 프로젝트 목록 보기
-  static async findById(userId) {
-    const user = await UserModel.findOne({ userId });
+  static async findAll(id) {
+    const user = await UserModel.findOne({ id });
     if (!user) {
       throw new Error("user is not found");
     }
@@ -13,8 +13,8 @@ class Project {
   }
 
   // 프로젝트 생성
-  static async create(userId, newProject) {
-    const user = await UserModel.findOne({ userId });
+  static async add(id, newProject) {
+    const user = await UserModel.findOne({ id });
     if (!user) {
       throw new Error("user is not found");
     }
