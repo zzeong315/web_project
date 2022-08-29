@@ -28,6 +28,17 @@ const userRepository = (apiUri) => {
       });
     },
 
+    async getCurrentUser() {
+      console.log(`%cGET 요청 ${apiUri}/user/current`, "color: #a25cd1;");
+
+      return axios.get(`${apiUri}/user/current`, {
+        // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+        },
+      });
+    },
+
     async requestLogin(userInfo) {
       // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
       // 예시: {name: "Kim"} => {"name": "Kim"}
