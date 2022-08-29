@@ -16,13 +16,13 @@ educationRouter.get("/educations", login_required, async (req, res, next) => {
 });
 
 educationRouter.get(
-  "/educations/:id",
+  "/educations/:userId",
   login_required,
   async (req, res, next) => {
     try {
       // 다른 사람의 전체 교육사항 목록을 얻음
-      const id = req.params.id;
-      const educations = await educationService.getEducations(id);
+      const userId = req.params.userId;
+      const educations = await educationService.getEducations(userId);
       res.status(200).send(educations);
     } catch (error) {
       next(error);
