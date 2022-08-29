@@ -6,7 +6,7 @@ class Project {
   static async findById(userId) {
     const user = await UserModel.findOne({ userId });
     if (!user) {
-      return new Error("user is not found");
+      throw new Error("user is not found");
     }
     const projects = user.projects;
     return projects;
@@ -16,7 +16,7 @@ class Project {
   static async create(userId, newProject) {
     const user = await UserModel.findOne({ userId });
     if (!user) {
-      return new Error("user is not found");
+      throw new Error("user is not found");
     }
     user.projects.push(newProject);
     const createdNewProject = await user.save();
@@ -27,7 +27,7 @@ class Project {
     const user = await UserModel.findOne({ id: userId });
     const projects = user.projects;
     if (!user) {
-      return new Error("user is not found");
+      throw new Error("user is not found");
     }
     let flag = false;
     projects.forEach((project) => {
@@ -40,7 +40,7 @@ class Project {
       }
     });
     if (!flag) {
-      return new Error("project is not found");
+      throw new Error("project is not found");
     }
 
     const updatedProject = await user.save();
@@ -51,7 +51,7 @@ class Project {
     let user = await UserModel.findOne({ id: userId });
 
     if (!user) {
-      return new Error("user is not found");
+      throw new Error("user is not found");
     }
 
     let projects = user.projects;

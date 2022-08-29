@@ -68,6 +68,16 @@ projectRouter.patch(
       .catch((err) => {
         next(err);
       });
+    // try {
+    //   const updatedProject = await projectService.setProject(
+    //     userId,
+    //     projectId,
+    //     toUpdate
+    //   );
+    //   res.status(200).json(updatedProject);
+    // } catch (error) {
+    //   next(error);
+    // }
   }
 );
 

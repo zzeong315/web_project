@@ -4,7 +4,7 @@ class Certificate {
   static async findById(userId) {
     const user = await UserModel.findOne({ userId });
     if (!user) {
-      return new Error("user is not found");
+      throw new Error("user is not found");
     }
     const certificates = user.certificates;
     return certificates;
@@ -23,7 +23,7 @@ class Certificate {
   static async update(userId, certificateId, toUpdate) {
     const user = await UserModel.findOne({ id: userId });
     if (!user) {
-      return new Error("user is not found");
+      throw new Error("user is not found");
     }
     const certificates = user.certificates;
     let flag = false;
@@ -36,7 +36,7 @@ class Certificate {
       }
     });
     if (!flag) {
-      return new Error("project is not found");
+      throw new Error("project is not found");
     }
 
     const updatedCertificate = await user.save();
@@ -46,7 +46,7 @@ class Certificate {
   static async delete(userId, certificateId) {
     let user = await UserModel.findOne({ id: userId });
     if (!user) {
-      return new Error("user is not found");
+      throw new Error("user is not found");
     }
     let certificates = user.certificates;
     user.certificates = certificates.filter(function (elem) {
