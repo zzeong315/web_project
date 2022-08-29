@@ -1,19 +1,14 @@
 import { UserModel } from "../schemas/user";
 
 class Certificate {
-  static async findById(id) {
-    const user = await UserModel.findOne({ id });
+  static async findById(userId) {
+    const user = await UserModel.findOne({ userId });
     const certificates = user.certificates;
     return certificates;
   }
 
-  static async findAll() {
-    const certificates = await CertificateModel.find({});
-    return certificates;
-  }
-
-  static async create(id, newCertificate) {
-    const user = await UserModel.findOne({ id });
+  static async create(userId, newCertificate) {
+    const user = await UserModel.findOne({ userId });
     user.certificates.push(newCertificate);
     const createdNewCertificate = await user.save();
     return createdNewCertificate;
@@ -24,15 +19,9 @@ class Certificate {
     const certificates = user.certificates;
     certificates.forEach((certificate) => {
       if (certificate._id.valueOf() === certificateId) {
-        if (toUpdate.name) {
-          certificate.name = toUpdate.name;
-        }
-        if (toUpdate.description) {
-          certificate.description = toUpdate.description;
-        }
-        if (toUpdate.date) {
-          certificate.date = toUpdate.date;
-        }
+        certificate.name = toUpdate.name;
+        certificate.description = toUpdate.description;
+        certificate.date = toUpdate.date;
       }
     });
 

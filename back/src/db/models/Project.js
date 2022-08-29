@@ -3,15 +3,21 @@ import { ProjectModel } from "../schemas/project";
 
 class Project {
   // id별로 프로젝트 목록 보기
-  static async findById(id) {
-    const user = await UserModel.findOne({ id });
+  static async findById(userId) {
+    const user = await UserModel.findOne({ userId });
+    if (!user) {
+      return new Error("user is not found");
+    }
     const projects = user.projects;
     return projects;
   }
 
   // 프로젝트 생성
-  static async create(id, newProject) {
-    const user = await UserModel.findOne({ id });
+  static async create(userId, newProject) {
+    const user = await UserModel.findOne({ userId });
+    if (!user) {
+      return new Error("user is not found");
+    }
     user.projects.push(newProject);
     const createdNewProject = await user.save();
     return createdNewProject;
@@ -20,23 +26,22 @@ class Project {
   static async update(userId, projectId, toUpdate) {
     const user = await UserModel.findOne({ id: userId });
     const projects = user.projects;
-
+    if (!user) {
+      return new Error("user is not found");
+    }
+    let flag = false;
     projects.forEach((project) => {
       if (project._id.valueOf() === projectId) {
-        if (toUpdate.name) {
-          project.name = toUpdate.name;
-        }
-        if (toUpdate.description) {
-          project.description = toUpdate.description;
-        }
-        if (toUpdate.start) {
-          project.start = toUpdate.start;
-        }
-        if (toUpdate.end) {
-          project.end = toUpdate.end;
-        }
+        project.name = toUpdate.name;
+        project.description = toUpdate.description;
+        project.start = toUpdate.start;
+        project.end = toUpdate.end;
+        flag = true;
       }
     });
+    if (!flag) {
+      return new Error("project is not found");
+    }
 
     const updatedProject = await user.save();
     return updatedProject;
@@ -44,6 +49,11 @@ class Project {
 
   static async delete(userId, projectId) {
     let user = await UserModel.findOne({ id: userId });
+
+    if (!user) {
+      return new Error("user is not found");
+    }
+
     let projects = user.projects;
     user.projects = projects.filter(function (elem) {
       return elem._id.valueOf() !== projectId;

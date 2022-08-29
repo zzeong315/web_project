@@ -10,8 +10,8 @@ certificateRouter.get(
   login_required,
   async function (req, res, next) {
     try {
-      const id = req.userId;
-      const certificates = await certificateService.getCertificatesById(id);
+      const userId = req.userId;
+      const certificates = await certificateService.getCertificatesById(userId);
 
       res.status(200).send(certificates);
     } catch (error) {
@@ -30,13 +30,13 @@ certificateRouter.post(
           "headers의 Content-Type을 application/json으로 설정해주세요"
         );
       }
-      const id = req.userId;
+      const userId = req.userId;
 
       const { name, description, date } = req.body;
       const newCertificate = { name, description, date };
 
       const createdCertificate = await certificateService.addCertificate(
-        id,
+        userId,
         newCertificate
       );
 
