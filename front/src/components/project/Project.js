@@ -21,38 +21,15 @@ const Project = ({portfolioOwnerId, isEditable}) => {
     return `${year}-${month < 10 ? `0${month}` : month }-${date < 10 ? `0${date}` : date }`
   }
 
-  const projectMap = (project, index) =>{
-    const handleEditClick = () => {
-      const newisEditing = [...isEditing];
-      newisEditing[index] = !newisEditing[index];
-      setIsEditing(newisEditing);
-    }
+  const handleEditClick = (index) => {
+    const newisEditing = [...isEditing];
+    newisEditing[index] = !newisEditing[index];
+    setIsEditing(newisEditing);
+  }
 
-    const handleDeleteClick = async () => {
-      const res = await Api.delete('project/delete', project._id);
-      setProjects([...res.data.projects]);
-    }
-
-    return (
-      <>
-        {
-          isEditing[index] ? 
-          <ProjectEditForm 
-            project={project} 
-            dateFormat={dateFormat} 
-            handleEditClick={handleEditClick}
-            setProjects={setProjects} 
-            /> : 
-          <ProjectList 
-            project={project} 
-            index={index} 
-            handleEditClick={handleEditClick} 
-            handleDeleteClick={handleDeleteClick} 
-            isEditable={isEditable}
-          />
-        }
-      </>
-    )
+  const handleDeleteClick = async (project) => {
+    const res = await Api.delete('project/delete', project._id);
+    setProjects([...res.data.projects]);
   }
 
   return (
@@ -60,7 +37,25 @@ const Project = ({portfolioOwnerId, isEditable}) => {
       <Card.Body>
         <div className="card-title h5">프로젝트</div>
         <ul style={{paddingLeft: 0 }}>
-          { projects.length > 0 && projects.map(projectMap) }
+          { 
+            projects.length > 0 && projects.map((project, index)=>{
+              return isEditing[index] ? 
+              <ProjectEditForm
+                key={project._id}
+                project={project} 
+                dateFormat={dateFormat} 
+                handleEditClick={()=>{handleEditClick(index)}}
+                setProjects={setProjects} 
+              /> : 
+              <ProjectList 
+                key={project._id}
+                project={project} 
+                handleEditClick={()=>handleEditClick(index)} 
+                handleDeleteClick={()=>handleDeleteClick(project)} 
+                isEditable={isEditable}
+              />
+            }) 
+          }
         </ul>
 
         <div className='text-center'>
