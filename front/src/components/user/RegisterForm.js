@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 
 import * as Api from "../../apis/api";
+import apis from "../../apis/apis";
 
 function RegisterForm() {
   const navigate = useNavigate();
+  const Api = apis.userRepository;
 
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
@@ -43,7 +45,7 @@ function RegisterForm() {
 
     try {
       // "user/register" 엔드포인트로 post요청함.
-      await Api.post("user/register", {
+      await Api.registerUser({
         email,
         password,
         name,
