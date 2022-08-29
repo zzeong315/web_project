@@ -13,7 +13,7 @@ const Project = ({portfolioOwnerId, isEditable}) => {
   const [isEditing, setIsEditing] = useState([]);
 
   useEffect(() => {
-    Api.get(`project/${portfolioOwnerId}`).then((res) => setProjects(res.data));
+    Api.get(`projects/${portfolioOwnerId}`).then((res) => setProjects(res.data));
   }, [portfolioOwnerId]);
 
   const dateFormat = (day) => {
@@ -28,7 +28,7 @@ const Project = ({portfolioOwnerId, isEditable}) => {
   }
 
   const handleDeleteClick = async (project) => {
-    const res = await Api.delete('project/delete', project._id);
+    const res = await Api.delete(`project/${project._id}`);
     setProjects([...res.data.projects]);
   }
 

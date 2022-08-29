@@ -27,7 +27,7 @@ const ProjectAddForm = ({isAdding, setIsAdding, setProjects, dateFormat}) => {
       if(!addStr.name || !addStr.description) return;
       const newList = { ...addStr, start: dateFormat(addStartDate), end: dateFormat(addEndDate)};
       
-      const res = await Api.post('project/add', newList);
+      const res = await Api.post('project', newList);
       setProjects([...res.data.projects]);
 
       clearForm();
