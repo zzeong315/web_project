@@ -9,7 +9,7 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
   const [certificates, setCertificates] = useState([]);
 
   useEffect(() => {
-    Api.get("certificate", portfolioOwnerId).then((res) => {
+    Api.get("certificates", portfolioOwnerId).then((res) => {
       setCertificates(res.data);
     });
   }, [portfolioOwnerId]);
@@ -29,7 +29,7 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
     const { date } = newCertificate;
 
     try {
-      const res = await Api.post("certificate/add", {
+      const res = await Api.post("certificate", {
         ...newCertificate,
         date: dateFormat(date),
       });
@@ -51,7 +51,7 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
   //delete
   const deleteCertificate = async (certificateId) => {
     try {
-      const res = await Api.delete("certificate/delete", certificateId);
+      const res = await Api.delete("certificate", certificateId);
       const updateCertificate = res.data.certificates;
       setCertificates(updateCertificate);
     } catch (err) {
