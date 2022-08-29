@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import CertificateEditForm from "./CertificateEditForm";
 import CertificateList from "./CertificateList";
 import CertificateAddForm from "./CertificateAddForm";
-import * as Api from "../../api";
+import * as Api from "../../apis/api";
 
 const Certificate = ({ isEditable, portfolioOwnerId }) => {
   const [certificates, setCertificates] = useState([]);
