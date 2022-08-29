@@ -3,7 +3,7 @@ import { Card, Col } from "react-bootstrap";
 import AwardEditForm from "./AwardEditForm";
 import AwardList from "./AwardList";
 import AwardAddForm from "./AwardAddForm";
-import * as Api from "../../api";
+import * as Api from "../../apis/api";
 
 const Award = ({ isEditable, portfolioOwnerId }) => {
   useEffect(() => {

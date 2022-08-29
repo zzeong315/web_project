@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import EducationForm from "./EducationForm";
 import EducationList from "./EducationList";
-import * as Api from "../../api";
+import * as Api from "../../apis/api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Button, Card } from "react-bootstrap";
 
@@ -11,7 +11,9 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
 
   // get 요청
   useEffect(() => {
-    Api.get("educations", portfolioOwnerId).then((res) => setEducations(res.data));
+    Api.get("educations", portfolioOwnerId).then((res) =>
+      setEducations(res.data)
+    );
   }, [portfolioOwnerId]);
 
   // + 버튼 클릭
@@ -25,7 +27,6 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
 
   // 추가 (api => post)
   const confirmAddEduction = async (targetEducation) => {
-    
     try {
       const userId = portfolioOwnerId;
 
@@ -34,25 +35,23 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
         major: targetEducation.major,
         status: targetEducation.status,
       });
-  
+
       const res = await Api.get("educations", userId);
       setEducations(res.data);
-  
+
       setIsAdding(false);
-        
     } catch (error) {
-      console.log('error')
+      console.log("error");
     }
   };
 
-  // 취소 
+  // 취소
   const cancelAddEducation = () => {
     setIsAdding(false);
   };
 
   // 수정 (api => patch)
   const updateEducation = async (editedEducationObj) => {
-    
     try {
       const userId = portfolioOwnerId;
 
@@ -62,25 +61,22 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
         major: editedEducationObj.major,
         status: editedEducationObj.status,
       });
-  
+
       const res = await Api.get("educations", userId);
       setEducations(res.data);
-
     } catch (error) {
-      console.log('error')
+      console.log("error");
     }
-
   };
 
   // 삭제 (api => delete)
   const deleteEducation = async (educationId) => {
     try {
       const res = await Api.delete("education", educationId);
-      const updateEducation = res.data.educations
-      setEducations(updateEducation)
-
+      const updateEducation = res.data.educations;
+      setEducations(updateEducation);
     } catch (error) {
-      console.log('error')
+      console.log("error");
     }
   };
 
@@ -133,6 +129,6 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
       </Card.Body>
     </Card>
   );
-}
+};
 
 export default Education;

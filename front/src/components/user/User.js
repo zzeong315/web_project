@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import UserEditForm from "./UserEditForm";
 import UserCard from "./UserCard";
-import * as Api from "../../api";
+import * as Api from "../../apis/api";
 
 function User({ portfolioOwnerId, isEditable }) {
   // useState 훅을 통해 isEditing 상태를 생성함.

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import * as Api from "./api";
+import * as Api from "./apis/api";
+
 import { loginReducer } from "./reducer";
 
 import Header from "./components/Header";
