@@ -58,9 +58,9 @@ const ProjectEditForm = ({setProjects, project, dateFormat, handleEditClick}) =>
           </div>
         </div>
 
-        <div class="col-sm-20 mt-3 text-center">
-          <button type="submit" class="me-3 btn btn-primary">확인</button>
-          <button type="button" class="btn btn-secondary" onClick={handleEditClick}>취소</button>
+        <div className="col-sm-20 mt-3 text-center">
+          <button type="submit" className="me-3 btn btn-primary">확인</button>
+          <button type="button" className="btn btn-secondary" onClick={handleEditClick}>취소</button>
         </div>
       </Form>
     </>

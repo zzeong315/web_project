@@ -36,7 +36,7 @@ const ProjectAddForm = ({isAdding, setIsAdding, setProjects, dateFormat}) => {
   return (
     <>
       <Form onSubmit={handleAddSubmit}>
-            <div class="mt-3">
+            <div className="mt-3">
               <Form.Control 
                 type="text" 
                 name='name' 
@@ -45,7 +45,7 @@ const ProjectAddForm = ({isAdding, setIsAdding, setProjects, dateFormat}) => {
                 onChange={handleAddStrChange}
               />
             </div>
-            <div class="mt-3">
+            <div className="mt-3">
               <Form.Control 
                 type="text" 
                 name='description'
@@ -65,9 +65,9 @@ const ProjectAddForm = ({isAdding, setIsAdding, setProjects, dateFormat}) => {
               </div>
             </div>
 
-            <div class="col-sm-20 mt-3 text-center">
-              <button type="submit" class="me-3 btn btn-primary">확인</button>
-              <button type="button" class="btn btn-secondary" onClick={()=>setIsAdding(0)}>취소</button>
+            <div className="col-sm-20 mt-3 text-center">
+              <button type="submit" className="me-3 btn btn-primary">확인</button>
+              <button type="button" className="btn btn-secondary" onClick={()=>setIsAdding(0)}>취소</button>
             </div>
         </Form>
     </>

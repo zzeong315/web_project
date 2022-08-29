@@ -12,7 +12,7 @@ const ProjectList = ({project, index, handleEditClick, handleDeleteClick, isEdit
       
       {
         isEditable ?
-        (<div class="d-flex justify-content-center col col-lg-2">
+        (<div className="d-flex justify-content-center col col-lg-2">
           <button type="button" className="mr-3 btn btn-outline-info btn-sm me-2" onClick={handleEditClick}>편집</button>
           <button type="button" className="mr-3 btn btn-outline-danger btn-sm" onClick={handleDeleteClick}>삭제</button>
         </div>) :

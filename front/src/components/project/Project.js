@@ -15,7 +15,6 @@ const Project = ({portfolioOwnerId, isEditable}) => {
   useEffect(() => {
     Api.get(`project/${portfolioOwnerId}`).then((res) => setProjects(res.data));
   }, [portfolioOwnerId]);
-  console.log(projects);
 
   const dateFormat = (day) => {
     const [year, month, date] = [day.getFullYear(), day.getMonth()+1, day.getDate()];
@@ -61,7 +60,7 @@ const Project = ({portfolioOwnerId, isEditable}) => {
       <Card.Body>
         <div className="card-title h5">프로젝트</div>
         <ul style={{paddingLeft: 0 }}>
-          { projects.length && projects.map(projectMap) }
+          { projects.length > 0 && projects.map(projectMap) }
         </ul>
 
         <div className='text-center'>
