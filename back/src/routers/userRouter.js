@@ -145,7 +145,7 @@ userAuthRouter.delete(
     try {
       const userId = req.params.userId;
       const deletedUser = await userAuthService.deleteUser(userId);
-      res.redirect(200, "/");
+      res.redirect(200, "/login");
     } catch (error) {
       next(error);
     }
