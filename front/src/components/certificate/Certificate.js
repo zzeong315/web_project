@@ -3,13 +3,14 @@ import { Card } from "react-bootstrap";
 import CertificateEditForm from "./CertificateEditForm";
 import CertificateList from "./CertificateList";
 import CertificateAddForm from "./CertificateAddForm";
-import * as Api from "../../apis/api";
+import apis from "../../apis/apis";
 
 const Certificate = ({ isEditable, portfolioOwnerId }) => {
   const [certificates, setCertificates] = useState([]);
+  const Api = apis.cerRepository;
 
   useEffect(() => {
-    Api.get("certificates", portfolioOwnerId).then((res) => {
+    Api.getCertificates(portfolioOwnerId).then((res) => {
       setCertificates(res.data);
     });
   }, [portfolioOwnerId]);
@@ -29,7 +30,7 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
     const { date } = newCertificate;
 
     try {
-      const res = await Api.post("certificate", {
+      const res = await Api.createCertificate({
         ...newCertificate,
         date: dateFormat(date),
       });
@@ -51,7 +52,7 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
   //delete
   const deleteCertificate = async (certificateId) => {
     try {
-      const res = await Api.delete("certificate", certificateId);
+      const res = await Api.deleteCertificateById(certificateId);
       const updateCertificate = res.data.certificates;
       setCertificates(updateCertificate);
     } catch (err) {
@@ -65,7 +66,7 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
     const { date } = changeData;
 
     try {
-      const res = await Api.patch("certificate", {
+      const res = await Api.updateCertificate({
         ...changeData,
         date: dateFormat(date),
       });
