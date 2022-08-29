@@ -60,7 +60,7 @@ export default function EducationForm({ education, confirmEducation, cancelEduca
             />
           </Form.Group>
         </Row>
-        <div>
+        <Col>
           <Form.Check
             inline
             label="재학중"
@@ -101,7 +101,7 @@ export default function EducationForm({ education, confirmEducation, cancelEduca
             checked={targetEducation.status === PHD_GRADUATION}
             onChange={handleChange}
           />
-        </div>
+        </Col>
 
         <br />
 
