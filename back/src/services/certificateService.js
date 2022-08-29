@@ -12,7 +12,6 @@ class certificateService {
       userId,
       newCertificate
     );
-    createdNewCertificate.errorMessage = null;
 
     return createdNewCertificate;
   }

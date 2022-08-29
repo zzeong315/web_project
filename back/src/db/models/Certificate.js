@@ -1,19 +1,20 @@
 import { UserModel } from "../schemas/user";
 
 class Certificate {
-  static async findById(id) {
-    const user = await UserModel.findOne({ id });
+  static async findById(userId) {
+    const user = await UserModel.findOne({ userId });
+    if (!user) {
+      throw new Error("user is not found");
+    }
     const certificates = user.certificates;
     return certificates;
   }
 
-  static async findAll() {
-    const certificates = await CertificateModel.find({});
-    return certificates;
-  }
-
-  static async create(id, newCertificate) {
-    const user = await UserModel.findOne({ id });
+  static async create(userId, newCertificate) {
+    const user = await UserModel.findOne({ userId });
+    if (!user) {
+      return new Error("user is not found");
+    }
     user.certificates.push(newCertificate);
     const createdNewCertificate = await user.save();
     return createdNewCertificate;
@@ -21,20 +22,22 @@ class Certificate {
 
   static async update(userId, certificateId, toUpdate) {
     const user = await UserModel.findOne({ id: userId });
+    if (!user) {
+      throw new Error("user is not found");
+    }
     const certificates = user.certificates;
+    let flag = false;
     certificates.forEach((certificate) => {
       if (certificate._id.valueOf() === certificateId) {
-        if (toUpdate.name) {
-          certificate.name = toUpdate.name;
-        }
-        if (toUpdate.description) {
-          certificate.description = toUpdate.description;
-        }
-        if (toUpdate.date) {
-          certificate.date = toUpdate.date;
-        }
+        certificate.name = toUpdate.name;
+        certificate.description = toUpdate.description;
+        certificate.date = toUpdate.date;
+        flag = true;
       }
     });
+    if (!flag) {
+      throw new Error("certificate is not found");
+    }
 
     const updatedCertificate = await user.save();
     return updatedCertificate;
@@ -42,7 +45,19 @@ class Certificate {
 
   static async delete(userId, certificateId) {
     let user = await UserModel.findOne({ id: userId });
+    if (!user) {
+      throw new Error("user is not found");
+    }
     let certificates = user.certificates;
+    let flag = false;
+    certificates.forEach((certificate) => {
+      if (certificate._id.valueOf() === certificateId) {
+        flag = true;
+      }
+    });
+    if (!flag) {
+      throw new Error("certificate is not found");
+    }
     user.certificates = certificates.filter(function (elem) {
       return elem._id.valueOf() !== certificateId;
     });
