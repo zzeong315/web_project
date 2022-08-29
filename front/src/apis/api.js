@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const backendPortNumber = "5001";
+const backendPortNumber = process.env.REACT_APP_SERVER_PORT;
 const serverUrl =
-  "http://kdt-ai5-team13.elicecoding.com" + ":" + backendPortNumber + "/";
+  process.env.REACT_APP_SERVER_URI + ":" + backendPortNumber + "/";
 
 async function get(endpoint, params = "") {
   console.log(
