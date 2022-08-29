@@ -145,7 +145,7 @@ userAuthRouter.delete(
     try {
       const userId = req.params.userId;
       const deletedUser = await userAuthService.deleteUser(userId);
-      res.redirect(200, "/login");
+      res.status(200).send({ message: "탈퇴 성공", ...deletedUser });
     } catch (error) {
       next(error);
     }
