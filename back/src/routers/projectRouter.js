@@ -5,7 +5,7 @@ import { projectService } from "../services/projectService";
 
 const projectRouter = Router();
 
-projectRouter.get("/project", login_required, async function (req, res, next) {
+projectRouter.get("/projects", login_required, async function (req, res, next) {
   try {
     const id = req.userId;
     const projects = await projectService.getProjectsById(id);
@@ -16,43 +16,38 @@ projectRouter.get("/project", login_required, async function (req, res, next) {
   }
 });
 
-projectRouter.post(
-  "/project/add",
-  login_required,
-  async function (req, res, next) {
-    console.log("project register");
-    try {
-      if (is.emptyObject(req.body)) {
-        throw new Error(
-          "headers의 Content-Type을 application/json으로 설정해주세요"
-        );
-      }
-      const id = req.userId;
-
-      const { name, description, start, end } = req.body;
-      const newProject = { name, description, start, end };
-
-      const createdProject = await projectService.addProject(id, newProject);
-
-      if (createdProject.errorMessage) {
-        throw new Error(createdProject.errorMessage);
-      }
-
-      res.status(201).json(createdProject);
-    } catch (error) {
-      next(error);
+projectRouter.post("/project", login_required, async function (req, res, next) {
+  try {
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        "headers의 Content-Type을 application/json으로 설정해주세요"
+      );
     }
+    const userId = req.userId;
+
+    const { name, description, start, end } = req.body;
+    const newProject = { name, description, start, end };
+
+    const createdProject = await projectService.addProject(userId, newProject);
+
+    if (createdProject.errorMessage) {
+      throw new Error(createdProject.errorMessage);
+    }
+
+    res.status(201).json(createdProject);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 projectRouter.get(
-  "/project/:id",
+  "/projects/:userId",
   login_required,
   async function (req, res, next) {
     try {
-      const id = req.params.id;
+      const userId = req.params.userId;
 
-      const projects = await projectService.getProjectsById(id);
+      const projects = await projectService.getProjectsById(userId);
       res.status(200).send(projects);
     } catch (error) {
       next(error);
@@ -89,12 +84,12 @@ projectRouter.patch(
 );
 
 projectRouter.delete(
-  "/project/delete/:id",
+  "/project/:projectId",
   login_required,
   async function (req, res, next) {
     try {
       const userId = req.userId;
-      const projectId = req.params.id;
+      const projectId = req.params.projectId;
 
       const deletedProject = await projectService.deleteProject(
         userId,

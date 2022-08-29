@@ -6,7 +6,7 @@ import { certificateService } from "../services/certificateService";
 const certificateRouter = Router();
 
 certificateRouter.get(
-  "/certificate",
+  "/certificates",
   login_required,
   async function (req, res, next) {
     try {
@@ -20,22 +20,8 @@ certificateRouter.get(
   }
 );
 
-certificateRouter.get(
-  "/certificates",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const certificates = await projectService.getCertificates();
-
-      res.status(200).send(certificates);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
 certificateRouter.post(
-  "/certificate/add",
+  "/certificate",
   login_required,
   async function (req, res, next) {
     try {
@@ -66,13 +52,13 @@ certificateRouter.post(
 );
 
 certificateRouter.get(
-  "/certificate/:id",
+  "/certificates/:userId",
   login_required,
   async function (req, res, next) {
     try {
-      const id = req.params.id;
+      const userId = req.params.userId;
 
-      const certificates = await certificateService.getCertificatesById(id);
+      const certificates = await certificateService.getCertificatesById(userId);
       res.status(200).send(certificates);
     } catch (error) {
       next(error);
@@ -109,12 +95,12 @@ certificateRouter.patch(
 );
 
 certificateRouter.delete(
-  "/certificate/delete/:id",
+  "/certificate/:certificateId",
   login_required,
   async function (req, res, next) {
     try {
       const userId = req.userId;
-      const certificateId = req.params.id;
+      const certificateId = req.params.certificateId;
 
       const deletedCertificate = await certificateService.deleteCertificate(
         userId,

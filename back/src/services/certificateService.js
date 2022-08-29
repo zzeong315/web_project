@@ -1,14 +1,17 @@
 import { Certificate } from "../db";
 
 class certificateService {
-  static async getCertificatesById(id) {
-    const certificates = await Certificate.findById(id);
+  static async getCertificatesById(userId) {
+    const certificates = await Certificate.findById(userId);
 
     return certificates;
   }
 
-  static async addCertificate(id, newCertificate) {
-    const createdNewCertificate = await Certificate.create(id, newCertificate);
+  static async addCertificate(userId, newCertificate) {
+    const createdNewCertificate = await Certificate.create(
+      userId,
+      newCertificate
+    );
     createdNewCertificate.errorMessage = null;
 
     return createdNewCertificate;

@@ -8,18 +8,15 @@ const ProjectSchema = new Schema(
     },
     description: {
       type: String,
-      required: false,
-      default: "프로젝트 설명이 아직 없습니다. 추가해주세요",
+      required: true,
     },
     start: {
       type: String,
-      required: false,
-      default: "시작 날짜를 정해주세요.",
+      required: true,
     },
     end: {
       type: String,
-      required: false,
-      default: "끝난 날짜를 정해주세요.",
+      required: true,
     },
   },
   {
