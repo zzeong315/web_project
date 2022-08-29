@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Card, Col } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import AwardEditForm from "./AwardEditForm";
 import AwardList from "./AwardList";
 import AwardAddForm from "./AwardAddForm";
-import * as Api from "../../apis/api";
+import apis from "../../apis/apis";
 
 const Award = ({ isEditable, portfolioOwnerId }) => {
+  const awardApi = apis.awardRepository;
   useEffect(() => {
     try {
-      Api.get("awards", portfolioOwnerId).then((res) => {
+      awardApi.getAwards(portfolioOwnerId).then((res) => {
         setAwards(res.data);
       });
     } catch (err) {
@@ -22,10 +23,7 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
   // award list add
   const addAward = async (name, description) => {
     try {
-      const res = await Api.post("award", {
-        name,
-        description,
-      });
+      const res = await awardApi.createAward({ name, description });
       const updateAward = res.data.awards; //이코드 계속 반복됨
       setAwards(updateAward);
     } catch (err) {
@@ -41,7 +39,7 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
   };
   const deleteAward = async (awardId) => {
     try {
-      const res = await Api.delete("award", awardId);
+      const res = await awardApi.deleteAwardById(awardId);
       const updateAward = res.data.awards;
       setAwards(updateAward);
     } catch (err) {
@@ -51,9 +49,9 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
 
   const confirmEdit = async (index, changeData) => {
     try {
-      const res = await Api.patch("award", changeData);
+      const res = await awardApi.updateAward(changeData);
       const updateAward = res.data.awards;
-      setAwards(res.data.awards);
+      setAwards(updateAward);
     } catch (err) {
       console.log(err);
     }
