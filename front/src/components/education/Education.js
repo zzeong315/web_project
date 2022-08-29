@@ -3,9 +3,9 @@ import EducationForm from "./EducationForm";
 import EducationList from "./EducationList";
 import * as Api from "../../api";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Card } from "react-bootstrap";
+import { Row, Col, Button, Card } from "react-bootstrap";
 
-export default function Education({ portfolioOwnerId, isEditable }) {
+const Education = ({ portfolioOwnerId, isEditable }) => {
   const [educations, setEducations] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
@@ -22,7 +22,8 @@ export default function Education({ portfolioOwnerId, isEditable }) {
       setIsAdding(true);
     }
   };
-  // api => post 생성
+
+  // 추가 (api => post)
   const confirmAddEduction = async (targetEducation) => {
     
     try {
@@ -44,12 +45,12 @@ export default function Education({ portfolioOwnerId, isEditable }) {
     }
   };
 
-  // 취소
+  // 취소 
   const cancelAddEducation = () => {
     setIsAdding(false);
   };
 
-  // 수정
+  // 수정 (api => patch)
   const updateEducation = async (editedEducationObj) => {
     
     try {
@@ -71,7 +72,7 @@ export default function Education({ portfolioOwnerId, isEditable }) {
 
   };
 
-  // 삭제
+  // 삭제 (api => delete)
   const deleteEducation = async (educationId) => {
     try {
       const res = await Api.delete("education", educationId);
@@ -101,17 +102,17 @@ export default function Education({ portfolioOwnerId, isEditable }) {
             );
           })}
         {isEditable && (
-          <div className="mt-3 text-center mb-4 row">
-            <div className="col-sm-20">
-              <button
+          <Row className="mt-3 text-center mb-4 row">
+            <Col className="col-sm-20">
+              <Button
                 type="button"
                 className="btn btn-primary"
                 onClick={handleAddEductionClick}
               >
                 +
-              </button>
-            </div>
-          </div>
+              </Button>
+            </Col>
+          </Row>
         )}
 
         {isAdding ? (
@@ -133,3 +134,5 @@ export default function Education({ portfolioOwnerId, isEditable }) {
     </Card>
   );
 }
+
+export default Education;
