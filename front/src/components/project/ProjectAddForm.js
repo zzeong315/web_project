@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import DatePicker from "react-datepicker";
-import * as Api from "../../apis/api";
+import apis from "../../apis/apis";
 
 const ProjectAddForm = ({ isAdding, setIsAdding, setProjects, dateFormat }) => {
   const [addStr, setAddStr] = useState({ name: "", description: "" });
   const [addStartDate, setAddStartDate] = useState(new Date());
   const [addEndDate, setAddEndDate] = useState(new Date());
+  const Api = apis.proRepository;
 
   const clearForm = () => {
     setAddStr({ name: "", description: "" });
@@ -31,7 +32,7 @@ const ProjectAddForm = ({ isAdding, setIsAdding, setProjects, dateFormat }) => {
       end: dateFormat(addEndDate),
     };
 
-    const res = await Api.post("project", newList);
+    const res = await Api.createProject(newList);
     setProjects([...res.data.projects]);
 
     clearForm();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
-import * as Api from "../../apis/api";
+import apis from "../../apis/apis";
 
 import ProjectAddForm from "./ProjectAddForm";
 import ProjectEditForm from "./ProjectEditForm";
@@ -11,11 +11,10 @@ const Project = ({ portfolioOwnerId, isEditable }) => {
   const [projects, setProjects] = useState([]);
   const [isAdding, setIsAdding] = useState(0);
   const [isEditing, setIsEditing] = useState([]);
+  const Api = apis.proRepository;
 
   useEffect(() => {
-    Api.get(`projects/${portfolioOwnerId}`).then((res) =>
-      setProjects(res.data)
-    );
+    Api.getProjects(portfolioOwnerId).then((res) => setProjects(res.data));
   }, [portfolioOwnerId]);
 
   const dateFormat = (day) => {
@@ -36,7 +35,7 @@ const Project = ({ portfolioOwnerId, isEditable }) => {
   };
 
   const handleDeleteClick = async (project) => {
-    const res = await Api.delete(`project/${project._id}`);
+    const res = await Api.deleteProjectById(project._id);
     setProjects([...res.data.projects]);
   };
 
