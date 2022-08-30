@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
-
-import * as Api from "../../apis/api";
+import apis from "../../apis/apis";
 import { DispatchContext } from "../../App";
 
 function LoginForm() {
+  const Api = apis.userRepository;
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
 
@@ -36,7 +36,7 @@ function LoginForm() {
 
     try {
       // "user/login" 엔드포인트로 post요청함.
-      const res = await Api.post("user/login", {
+      const res = await Api.requestLogin({
         email,
         password,
       });

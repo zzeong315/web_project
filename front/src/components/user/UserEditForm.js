@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
-import * as Api from "../../apis/api";
+import apis from "../../apis/apis";
 import { DispatchContext } from "../../App";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
@@ -11,6 +11,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const [email, setEmail] = useState(user.email);
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(user.description);
+  const Api = apis.userRepository;
 
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
@@ -19,7 +20,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     e.preventDefault();
 
     // "users/유저id" 엔드포인트로 PUT 요청함.
-    const res = await Api.put(`users/${user.id}`, {
+    const res = await Api.updateUserById(user.id, {
       name,
       email,
       description,
@@ -38,7 +39,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     e.preventDefault();
 
     try {
-      const res = await Api.delete("user", user.id);
+      const res = await Api.deleteUserById(user.id);
       sessionStorage.removeItem("userToken");
       dispatch({ type: "DELETE_USER" });
       navigate("/");

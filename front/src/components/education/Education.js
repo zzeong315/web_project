@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 import EducationForm from "./EducationForm";
 import EducationList from "./EducationList";
-import * as Api from "../../apis/api";
+import apis from "../../apis/apis";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Button, Card } from "react-bootstrap";
 
 const Education = ({ portfolioOwnerId, isEditable }) => {
   const [educations, setEducations] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
+  const Api = apis.eduRepository;
 
   // get 요청
   useEffect(() => {
-    Api.get("educations", portfolioOwnerId).then((res) =>
-      setEducations(res.data)
-    );
+    Api.getEducations(portfolioOwnerId).then((res) => setEducations(res.data));
   }, [portfolioOwnerId]);
 
   // + 버튼 클릭
@@ -28,16 +27,14 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
   // 추가 (api => post)
   const confirmAddEduction = async (targetEducation) => {
     try {
-      const userId = portfolioOwnerId;
-
-      await Api.post("education", {
+      const res = await Api.createEducation({
         name: targetEducation.name,
         major: targetEducation.major,
         status: targetEducation.status,
       });
 
-      const res = await Api.get("educations", userId);
-      setEducations(res.data);
+      const updateEdu = res.data.educations;
+      setEducations(updateEdu);
 
       setIsAdding(false);
     } catch (error) {
@@ -54,17 +51,15 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
   // 수정 (api => patch)
   const updateEducation = async (editedEducationObj) => {
     try {
-      const userId = portfolioOwnerId;
-
-      await Api.patch(`education`, {
+      const res = await Api.updateEducation({
         educationId: editedEducationObj._id,
         name: editedEducationObj.name,
         major: editedEducationObj.major,
         status: editedEducationObj.status,
       });
+      const updateEdu = res.data.educations;
 
-      const res = await Api.get("educations", userId);
-      setEducations(res.data);
+      setEducations(updateEdu);
     } catch (error) {
       console.log("error");
     }
@@ -73,7 +68,7 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
   // 삭제 (api => delete)
   const deleteEducation = async (educationId) => {
     try {
-      const res = await Api.delete("education", educationId);
+      const res = await Api.deleteEducationById(educationId);
       const updateEducation = res.data.educations;
       setEducations(updateEducation);
     } catch (error) {

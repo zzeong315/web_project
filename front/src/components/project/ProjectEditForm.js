@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import DatePicker from "react-datepicker";
-import * as Api from "../../apis/api";
+import apis from "../../apis/apis";
 
 const ProjectEditForm = ({
   setProjects,
@@ -15,6 +15,7 @@ const ProjectEditForm = ({
   });
   const [editStartDate, seteditStartDate] = useState(new Date(project.start));
   const [editEndDate, setEditEndDate] = useState(new Date(project.end));
+  const Api = apis.proRepository;
 
   const handleEditStrChange = (e) => {
     const { name, value } = e.target;
@@ -34,7 +35,7 @@ const ProjectEditForm = ({
       end: dateFormat(editEndDate),
     };
 
-    const res = await Api.patch("project", newList);
+    const res = await Api.updateProject(newList);
     setProjects([...res.data.projects]);
     handleEditClick();
   };
