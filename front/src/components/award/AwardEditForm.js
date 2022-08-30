@@ -34,7 +34,7 @@ const AwardEditForm = ({ index, award, confirmEdit, cancelEdit }) => {
           onChange={(e) => setName(e.target.value)}
         />
         {!isNameValid && (
-          <Form.Text className="text-success">
+          <Form.Text className="text-secondary">
             수상이력을 2글자 이상으로 작성해 주세요.
           </Form.Text>
         )}
@@ -48,7 +48,7 @@ const AwardEditForm = ({ index, award, confirmEdit, cancelEdit }) => {
           onChange={(e) => setDescription(e.target.value)}
         />
         {!isDescriptionValid && (
-          <Form.Text className="text-success">
+          <Form.Text className="text-secondary">
             상세내역을 5글자 이상으로 작성해 주세요.
           </Form.Text>
         )}

@@ -48,7 +48,7 @@ const EducationForm = ({ education, confirmEducation, cancelEducation }) => {
             onChange={handleChange}
           />
           {!isNameValid && (
-            <Form.Text className="text-success">
+            <Form.Text className="text-secondary">
               학교 이름을 2글자 이상으로 작성해 주세요. 
             </Form.Text>
           )}
@@ -63,7 +63,7 @@ const EducationForm = ({ education, confirmEducation, cancelEducation }) => {
             onChange={handleChange}
           />
           {!isMajorValid && (
-            <Form.Text className="text-success">
+            <Form.Text className="text-secondary">
               전공을 2글자 이상으로 작성해 주세요.
             </Form.Text>
           )}
