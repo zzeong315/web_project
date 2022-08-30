@@ -48,6 +48,7 @@ const ProjectEditForm = ({
             type="text"
             name="name"
             placeholder="프로젝트 제목"
+            autoFocus
             value={editStr.name}
             onChange={handleEditStrChange}
           />

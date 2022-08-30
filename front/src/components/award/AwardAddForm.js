@@ -37,6 +37,7 @@ const AwardAddForm = ({ addAward }) => {
             <Form.Control
               type="text"
               placeholder="수상이력"
+              autoFocus
               onChange={(e) => setName(e.target.value)}
               value={name}
             />

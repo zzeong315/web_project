@@ -22,6 +22,7 @@ const AwardEditForm = ({ index, award, confirmEdit, cancelEdit }) => {
         <Form.Control
           type="text"
           placeholder="수상내역"
+          autoFocus
           value={name}
           onChange={(e) => setName(e.target.value)}
         />

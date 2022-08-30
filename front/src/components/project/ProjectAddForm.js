@@ -46,6 +46,7 @@ const ProjectAddForm = ({ isAdding, setIsAdding, setProjects, dateFormat }) => {
             type="text"
             name="name"
             placeholder="프로젝트 제목"
+            autoFocus
             value={addStr.name}
             onChange={handleAddStrChange}
           />

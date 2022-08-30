@@ -19,9 +19,9 @@ const EducationForm = ({ education, confirmEducation, cancelEducation }) => {
   };
   
   // 학교이름 1글자 이상인가 확인
-  const isNameValid = targetEducation.name.length >= 1;
+  const isNameValid = targetEducation.name.length >= 2;
   // 전공이름 1글자 이상인가 확인
-  const isMajorValid = targetEducation.major.length >= 1;
+  const isMajorValid = targetEducation.major.length >= 2;
   // 위 2개 조건이 동시에 만족되는 확인
   const isFormValid = isNameValid && isMajorValid;
 
@@ -43,9 +43,15 @@ const EducationForm = ({ education, confirmEducation, cancelEducation }) => {
             type="text"
             name="name"
             placeholder="학교 이름"
+            autoFocus
             value={targetEducation.name}
             onChange={handleChange}
           />
+          {!isNameValid && (
+            <Form.Text className="text-success">
+              학교 이름을 2글자 이상으로 작성해 주세요. 
+            </Form.Text>
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formMajor">
@@ -56,6 +62,11 @@ const EducationForm = ({ education, confirmEducation, cancelEducation }) => {
             value={targetEducation.major}
             onChange={handleChange}
           />
+          {!isMajorValid && (
+            <Form.Text className="text-success">
+              전공을 2글자 이상으로 작성해 주세요.
+            </Form.Text>
+          )}
         </Form.Group>
       </Row>
       <Col>

@@ -41,6 +41,7 @@ const CertificateAddForm = ({ addCertificate }) => {
             <Form.Control
               type="text"
               placeholder="자격증 제목"
+              autoFocus
               onChange={(e) => setName(e.target.value)}
             />
           </Form.Group>

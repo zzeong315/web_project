@@ -37,6 +37,7 @@ const CertificateEditForm = ({
           type="text"
           placeholder="자격증 제목"
           value={name}
+          autoFocus
           onChange={(e) => setName(e.target.value)}
         />
       </Form.Group>
