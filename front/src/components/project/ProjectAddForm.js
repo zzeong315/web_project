@@ -58,7 +58,7 @@ const ProjectAddForm = ({ isAdding, setIsAdding, setProjects, dateFormat }) => {
             onChange={handleAddStrChange}
           />
           {!isNameValid && (
-            <Form.Text className="text-success">
+            <Form.Text className="text-secondary">
               프로젝트 제목을 2글자 이상으로 작성해 주세요. 
             </Form.Text>
           )}
@@ -72,7 +72,7 @@ const ProjectAddForm = ({ isAdding, setIsAdding, setProjects, dateFormat }) => {
             onChange={handleAddStrChange}
           />
           {!isDescriptionValid&& (
-            <Form.Text className="text-success">
+            <Form.Text className="text-secondary">
               상세내역을 5글자 이상으로 작성해 주세요. 
             </Form.Text>
           )}

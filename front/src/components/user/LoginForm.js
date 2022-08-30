@@ -73,7 +73,7 @@ function LoginForm() {
                 onChange={(e) => setEmail(e.target.value)}
               />
               {!isEmailValid && (
-                <Form.Text className="text-success">
+                <Form.Text className="text-secondary">
                   이메일 형식이 올바르지 않습니다.
                 </Form.Text>
               )}
@@ -88,7 +88,7 @@ function LoginForm() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               {!isPasswordValid && (
-                <Form.Text className="text-success">
+                <Form.Text className="text-secondary">
                   비밀번호는 4글자 이상입니다.
                 </Form.Text>
               )}

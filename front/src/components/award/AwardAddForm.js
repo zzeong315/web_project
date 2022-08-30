@@ -50,7 +50,7 @@ const AwardAddForm = ({ addAward }) => {
               value={name}
             />
             {!isNameValid && (
-              <Form.Text className="text-success">
+              <Form.Text className="text-secondary">
                 수상이력을 2글자 이상으로 작성해 주세요.
               </Form.Text>
             )}
@@ -63,7 +63,7 @@ const AwardAddForm = ({ addAward }) => {
               value={description}
             />
             {!isDescriptionValid && (
-              <Form.Text className="text-success">
+              <Form.Text className="text-secondary">
                 상세내역을 5글자 이상으로 작성해 주세요.
               </Form.Text>
             )}

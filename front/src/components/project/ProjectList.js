@@ -13,9 +13,9 @@ const ProjectList = ({
     >
       <div className="col">
         <p className="mb-0">{project.name}</p>
-        <span>{project.description}</span>
+        <span className="text-muted">{project.description}</span>
         <br />
-        <span>
+        <span className="text-muted">
           {project.start} ~ {project.end}
         </span>
       </div>
