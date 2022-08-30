@@ -33,7 +33,7 @@ class userAuthService {
     if (!user) {
       const errorMessage =
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
+      throw new Error(errorMessage);
     }
 
     // 비밀번호 일치 여부 확인
@@ -45,7 +45,7 @@ class userAuthService {
     if (!isPasswordCorrect) {
       const errorMessage =
         "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
+      throw new Error(errorMessage);
     }
 
     // 로그인 성공 -> JWT 웹 토큰 생성
@@ -83,7 +83,7 @@ class userAuthService {
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
       const errorMessage = "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
+      throw new Error(errorMessage);
     }
 
     // 업데이트 대상에 name이 있다면, 즉 name 값이 null 이 아니라면 업데이트 진행
@@ -127,7 +127,7 @@ class userAuthService {
     if (!user) {
       const errorMessage =
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
+      throw new Error(errorMessage);
     }
 
     return user;
