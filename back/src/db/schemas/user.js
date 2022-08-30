@@ -25,7 +25,7 @@ const UserSchema = new Schema(
     description: {
       type: String,
       required: false,
-      default: "설명이 아직 없습니다. 추가해 주세요.",
+      default: "",
     },
     educations: [EducationSchema],
     projects: [ProjectSchema],
@@ -34,7 +34,7 @@ const UserSchema = new Schema(
     imgUrl: {
       type: String,
       required: false,
-      default: "http://kdt-ai5-team13.elicecoding.com:5001/images/user.png",
+      default: null,
     },
   },
   {
