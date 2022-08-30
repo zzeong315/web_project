@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { Form } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
 const CertificateAddForm = ({ addCertificate }) => {
@@ -31,8 +31,8 @@ const CertificateAddForm = ({ addCertificate }) => {
   };
 
   return (
-    <Col className="mt-3">
-      <Col className="text-center">
+    <div className="mt-3">
+      <div className="text-center">
         <button
           type="button"
           className="btn btn-primary mb-3"
@@ -40,7 +40,7 @@ const CertificateAddForm = ({ addCertificate }) => {
         >
           +
         </button>
-      </Col>
+      </div>
 
       {isAdding && (
         <Form onSubmit={handleAddSubmit}>
@@ -76,24 +76,28 @@ const CertificateAddForm = ({ addCertificate }) => {
             selected={date}
             onChange={(changeDate) => setDate(changeDate)}
           />
-          <Row className="mb-5">
-            <Col className="text-center">
-              <Button className="me-3" variant="primary" type="submit" disabled={!isFormValid}>
+          <div className="mb-5">
+            <div className="text-center">
+              <button 
+                className="me-3 btn btn-primary"
+                type="submit" 
+                disabled={!isFormValid}
+              >
                 확인
-              </Button>{" "}
-              <Button
-                variant="secondary"
+              </button>{" "}
+              <button
+                className="btn btn-secondary"
                 onClick={(e) => {
                   clearForm();
                 }}
               >
                 취소
-              </Button>{" "}
-            </Col>
-          </Row>
+              </button>{" "}
+            </div>
+          </div>
         </Form>
       )}
-    </Col>
+    </div>
   );
 };
 

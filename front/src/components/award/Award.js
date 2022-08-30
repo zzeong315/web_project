@@ -4,6 +4,7 @@ import AwardEditForm from "./AwardEditForm";
 import AwardList from "./AwardList";
 import AwardAddForm from "./AwardAddForm";
 import apis from "../../apis/apis";
+import { CardContent, Title } from "../CategorySyled";
 
 const Award = ({ isEditable, portfolioOwnerId }) => {
   const awardApi = apis.awardRepository;
@@ -64,38 +65,38 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
   };
 
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>수상이력</Card.Title>
+    <Card className="mb-2">
+      <CardContent>
+        <Title>수상이력</Title>
 
         {/* Awards  & AwardEditForm */}
-
-        {awards &&
-          awards.map((award, index) => {
-            return award.isEditing ? (
-              <AwardEditForm
-                key={award._id}
-                index={index}
-                award={award}
-                confirmEdit={confirmEdit}
-                cancelEdit={cancelEdit}
-              />
-            ) : (
-              <AwardList
-                key={award._id}
-                index={index}
-                award={award}
-                changeEditMode={changeEditMode}
-                deleteAward={deleteAward}
-                isEditable={isEditable}
-              />
-            );
-          })}
-
+        <div>
+          {awards &&
+            awards.map((award, index) => {
+              return award.isEditing ? (
+                <AwardEditForm
+                  key={award._id}
+                  index={index}
+                  award={award}
+                  confirmEdit={confirmEdit}
+                  cancelEdit={cancelEdit}
+                />
+              ) : (
+                <AwardList
+                  key={award._id}
+                  index={index}
+                  award={award}
+                  changeEditMode={changeEditMode}
+                  deleteAward={deleteAward}
+                  isEditable={isEditable}
+                />
+              );
+            })}
+        </div>
         {/* AwardAddList */}
 
         {isEditable && <AwardAddForm addAward={addAward} />}
-      </Card.Body>
+      </CardContent>
     </Card>
   );
 };

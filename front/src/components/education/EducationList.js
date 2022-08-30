@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Card, Row, Col } from "react-bootstrap";
 import EducationForm from "./EducationForm";
+import { List, ListName, ListDescription, ListRest } from "../CategorySyled";
 
 const EducationList = ({
   education,
@@ -33,51 +33,45 @@ const EducationList = ({
   };
 
   return (
-    <Col>
+    <div>
       {isEditing ? (
-        <Col md="10">
+        <div className="align-items-center mt-4 row">
           <EducationForm
           education={{
             ...education,
           }}
           confirmEducation={confirmEditEducation}
           cancelEducation={cancelEditEducation}
-        />
-        </Col>
-
+          />
+        </div>
       ) : (
-      <Row className="align-items-center">
-        <Col md="10">
-          <span>{education.name}</span>
-          <br />
-          <span className="text-muted">{`${education.major} (${
-            education.status || ""
-          })`}</span>
-        </Col>
+      <div className="align-items-center mt-4 row">
+        <List className="col">
+          <ListName className="d-block">{education.name}</ListName>
+          <ListDescription className="text-muted">{education.major}</ListDescription>
+          <ListRest className="text-muted">{`${education.status || ""}`}</ListRest>
+        </List>
         {isEditable && (
-          <Col className="d-flex justify-content-center" md="2">
-            <Button
-              variant="outline-info"
-              size="sm"
-              onClick={handleEditClick}
-              className="me-2"
+          <div className="d-flex justify-content-center col-md-2 mt-3">
+            <button
               type="button"
+              className="me-2 btn btn-outline-primary btn-sm"
+              onClick={handleEditClick}
             >
               편집
-            </Button>
-            <Button
-              variant="outline-danger"
-              size="sm"
-              onClick={handleDeleteClick}
+            </button>
+            <button
               type="button"
+              className="btn btn-outline-secondary btn-sm"
+              onClick={handleDeleteClick}
             >
               삭제
-            </Button>
-          </Col>
+            </button>
+          </div>
         )}
-      </Row>
+      </div>
       )}
-    </Col>
+    </div>
   );
 }
 

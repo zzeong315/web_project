@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 const AwardAddForm = ({ addAward }) => {
   const [name, setName] = useState("");
@@ -29,8 +29,8 @@ const AwardAddForm = ({ addAward }) => {
   };
 
   return (
-    <Col className="mt-3 ">
-      <Col className="text-center">
+    <div className="mt-3 ">
+      <div className="text-center">
       <button
         type="button"
         className="btn btn-primary mb-3"
@@ -38,7 +38,7 @@ const AwardAddForm = ({ addAward }) => {
       >
         +
       </button>
-      </Col>
+      </div>
       {isAdding && (
         <Form onSubmit={handleAddSubmit}>
           <Form.Group className="mb-3" controlId="awardEditTitle">
@@ -68,24 +68,28 @@ const AwardAddForm = ({ addAward }) => {
               </Form.Text>
             )}
           </Form.Group>
-          <Row className="mb-5">
-            <Col className="text-center">
-              <Button className="me-3" variant="primary" type="submit" disabled={!isFormValid}>
+          <div className="mb-5">
+            <div className="text-center">
+              <button 
+                className="me-3 btn btn-primary"
+                type="submit" 
+                disabled={!isFormValid}
+              >
                 확인
-              </Button>{" "}
-              <Button
-                variant="secondary"
+              </button>{" "}
+              <button
+                className="btn btn-secondary"
                 onClick={(e) => {
                   clearForm();
                 }}
               >
                 취소
-              </Button>{" "}
-            </Col>
-          </Row>
+              </button>{" "}
+            </div>
+          </div>
         </Form>
       )}
-    </Col>
+    </div>
   );
 };
 export default AwardAddForm;

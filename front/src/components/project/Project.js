@@ -40,61 +40,6 @@ const Project = ({ portfolioOwnerId, isEditable }) => {
     setProjects([...res.data.projects]);
   };
 
-  // return (
-  //   <Card className="mb-2">
-  //     <CardContent>
-  //       <Title>프로젝트</Title>
-  //       <ul style={{ paddingLeft: 0 }}>
-  //         {projects.length > 0 &&
-  //           projects.map((project, index) => {
-  //             return isEditing[index] ? (
-  //               <ProjectEditForm
-  //                 key={project._id}
-  //                 project={project}
-  //                 dateFormat={dateFormat}
-  //                 handleEditClick={() => {
-  //                   handleEditClick(index);
-  //                 }}
-  //                 setProjects={setProjects}
-  //               />
-  //             ) : (
-  //               <ProjectList
-  //                 key={project._id}
-  //                 project={project}
-  //                 handleEditClick={() => handleEditClick(index)}
-  //                 handleDeleteClick={() => handleDeleteClick(project)}
-  //                 isEditable={isEditable}
-  //               />
-  //             );
-  //           })}
-  //       </ul>
-
-  //       <div className="text-center">
-  //         {isEditable ? (
-  //           <button
-  //             type="button"
-  //             className="btn btn-primary"
-  //             onClick={() => {
-  //               setIsAdding(1);
-  //             }}
-  //           >
-  //             +
-  //           </button>
-  //         ) : null}
-  //       </div>
-
-  //       {isAdding ? (
-  //         <ProjectAddForm
-  //           isAdding={isAdding}
-  //           setIsAdding={setIsAdding}
-  //           dateFormat={dateFormat}
-  //           setProjects={setProjects}
-  //         />
-  //       ) : null}
-  //     </CardContent>
-  //   </Card>
-  // );
-
   return (
     <Card className="mb-2">
       <CardContent>

@@ -3,7 +3,8 @@ import EducationForm from "./EducationForm";
 import EducationList from "./EducationList";
 import apis from "../../apis/apis";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Row, Col, Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+import { CardContent, Title } from "../CategorySyled";
 
 const Education = ({ portfolioOwnerId, isEditable }) => {
   const [educations, setEducations] = useState([]);
@@ -77,35 +78,36 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
   };
 
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>학력</Card.Title>
-        {educations.length > 0 &&
-          educations.map((education, index) => {
-            return (
-              <EducationList
-                key={index}
-                education={education}
-                updateEducation={updateEducation}
-                deleteEducation={deleteEducation}
-                isEditable={isEditable}
-                setEducations={setEducations}
-              />
+    <Card className="mb-2">
+      <CardContent>
+        <Title>학력</Title>
+        <div>
+          {educations.length > 0 &&
+            educations.map((education, index) => {
+              return (
+                <EducationList
+                  key={index}
+                  education={education}
+                  updateEducation={updateEducation}
+                  deleteEducation={deleteEducation}
+                  isEditable={isEditable}
+                  setEducations={setEducations}
+                />
             );
           })}
-        {isEditable && (
-          <Row className="mt-3 text-center mb-4 row">
-            <Col className="col-sm-20">
-              <Button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleAddEductionClick}
-              >
-                +
-              </Button>
-            </Col>
-          </Row>
-        )}
+        </div>
+        
+        <div className="text-center mt-4">
+          {isEditable && (
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleAddEductionClick}
+            >
+              +
+            </button>
+          )}
+        </div>
 
         {isAdding ? (
           <EducationForm
@@ -122,7 +124,7 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
         ) : (
           ""
         )}
-      </Card.Body>
+      </CardContent>
     </Card>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Row, Col } from "react-bootstrap";
+import { List, ListDescription, ListName } from "../CategorySyled";
 
 const AwardList = ({
   index,
@@ -9,39 +9,37 @@ const AwardList = ({
   isEditable,
 }) => {
   const { name, description } = award;
+
   return (
-    <Row className="d-flex align-items-center mb-4">
-      <Col md="10">
-        <span className="d-block">{name}</span>
-        <span className="text-muted">{description}</span>
-      </Col>
+    <div className="align-items-center mt-4 row">
+      <List className="col">
+        <ListName className="d-block">{name}</ListName>
+        <ListDescription className="text-muted">{description}</ListDescription>
+      </List>
       {isEditable && (
-        <Col className="d-flex justify-content-center" md="2">
-          <Button
-            className="me-2"
-            variant="outline-info"
-            size="sm"
-            type="click"
+        <div className="d-flex justify-content-center col-md-2 mt-3">
+          <button
+            type="button"
+            className="me-2 btn btn-outline-primary btn-sm"
             onClick={(e) => {
               changeEditMode(index);
             }}
           >
             편집
-          </Button>
+          </button>
 
-          <Button
-            variant="outline-danger"
-            size="sm"
-            type="click"
+          <button
+            type="button"
+            className="btn btn-outline-secondary btn-sm"
             onClick={(e) => {
               deleteAward(award._id);
             }}
           >
             삭제
-          </Button>
-        </Col>
+          </button>
+        </div>
       )}
-    </Row>
+    </div>
   );
 };
 

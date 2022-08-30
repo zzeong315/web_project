@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Form, Row, Col } from "react-bootstrap";
+import { Button, Form, Row } from "react-bootstrap";
 
 const ATTENDING = "재학중";
 const BACHELOR_DEGREE = "학사졸업";
@@ -37,7 +37,7 @@ const EducationForm = ({ education, confirmEducation, cancelEducation }) => {
 
   return (
     <Form>
-      <Row className="justify-content-md-center">
+      <div className="mt-3">
         <Form.Group className="mb-3" controlId="formSchool">
           <Form.Control
             type="text"
@@ -68,8 +68,8 @@ const EducationForm = ({ education, confirmEducation, cancelEducation }) => {
             </Form.Text>
           )}
         </Form.Group>
-      </Row>
-      <Col>
+      </div>
+      <div>
         <Form.Check
           inline
           label="재학중"
@@ -110,12 +110,12 @@ const EducationForm = ({ education, confirmEducation, cancelEducation }) => {
           checked={targetEducation.status === PHD_GRADUATION}
           onChange={handleChange}
         />
-      </Col>
+      </div>
 
       <br />
 
       <Form.Group as={Row} className="mt-3 text-center">
-        <Col sm={{ span: 20 }}>
+        <div>
           <Button
             variant="primary"
             type="button"
@@ -133,7 +133,7 @@ const EducationForm = ({ education, confirmEducation, cancelEducation }) => {
           >
             취소
           </Button>
-        </Col>
+        </div>
       </Form.Group>
     </Form>
   );

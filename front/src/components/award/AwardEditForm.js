@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 const AwardEditForm = ({ index, award, confirmEdit, cancelEdit }) => {
   const [name, setName] = useState("");
@@ -53,21 +53,25 @@ const AwardEditForm = ({ index, award, confirmEdit, cancelEdit }) => {
           </Form.Text>
         )}
       </Form.Group>
-      <Row className="mb-5">
-        <Col className="text-center">
-          <Button className="me-3" variant="primary" onClick={handleEditSumit} disabled={!isFormValid}>
+      <div className="mb-5">
+        <div className="text-center">
+          <button 
+            className="me-3 btn btn-primary"
+            onClick={handleEditSumit} 
+            disabled={!isFormValid}
+          >
             확인
-          </Button>{" "}
-          <Button
-            variant="secondary"
+          </button>{" "}
+          <button
+            className="btn btn-secondary"
             onClick={(e) => {
               cancelEdit(index);
             }}
           >
             취소
-          </Button>{" "}
-        </Col>
-      </Row>
+          </button>{" "}
+        </div>
+      </div>
     </Form>
   );
 };

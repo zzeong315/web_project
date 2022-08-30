@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
 const CertificateEditForm = ({
@@ -70,27 +70,26 @@ const CertificateEditForm = ({
         selected={certifiedDate}
         onChange={(date) => setCertifiedDate(date)}
       />
-      <Row className="mb-5">
-        <Col className="text-center">
-          <Button
-            className="me-3"
-            variant="primary"
+      <div className="mb-5">
+        <div className="text-center">
+          <button
+            className="me-3 btn btn-primary"
             type="submit"
             disabled={!isFormValid}
             onClick={(e) => onHandleClick(e)}
           >
             확인
-          </Button>{" "}
-          <Button
-            variant="secondary"
+          </button>{" "}
+          <button
+            className="btn btn-secondary"
             onClick={(e) => {
               cancelEdit(index);
             }}
           >
             취소
-          </Button>{" "}
-        </Col>
-      </Row>
+          </button>{" "}
+        </div>
+      </div>
     </Form>
   );
 };

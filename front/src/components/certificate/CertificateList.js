@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, Row, Col } from "react-bootstrap";
+import { List, ListName, ListDescription, ListRest } from "../CategorySyled";
+
 const CertificateList = ({
   index,
   certificate,
@@ -9,40 +10,37 @@ const CertificateList = ({
 }) => {
   const { name, description, date } = certificate;
 
+  // 
   return (
-    <Row className="d-flex align-items-center mb-4">
-      <Col md="10">
-        <span className="d-block">{name}</span>
-        <span className="d-block text-muted">{description}</span>
-        <span className="text-muted">{date}</span>
-      </Col>
+    <div className="align-items-center mt-4 row">
+      <List className="col">
+        <ListName className="d-block">{name}</ListName>
+        <ListDescription className="d-block text-muted">{description}</ListDescription>
+        <ListRest className="text-muted">{date}</ListRest>
+      </List>
       {isEditable && (
-        <Col className="d-flex justify-content-center" md="2">
-          <Button
-            className="me-2"
-            variant="outline-info"
-            size="sm"
-            type="click"
+        <div className="d-flex justify-content-center col-md-2 mt-3">
+          <button
+            type="button"
+            className="me-2 btn btn-outline-primary btn-sm"
             onClick={(e) => {
               changeEditMode(index);
             }}
           >
             편집
-          </Button>
-
-          <Button
-            variant="outline-danger"
-            size="sm"
-            type="click"
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-secondary btn-sm"
             onClick={(e) => {
               deleteCertificate(certificate._id);
             }}
           >
             삭제
-          </Button>
-        </Col>
+          </button>
+        </div>
       )}
-    </Row>
+    </div>
   );
 };
 

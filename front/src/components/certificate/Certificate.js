@@ -4,6 +4,7 @@ import CertificateEditForm from "./CertificateEditForm";
 import CertificateList from "./CertificateList";
 import CertificateAddForm from "./CertificateAddForm";
 import apis from "../../apis/apis";
+import { CardContent, Title } from "../CategorySyled";
 
 const Certificate = ({ isEditable, portfolioOwnerId }) => {
   const [certificates, setCertificates] = useState([]);
@@ -84,10 +85,10 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
   };
 
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>자격증</Card.Title>
-
+    <Card className="mb-2">
+      <CardContent>
+        <Title>자격증</Title>
+        <div>
         {certificates.length > 0 &&
           certificates.map((certificate, index) => {
             return certificate.isEditing ? (
@@ -109,9 +110,9 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
               />
             );
           })}
-
+        </div>
         {isEditable && <CertificateAddForm addCertificate={addCertificate} />}
-      </Card.Body>
+      </CardContent>
     </Card>
   );
 };
