@@ -6,6 +6,7 @@ import apis from "../../apis/apis";
 import ProjectAddForm from "./ProjectAddForm";
 import ProjectEditForm from "./ProjectEditForm";
 import ProjectList from "./ProjectList";
+import { CardContent, Title } from "../CategorySyled";
 
 const Project = ({ portfolioOwnerId, isEditable }) => {
   const [projects, setProjects] = useState([]);
@@ -41,8 +42,8 @@ const Project = ({ portfolioOwnerId, isEditable }) => {
 
   return (
     <Card className="mb-2">
-      <Card.Body>
-        <div className="card-title h5">프로젝트</div>
+      <CardContent>
+        <Title>프로젝트</Title>
         <ul style={{ paddingLeft: 0 }}>
           {projects.length > 0 &&
             projects.map((project, index) => {
@@ -90,7 +91,7 @@ const Project = ({ portfolioOwnerId, isEditable }) => {
             setProjects={setProjects}
           />
         ) : null}
-      </Card.Body>
+      </CardContent>
     </Card>
   );
 };
