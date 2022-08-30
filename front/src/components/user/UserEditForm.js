@@ -80,12 +80,26 @@ function UserEditForm({ user, setIsEditing, setUser }) {
       <Card.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="useEditName" className="mb-3">
-            <img
-              style={{ width: 200, height: 200 }}
-              htmlFor="photo-upload"
-              src={imgUrl}
-            />
+            <Row className="justify-content-md-center">
+              <div
+                className="rounded"
+                style={{ width: "10rem", height: "10rem" }}
+              >
+                <Card.Img
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    objectFit: "cover",
+                  }}
+                  className="mb-3"
+                  htmlFor="photo-upload"
+                  src={imgUrl}
+                  alt="profile image"
+                />
+              </div>
+            </Row>
             <input id="photo-upload" type="file" onChange={handlePreviewImg} />
+
             <Form.Control
               type="text"
               placeholder="이름"
