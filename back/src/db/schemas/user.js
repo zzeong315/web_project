@@ -34,7 +34,7 @@ const UserSchema = new Schema(
     imgUrl: {
       type: String,
       required: false,
-      default: "기본 이미지 Url",
+      default: "http://kdt-ai5-team13.elicecoding.com:5001/images/user.png",
     },
   },
   {
