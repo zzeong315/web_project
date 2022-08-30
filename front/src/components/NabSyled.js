@@ -13,7 +13,7 @@ const TextInfo = styled.div`
   color: #0D6EFD;
 `;
 
-const btnConent = styled.div`
+const BtnConent = styled.div`
   display: flex;
 `;
 
@@ -25,4 +25,4 @@ const LinkBtn = styled.button`
   border: none;
 `;
 
-export { NavContainer, LinkBtn, TextInfo, btnConent };
+export { NavContainer, LinkBtn, TextInfo, BtnConent };

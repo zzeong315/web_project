@@ -67,6 +67,7 @@ function RegisterForm() {
               <Form.Control
                 type="email"
                 autoComplete="off"
+                autoFocus
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />

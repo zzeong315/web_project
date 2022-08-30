@@ -69,6 +69,7 @@ function LoginForm() {
               <Form.Control
                 type="email"
                 autoComplete="on"
+                autoFocus
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
