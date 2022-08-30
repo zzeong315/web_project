@@ -54,7 +54,7 @@ app.post("/upload", login_required, (req, res, next) => {
     }
 
     res.status(201).send({
-      imgUrl: `http://kdt-ai5-team13.elicecoding.com/images/${fileName}`,
+      imgUrl: `http://kdt-ai5-team13.elicecoding.com:5001/images/${fileName}`,
     });
   });
 });
