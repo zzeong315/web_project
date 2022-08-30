@@ -18,9 +18,9 @@ const EducationForm = ({ education, confirmEducation, cancelEducation }) => {
     });
   };
   
-  // 학교이름 1글자 이상인가 확인
+  // 학교이름 2글자 이상인가 확인
   const isNameValid = targetEducation.name.length >= 2;
-  // 전공이름 1글자 이상인가 확인
+  // 전공이름 2글자 이상인가 확인
   const isMajorValid = targetEducation.major.length >= 2;
   // 위 2개 조건이 동시에 만족되는 확인
   const isFormValid = isNameValid && isMajorValid;

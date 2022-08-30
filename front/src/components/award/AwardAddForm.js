@@ -6,6 +6,13 @@ const AwardAddForm = ({ addAward }) => {
   const [description, setDescription] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
+  // 수상이력 이름이 2글자 이상인가 확인
+  const isNameValid = name.length >= 2;
+  // 상세내역이 5글자 이상인가 확인
+  const isDescriptionValid = description.length >= 5;
+  // 위 2개 조건이 모두 동시에 만족하는지 확인
+  const isFormValid = isNameValid && isDescriptionValid;
+
   const clearForm = () => {
     setIsAdding(false);
     setName("");
@@ -22,7 +29,8 @@ const AwardAddForm = ({ addAward }) => {
   };
 
   return (
-    <Col className="mt-3 text-center">
+    <Col className="mt-3 ">
+      <Col className="text-center">
       <button
         type="button"
         className="btn btn-primary mb-3"
@@ -30,7 +38,7 @@ const AwardAddForm = ({ addAward }) => {
       >
         +
       </button>
-
+      </Col>
       {isAdding && (
         <Form onSubmit={handleAddSubmit}>
           <Form.Group className="mb-3" controlId="awardEditTitle">
@@ -41,6 +49,11 @@ const AwardAddForm = ({ addAward }) => {
               onChange={(e) => setName(e.target.value)}
               value={name}
             />
+            {!isNameValid && (
+              <Form.Text className="text-success">
+                수상이력을 2글자 이상으로 작성해 주세요.
+              </Form.Text>
+            )}
           </Form.Group>
           <Form.Group className="mb-3" controlId="awardEditDescription">
             <Form.Control
@@ -49,10 +62,15 @@ const AwardAddForm = ({ addAward }) => {
               onChange={(e) => setDescription(e.target.value)}
               value={description}
             />
+            {!isDescriptionValid && (
+              <Form.Text className="text-success">
+                상세내역을 5글자 이상으로 작성해 주세요.
+              </Form.Text>
+            )}
           </Form.Group>
           <Row className="mb-5">
             <Col className="text-center">
-              <Button className="me-3" variant="primary" type="submit">
+              <Button className="me-3" variant="primary" type="submit" disabled={!isFormValid}>
                 확인
               </Button>{" "}
               <Button

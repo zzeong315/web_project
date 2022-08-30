@@ -18,6 +18,13 @@ const CertificateEditForm = ({
     setCertifiedDate(new Date(certificate.date));
   }, []);
 
+  // 자격증 이름이 2글자 이상인가 확인
+  const isNameValid = name.length >= 2;
+  // 상세내역이 5글자 이상인가 확인
+  const isDescriptionValid = description.length >= 5;
+  // 위 2개 조건이 모두 동시에 만족하는지 확인
+  const isFormValid = isNameValid && isDescriptionValid;
+
   const onHandleClick = (e) => {
     e.preventDefault();
     if (name && description) {
@@ -40,6 +47,11 @@ const CertificateEditForm = ({
           autoFocus
           onChange={(e) => setName(e.target.value)}
         />
+        {!isNameValid && (
+          <Form.Text className="text-success">
+            자격증을 2글자 이상으로 작성해 주세요.
+          </Form.Text>
+        )}
       </Form.Group>
       <Form.Group className="mb-3" controlId="certificateEditDescription">
         <Form.Control
@@ -48,6 +60,11 @@ const CertificateEditForm = ({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+        {!isDescriptionValid && (
+          <Form.Text className="text-success">
+            상세내역을 5글자 이상으로 작성해 주세요.
+          </Form.Text>
+        )}
       </Form.Group>
       <DatePicker
         selected={certifiedDate}
@@ -59,6 +76,7 @@ const CertificateEditForm = ({
             className="me-3"
             variant="primary"
             type="submit"
+            disabled={!isFormValid}
             onClick={(e) => onHandleClick(e)}
           >
             확인
