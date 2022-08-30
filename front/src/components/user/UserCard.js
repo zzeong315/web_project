@@ -1,24 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
+import userDefaultImg from '../../assets/imgs/user.png';
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
-  console.log("UserCard", user);
-  // console.log("usercard", user);
-  // console.log(user.imgUrl);
-  // const imgUrl =
-  //   user.imgUrl || "http://kdt-ai5-team13.elicecoding.com:5001/images/user.png";
+  
 
   return (
     <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
         <Row className="justify-content-md-center">
-          <Card.Img
-            style={{ width: "10rem", height: "8rem" }}
+          <div className="rounded" style={{width:'10rem', height: '10rem'}}>
+            <Card.Img
+            style={{ width: "100%", height: "auto", objectFit: 'cover' }}
             className="mb-3"
-            src="http://kdt-ai5-team13.elicecoding.com:5001/images/user.png"
+            src={user?.imgUrl ?? userDefaultImg}
             alt="profile image"
-          />
+            />
+          </div>
         </Row>
         <Card.Title>{user?.name}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
