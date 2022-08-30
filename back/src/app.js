@@ -1,11 +1,13 @@
 import cors from "cors";
 import express from "express";
+import fileUpload from "express-fileupload";
 import { userAuthRouter } from "./routers/userRouter";
 import { educationRouter } from "./routers/educationRouter";
 import { projectRouter } from "./routers/projectRouter";
 import { awardRouter } from "./routers/awardRouter";
 import { certificateRouter } from "./routers/certificateRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
+import { login_required } from "./middlewares/login_required";
 
 const app = express();
 
@@ -30,6 +32,22 @@ app.use(projectRouter);
 app.use(awardRouter);
 app.use(certificateRouter);
 
+app.use(fileUpload());
+app.post("/upload", login_required, (req, res, next) => {
+  let uploadFile = req.files.file;
+  let fileName = req.files.file.name;
+  const fileNameArr = fileName.split(".");
+  fileName = req.userId + "." + fileNameArr[1];
+  uploadFile.mv(__dirname + "/../public/images/" + fileName, function (err) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    res
+      .status(201)
+      .send({ imgUrl: `http://localhost:5001/images/${fileName}` });
+  });
+});
 // 순서 중요 (router 에서 next() 시 아래의 에러 핸들링  middleware로 전달됨)
 app.use(errorMiddleware);
 
