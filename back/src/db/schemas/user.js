@@ -31,6 +31,11 @@ const UserSchema = new Schema(
     projects: [ProjectSchema],
     certificates: [CertificateSchema],
     awards: [AwardSchema],
+    imgUrl: {
+      type: String,
+      required: false,
+      default: "기본 이미지 Url",
+    },
   },
   {
     timestamps: true,
