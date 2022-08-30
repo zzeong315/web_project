@@ -37,6 +37,16 @@ app.post("/upload", login_required, (req, res, next) => {
   let uploadFile = req.files.file;
   let fileName = req.files.file.name;
   const fileNameArr = fileName.split(".");
+  if (
+    fileNameArr.length == 1 ||
+    !(
+      fileNameArr[1] === "jpg" ||
+      fileNameArr[1] === "jpeg" ||
+      fileNameArr[1] === "png"
+    )
+  ) {
+    throw new Error("파일 확장자 확인 : jpg, jpeg, png");
+  }
   fileName = req.userId + "." + fileNameArr[1];
   uploadFile.mv(__dirname + "/../public/images/" + fileName, function (err) {
     if (err) {
@@ -44,7 +54,7 @@ app.post("/upload", login_required, (req, res, next) => {
     }
 
     res.status(201).send({
-      imgUrl: `http://kdt-ai5-team13.elicecoding.com:5001/images/${fileName}`,
+      imgUrl: `http://localhost:5001/images/${fileName}`,
     });
   });
 });
