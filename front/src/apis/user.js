@@ -80,6 +80,19 @@ const userRepository = (apiUri) => {
         },
       });
     },
+    async updateProfileImg(formData) {
+      // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
+      // 예시: {name: "Kim"} => {"name": "Kim"}
+      console.log(`%cPOST 요청: ${apiUri}/user/login`, "color: #296aba;");
+      console.log(`%cPOST 요청 데이터: ${formData}`, "color: #296aba;");
+
+      return axios.post(`${apiUri}/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+        },
+      });
+    },
     async deleteUserById(userId) {
       console.log(`DELETE 요청 ${apiUri}/user/${userId}`);
       return axios.delete(`${apiUri}/user/${userId}`, {

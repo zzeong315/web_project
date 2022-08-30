@@ -15,19 +15,46 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
+  const [file, setFile] = useState();
+  const [imgUrl, setImgUrl] = useState(user.imgUrl);
+
+  const handlePreviewImg = (e) => {
+    e.preventDefault();
+    const reader = new FileReader();
+
+    // e.target.files[0] || return ;
+
+    const img = e.target.files[0];
+
+    reader.onloadend = function (e) {
+      setFile(img);
+      console.log("onloadend", e.target.result);
+      setImgUrl(e.target.result);
+    };
+
+    img && reader.readAsDataURL(img);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await Api.updateProfileImg(formData);
+    console.log("submit!!", response.data.imgUrl);
 
     // "users/유저id" 엔드포인트로 PUT 요청함.
     const res = await Api.updateUserById(user.id, {
       name,
       email,
       description,
+      imgUrl: response.data.imgUrl,
     });
     // 유저 정보는 response의 data임.
     const updatedUser = res.data;
     // 해당 유저 정보로 user을 세팅함.
+    console.log(updatedUser);
     setUser(updatedUser);
 
     // isEditing을 false로 세팅함.
@@ -53,6 +80,12 @@ function UserEditForm({ user, setIsEditing, setUser }) {
       <Card.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="useEditName" className="mb-3">
+            <img
+              style={{ width: 200, height: 200 }}
+              htmlFor="photo-upload"
+              src={imgUrl}
+            />
+            <input id="photo-upload" type="file" onChange={handlePreviewImg} />
             <Form.Control
               type="text"
               placeholder="이름"
