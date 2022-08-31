@@ -1,34 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import userDefaultImg from '../../assets/imgs/user.png';
+import { CardContent, ImgWarp, ImgBox, PortfolioBtn } from '../../assets/style/UserSyled'
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
-  
 
   return (
     <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
-      <Card.Body>
-        <Row className="justify-content-md-center">
-          <div className="rounded" style={{width:'10rem', height: '10rem'}}>
-            <Card.Img
-            style={{ width: "100%", height: "auto", objectFit: 'cover' }}
-            className="mb-3"
+      <CardContent>
+        <Row style={{justifyContent: 'center'}}>
+          <ImgWarp>
+            <ImgBox
             src={user?.imgUrl ?? userDefaultImg}
             alt="profile image"
             />
-          </div>
+          </ImgWarp>
         </Row>
-        <Card.Title>{user?.name}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
-        <Card.Text>{user?.description}</Card.Text>
+        <Card.Title className="mt-3">{user?.name}</Card.Title>
+        <Card.Subtitle className="text-muted">{user?.email}</Card.Subtitle>
+        <Card.Text className="mt-3">{user?.description}</Card.Text>
 
         {isEditable && (
           <Col>
-            <Row className="mt-3 text-center text-info">
+            <Row className="mt-4 text-center text-info">
               <Col sm={{ span: 20 }}>
                 <Button
-                  variant="outline-info"
+                  variant="outline-primary"
                   size="sm"
                   onClick={() => setIsEditing(true)}
                 >
@@ -40,15 +38,13 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         )}
 
         {isNetwork && (
-          <Card.Link
-            className="mt-3"
-            href="#"
-            onClick={() => navigate(`/users/${user.id}`)}
+          <PortfolioBtn
+          onClick={() => navigate(`/users/${user.id}`)}
           >
-            포트폴리오
-          </Card.Link>
+          포트폴리오 구경하기
+          </PortfolioBtn>
         )}
-      </Card.Body>
+      </CardContent>
     </Card>
   );
 }

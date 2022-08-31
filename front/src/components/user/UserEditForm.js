@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import apis from "../../apis/apis";
 import { DispatchContext } from "../../App";
+import { CardContent, ImgWarp, ImgBox, FileBtn, WithdrawalBtn } from '../../assets/style/UserSyled'
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 name 상태를 생성함.
@@ -77,29 +78,22 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
   return (
     <Card className="mb-2">
-      <Card.Body>
+      <CardContent>
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="useEditName" className="mb-3">
-            <Row className="justify-content-md-center">
-              <div
-                className="rounded"
-                style={{ width: "10rem", height: "10rem" }}
-              >
-                <Card.Img
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    objectFit: "cover",
-                  }}
-                  className="mb-3"
-                  htmlFor="photo-upload"
-                  src={imgUrl}
-                  alt="profile image"
-                />
-              </div>
-            </Row>
-            <input id="photo-upload" type="file" onChange={handlePreviewImg} />
+          <Row style={{justifyContent: 'center', position: 'relative'}}>
+            <ImgWarp>
+              <ImgBox
+                htmlFor="photo-upload"
+                src={imgUrl}
+                alt="profile image"
+              />
+            </ImgWarp>
 
+            <FileBtn htmlFor="photo-upload">+</FileBtn>
+            <input type="file" name="file" id="photo-upload" onChange={handlePreviewImg} style={{display: "none"}} />
+          </Row>
+
+          <Form.Group controlId="useEditName" className="mb-3 mt-4">
             <Form.Control
               type="text"
               placeholder="이름"
@@ -126,7 +120,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
             />
           </Form.Group>
 
-          <Form.Group as={Row} className="mt-3 text-center">
+          <Form.Group as={Row} className="mt-4 text-center">
             <Col sm={{ span: 20 }}>
               <Button variant="primary" type="submit" className="me-3">
                 확인
@@ -137,10 +131,11 @@ function UserEditForm({ user, setIsEditing, setUser }) {
             </Col>
           </Form.Group>
         </Form>
-        <Button variant="link" onClick={handleDeleteClick}>
+
+        <WithdrawalBtn variant="link" onClick={handleDeleteClick}>
           회원탈퇴
-        </Button>
-      </Card.Body>
+        </WithdrawalBtn>
+      </CardContent>
     </Card>
   );
 }
