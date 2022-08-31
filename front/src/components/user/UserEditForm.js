@@ -17,7 +17,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
   const [file, setFile] = useState();
-  const [imgUrl, setImgUrl] = useState(user.imgUrl);
+  const [previewImgUrl, setPreviewImgUrl] = useState(user.imgUrl);
   const [isChangeImg, setIsChangeImg] = useState(false);
 
   const handlePreviewImg = (e) => {
@@ -30,7 +30,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
     reader.onloadend = function (e) {
       setFile(img);
-      setImgUrl(e.target.result);
+      setPreviewImgUrl(e.target.result);
       setIsChangeImg(true);
     };
 
@@ -39,13 +39,15 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let img = user.imgUrl;
 
     if (isChangeImg) {
       const formData = new FormData();
       formData.append("file", file);
 
       const res = await Api.updateProfileImg(formData);
-      setImgUrl(res.data.imgUrl);
+      setPreviewImgUrl(res.data.imgUrl);
+      img = res.data.imgUrl;
     }
 
     // "users/유저id" 엔드포인트로 PUT 요청함.
@@ -53,7 +55,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
       name,
       email,
       description,
-      imgUrl,
+      imgUrl: img,
     });
 
     // 유저 정보는 response의 data임.
@@ -85,10 +87,16 @@ function UserEditForm({ user, setIsEditing, setUser }) {
         <Form onSubmit={handleSubmit}>
           <Row style={{ justifyContent: "center", position: "relative" }}>
             <div className="imgWrap">
-              <img htmlFor="photo-upload" src={imgUrl} alt="profile image" />
+              <img
+                htmlFor="photo-upload"
+                src={previewImgUrl}
+                alt="profile image"
+              />
             </div>
 
-            <label className="fileBtn" htmlFor="photo-upload">+</label>
+            <label className="fileBtn" htmlFor="photo-upload">
+              +
+            </label>
             <input
               type="file"
               name="file"
@@ -137,7 +145,11 @@ function UserEditForm({ user, setIsEditing, setUser }) {
           </Form.Group>
         </Form>
 
-        <button className="withdrawalBtn" variant="link" onClick={handleDeleteClick}>
+        <button
+          className="withdrawalBtn"
+          variant="link"
+          onClick={handleDeleteClick}
+        >
           회원탈퇴
         </button>
       </UserCardWrap>
