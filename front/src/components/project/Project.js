@@ -6,7 +6,7 @@ import apis from "../../apis/apis";
 import ProjectAddForm from "./ProjectAddForm";
 import ProjectEditForm from "./ProjectEditForm";
 import ProjectList from "./ProjectList";
-import { CardContent, Title } from "../CategorySyled";
+import { CardContent, Title } from "../../assets/style/CategorySyled";
 
 const Project = ({ portfolioOwnerId, isEditable }) => {
   const [projects, setProjects] = useState([]);

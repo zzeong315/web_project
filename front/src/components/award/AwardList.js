@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { List, ListDescription, ListName } from "../CategorySyled";
+import {
+  List,
+  ListDescription,
+  ListName,
+} from "../../assets/style/CategorySyled";
 
 const AwardList = ({
   index,

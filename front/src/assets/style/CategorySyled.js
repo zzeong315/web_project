@@ -1,20 +1,20 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // card, 제목
 const CardContent = styled.div`
-  padding :  24px;
+  padding: 24px;
 `;
 
 const Title = styled.div`
   font-weight: 500;
   font-size: 24px;
-  color: #0D6EFD;
+  color: #0d6efd;
 `;
 
 // 리스트 스타일
 const List = styled.div`
   margin-left: 12px;
-  border-left: 2px solid #0D6EFD;
+  border-left: 2px solid #0d6efd;
 `;
 
 const ListName = styled.span`
@@ -25,7 +25,7 @@ const ListName = styled.span`
 const ListDescription = styled.span`
   display: block;
   padding-top: 4px;
-  color: #7D7D7D;
+  color: #7d7d7d;
 `;
 
 const ListRest = styled.span`
@@ -34,8 +34,8 @@ const ListRest = styled.span`
   margin-top: 4px;
   padding: 2px 8px;
   border-radius: 4px;
-  color: #7D7D7D;
-  background: #DFECFF;
+  color: #7d7d7d;
+  background: #dfecff;
 `;
 
 export { CardContent, Title, List, ListName, ListDescription, ListRest };

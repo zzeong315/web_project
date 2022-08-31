@@ -4,7 +4,7 @@ import EducationList from "./EducationList";
 import apis from "../../apis/apis";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Card } from "react-bootstrap";
-import { CardContent, Title } from "../CategorySyled";
+import { CardContent, Title } from "../../assets/style/CategorySyled";
 
 const Education = ({ portfolioOwnerId, isEditable }) => {
   const [educations, setEducations] = useState([]);
@@ -93,10 +93,10 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
                   isEditable={isEditable}
                   setEducations={setEducations}
                 />
-            );
-          })}
+              );
+            })}
         </div>
-        
+
         <div className="text-center mt-4">
           {isEditable && (
             <button

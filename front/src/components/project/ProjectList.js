@@ -1,5 +1,10 @@
 import React from "react";
-import { List, ListName, ListDescription, ListRest } from "../CategorySyled";
+import {
+  List,
+  ListName,
+  ListDescription,
+  ListRest,
+} from "../../assets/style/CategorySyled";
 
 const ProjectList = ({
   project,
@@ -7,23 +12,21 @@ const ProjectList = ({
   handleDeleteClick,
   isEditable,
 }) => {
-
   return (
-    <div
-      className="align-items-center mt-4 row"
-      key={project._id}
-    >
+    <div className="align-items-center mt-4 row" key={project._id}>
       <List className="col">
-        <ListName  className="d-block">{project.name}</ListName>
-        <ListDescription  className="d-block text-muted">{project.description}</ListDescription>
-        <ListRest  className="text-muted">
+        <ListName className="d-block">{project.name}</ListName>
+        <ListDescription className="d-block text-muted">
+          {project.description}
+        </ListDescription>
+        <ListRest className="text-muted">
           {project.start} ~ {project.end}
         </ListRest>
       </List>
 
       {isEditable ? (
         <div className="d-flex justify-content-center col-md-2 mt-3">
-          <button 
+          <button
             type="button"
             className="me-2 btn btn-outline-primary btn-sm"
             onClick={handleEditClick}

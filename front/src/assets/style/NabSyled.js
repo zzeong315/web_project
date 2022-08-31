@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const NavContainer = styled.nav`
   display: flex;
@@ -6,11 +6,11 @@ const NavContainer = styled.nav`
   align-items: center;
   margin-bottom: 20px;
   padding: 8px 12px 8px 24px;
-  background: #F4F4F4;
+  background: #f4f4f4;
 `;
 
 const TextInfo = styled.div`
-  color: #0D6EFD;
+  color: #0d6efd;
 `;
 
 const BtnConent = styled.div`

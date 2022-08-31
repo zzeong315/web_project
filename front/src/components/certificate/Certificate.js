@@ -4,7 +4,7 @@ import CertificateEditForm from "./CertificateEditForm";
 import CertificateList from "./CertificateList";
 import CertificateAddForm from "./CertificateAddForm";
 import apis from "../../apis/apis";
-import { CardContent, Title } from "../CategorySyled";
+import { CardContent, Title } from "../../assets/style/CategorySyled";
 
 const Certificate = ({ isEditable, portfolioOwnerId }) => {
   const [certificates, setCertificates] = useState([]);
@@ -89,27 +89,27 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
       <CardContent>
         <Title>자격증</Title>
         <div>
-        {certificates.length > 0 &&
-          certificates.map((certificate, index) => {
-            return certificate.isEditing ? (
-              <CertificateEditForm
-                key={certificate._id}
-                index={index}
-                certificate={certificate}
-                confirmEdit={confirmEdit}
-                cancelEdit={cancelEdit}
-              />
-            ) : (
-              <CertificateList
-                key={certificate._id}
-                index={index}
-                certificate={certificate}
-                changeEditMode={changeEditMode}
-                deleteCertificate={deleteCertificate}
-                isEditable={isEditable}
-              />
-            );
-          })}
+          {certificates.length > 0 &&
+            certificates.map((certificate, index) => {
+              return certificate.isEditing ? (
+                <CertificateEditForm
+                  key={certificate._id}
+                  index={index}
+                  certificate={certificate}
+                  confirmEdit={confirmEdit}
+                  cancelEdit={cancelEdit}
+                />
+              ) : (
+                <CertificateList
+                  key={certificate._id}
+                  index={index}
+                  certificate={certificate}
+                  changeEditMode={changeEditMode}
+                  deleteCertificate={deleteCertificate}
+                  isEditable={isEditable}
+                />
+              );
+            })}
         </div>
         {isEditable && <CertificateAddForm addCertificate={addCertificate} />}
       </CardContent>

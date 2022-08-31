@@ -2,7 +2,12 @@ import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
-import {NavContainer, TextInfo, BtnConent, LinkBtn} from './NabSyled';
+import {
+  NavContainer,
+  TextInfo,
+  BtnConent,
+  LinkBtn,
+} from "../assets/style/NabSyled";
 
 function Header() {
   const navigate = useNavigate();
@@ -50,11 +55,13 @@ function Header() {
         <LinkBtn onClick={() => navigate("/")}>나의페이지</LinkBtn>
         <LinkBtn onClick={() => navigate("/network")}>네트워크</LinkBtn>
         {isLogin && (
-          <button 
-            className="btn btn-outline-primary btn-sm" 
-            style={{borderRadius: '30px', fontSize: "14px"}} 
+          <button
+            className="btn btn-outline-primary btn-sm"
+            style={{ borderRadius: "30px", fontSize: "14px" }}
             onClick={logout}
-          >로그아웃</button>
+          >
+            로그아웃
+          </button>
         )}
       </BtnConent>
     </NavContainer>

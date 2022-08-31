@@ -4,7 +4,7 @@ import AwardEditForm from "./AwardEditForm";
 import AwardList from "./AwardList";
 import AwardAddForm from "./AwardAddForm";
 import apis from "../../apis/apis";
-import { CardContent, Title } from "../CategorySyled";
+import { CardContent, Title } from "../../assets/style/CategorySyled";
 
 const Award = ({ isEditable, portfolioOwnerId }) => {
   const awardApi = apis.awardRepository;

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { List, ListName, ListDescription, ListRest } from "../CategorySyled";
+import {
+  List,
+  ListName,
+  ListDescription,
+  ListRest,
+} from "../../assets/style/CategorySyled";
 
 const CertificateList = ({
   index,
@@ -10,12 +15,14 @@ const CertificateList = ({
 }) => {
   const { name, description, date } = certificate;
 
-  // 
+  //
   return (
     <div className="align-items-center mt-4 row">
       <List className="col">
         <ListName className="d-block">{name}</ListName>
-        <ListDescription className="d-block text-muted">{description}</ListDescription>
+        <ListDescription className="d-block text-muted">
+          {description}
+        </ListDescription>
         <ListRest className="text-muted">{date}</ListRest>
       </List>
       {isEditable && (
