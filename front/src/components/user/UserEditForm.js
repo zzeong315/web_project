@@ -36,7 +36,6 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
     reader.onloadend = function (e) {
       setFile(img);
-      console.log("onloadend", e.target.result);
       setImgUrl(e.target.result);
       setIsChangeImg(true);
     };
@@ -53,7 +52,6 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
       const res = await Api.updateProfileImg(formData);
       setImgUrl(res.data.imgUrl);
-      console.log("submit!!", res.data.imgUrl);
     }
 
     // "users/유저id" 엔드포인트로 PUT 요청함.
@@ -67,7 +65,6 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     // 유저 정보는 response의 data임.
     const updatedUser = res.data;
     // 해당 유저 정보로 user을 세팅함.
-    console.log(updatedUser);
     setUser(updatedUser);
 
     // isEditing을 false로 세팅함.
