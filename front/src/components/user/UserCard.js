@@ -5,6 +5,7 @@ import UserCardWrap from '../../assets/style/UserSyled'
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
+  const descriptionLength = user?.description.length >= 25;
 
   return (
     <Card className="mb-3 ms-3" style={{ width: "18rem" }}>
@@ -19,7 +20,12 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         </Row>
         <Card.Title className="mt-3">{user?.name}</Card.Title>
         <Card.Subtitle className="text-muted">{user?.email}</Card.Subtitle>
-        <Card.Text className="mt-3">{user?.description}</Card.Text>
+        {!isNetwork ? 
+          <Card.Text className="mt-3">{user?.description}</Card.Text> :
+          <Card.Text className="mt-3">
+            {descriptionLength ? user?.description.substring(0, 25) + "..." : user?.description}
+          </Card.Text>
+        }
 
         {isEditable && (
           <Col>
