@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import apis from "../../apis/apis";
 import { DispatchContext } from "../../App";
-import { CardContent, ImgWarp, ImgBox, FileBtn, WithdrawalBtn } from '../../assets/style/UserSyled'
+import {
+  CardContent,
+  ImgWarp,
+  ImgBox,
+  FileBtn,
+  WithdrawalBtn,
+} from "../../assets/style/UserSyled";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 name 상태를 생성함.
@@ -18,6 +24,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const dispatch = useContext(DispatchContext);
   const [file, setFile] = useState();
   const [imgUrl, setImgUrl] = useState(user.imgUrl);
+  const [isChangeImg, setIsChangeImg] = useState(false);
 
   const handlePreviewImg = (e) => {
     e.preventDefault();
@@ -29,8 +36,8 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
     reader.onloadend = function (e) {
       setFile(img);
-      console.log("onloadend", e.target.result);
       setImgUrl(e.target.result);
+      setIsChangeImg(true);
     };
 
     img && reader.readAsDataURL(img);
@@ -39,23 +46,25 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("file", file);
+    if (isChangeImg) {
+      const formData = new FormData();
+      formData.append("file", file);
 
-    const response = await Api.updateProfileImg(formData);
-    console.log("submit!!", response.data.imgUrl);
+      const res = await Api.updateProfileImg(formData);
+      setImgUrl(res.data.imgUrl);
+    }
 
     // "users/유저id" 엔드포인트로 PUT 요청함.
     const res = await Api.updateUserById(user.id, {
       name,
       email,
       description,
-      imgUrl: response.data.imgUrl,
+      imgUrl,
     });
+
     // 유저 정보는 response의 data임.
     const updatedUser = res.data;
     // 해당 유저 정보로 user을 세팅함.
-    console.log(updatedUser);
     setUser(updatedUser);
 
     // isEditing을 false로 세팅함.
@@ -80,17 +89,19 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     <Card className="mb-2">
       <CardContent>
         <Form onSubmit={handleSubmit}>
-          <Row style={{justifyContent: 'center', position: 'relative'}}>
+          <Row style={{ justifyContent: "center", position: "relative" }}>
             <ImgWarp>
-              <ImgBox
-                htmlFor="photo-upload"
-                src={imgUrl}
-                alt="profile image"
-              />
+              <ImgBox htmlFor="photo-upload" src={imgUrl} alt="profile image" />
             </ImgWarp>
 
             <FileBtn htmlFor="photo-upload">+</FileBtn>
-            <input type="file" name="file" id="photo-upload" onChange={handlePreviewImg} style={{display: "none"}} />
+            <input
+              type="file"
+              name="file"
+              id="photo-upload"
+              onChange={handlePreviewImg}
+              style={{ display: "none" }}
+            />
           </Row>
 
           <Form.Group controlId="useEditName" className="mb-3 mt-4">
