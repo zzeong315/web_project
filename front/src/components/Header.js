@@ -28,11 +28,7 @@ function Header() {
     <Nav activeKey={location.pathname}>
       <span className="textInfo">
         안녕하세요,
-        {isLogin && (
-          <span className="name">
-            {userName ? ` ${userName}님` : ""}
-          </span>
-        )}
+        <span className="name">{isLogin ? ` ${userName}님` : ""}</span>
         포트폴리오 공유 서비스입니다.
       </span>
       <div className="btnWrap">
