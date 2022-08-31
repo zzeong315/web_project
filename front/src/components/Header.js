@@ -1,12 +1,7 @@
 import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { UserStateContext, DispatchContext } from "../App";
-import {
-  NavContainer,
-  TextInfo,
-  BtnConent,
-  LinkBtn,
-} from "../assets/style/NabSyled";
+import Nav from "../assets/style/NabSyled";
 
 function Header() {
   const navigate = useNavigate();
@@ -30,30 +25,26 @@ function Header() {
   };
 
   return (
-    <NavContainer activeKey={location.pathname}>
-      <TextInfo>
+    <Nav activeKey={location.pathname}>
+      <span className="textInfo">
         안녕하세요,
         {isLogin && (
-          <TextInfo className="name">
+          <span className="name">
             {userName ? ` ${userName}님` : ""}
-          </TextInfo>
+          </span>
         )}
         포트폴리오 공유 서비스입니다.
-      </TextInfo>
-      <BtnConent>
-        <LinkBtn onClick={() => navigate("/")}>나의페이지</LinkBtn>
-        <LinkBtn onClick={() => navigate("/network")}>네트워크</LinkBtn>
+      </span>
+      <div className="btnWrap">
+        <button onClick={() => navigate("/")}>나의페이지</button>
+        <button onClick={() => navigate("/network")}>네트워크</button>
         {isLogin && (
-          <button
-            className="btn btn-outline-primary btn-sm"
-            style={{ borderRadius: "30px", fontSize: "14px" }}
-            onClick={logout}
-          >
+          <button className="logBtn" onClick={logout}>
             로그아웃
           </button>
         )}
-      </BtnConent>
-    </NavContainer>
+      </div>
+    </Nav>
   );
 }
 
