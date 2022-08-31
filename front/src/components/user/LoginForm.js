@@ -14,6 +14,8 @@ function LoginForm() {
   //useState로 password 상태를 생성함.
   const [password, setPassword] = useState("");
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email) => {
     return email
@@ -55,7 +57,8 @@ function LoginForm() {
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
-      console.log("로그인에 실패하였습니다.\n", err);
+      console.log("로그인에 실패하였습니다.\n", err.response.data);
+      setErrorMessage(err.response.data);
     }
   };
 
@@ -92,6 +95,10 @@ function LoginForm() {
                 <Form.Text className="text-secondary">
                   비밀번호는 4글자 이상입니다.
                 </Form.Text>
+              )}
+
+              {errorMessage && (
+                <Form.Text className="text-secondary">{errorMessage}</Form.Text>
               )}
             </Form.Group>
 

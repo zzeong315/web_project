@@ -17,6 +17,9 @@ function RegisterForm() {
   //useState로 name 상태를 생성함.
   const [name, setName] = useState("");
 
+  //useState로 error메시지 받아옴
+  const [errorMessage, setErrorMessage] = useState("");
+
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email) => {
     return email
@@ -53,7 +56,7 @@ function RegisterForm() {
       // 로그인 페이지로 이동함.
       navigate("/login");
     } catch (err) {
-      console.log("회원가입에 실패하였습니다.", err);
+      setErrorMessage(err.response.data);
     }
   };
 
@@ -120,6 +123,10 @@ function RegisterForm() {
                 <Form.Text className="text-secondary">
                   이름은 2글자 이상으로 설정해 주세요.
                 </Form.Text>
+              )}
+
+              {errorMessage && (
+                <Form.Text className="text-danger">{errorMessage}</Form.Text>
               )}
             </Form.Group>
 
