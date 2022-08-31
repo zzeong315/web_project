@@ -9,8 +9,13 @@ const NavContainer = styled.nav`
   background: #f4f4f4;
 `;
 
-const TextInfo = styled.div`
+const TextInfo = styled.span`
   color: #0d6efd;
+  .name {
+    color: #ff8a80;
+    font-weight: bold;
+    padding: 0 5px;
+  }
 `;
 
 const BtnConent = styled.div`
