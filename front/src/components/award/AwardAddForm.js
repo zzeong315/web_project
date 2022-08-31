@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 
-const AwardAddForm = ({ addAward }) => {
+const AwardAddForm = ({ addAward, isAdding, setIsAdding }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [isAdding, setIsAdding] = useState(false);
 
   // 수상이력 이름이 2글자 이상인가 확인
   const isNameValid = name.length >= 2;
@@ -30,15 +29,6 @@ const AwardAddForm = ({ addAward }) => {
 
   return (
     <div className="mt-3 ">
-      <div className="text-center">
-      <button
-        type="button"
-        className="btn btn-primary mb-3"
-        onClick={(e) => setIsAdding(true)}
-      >
-        +
-      </button>
-      </div>
       {isAdding && (
         <Form onSubmit={handleAddSubmit}>
           <Form.Group className="mb-3" controlId="awardEditTitle">
@@ -78,6 +68,7 @@ const AwardAddForm = ({ addAward }) => {
                 확인
               </button>{" "}
               <button
+              type="button"
                 className="btn btn-secondary"
                 onClick={(e) => {
                   clearForm();

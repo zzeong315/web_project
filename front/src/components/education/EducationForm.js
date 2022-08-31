@@ -115,24 +115,22 @@ const EducationForm = ({ education, confirmEducation, cancelEducation }) => {
       <br />
 
       <Form.Group as={Row} className="mt-3 text-center">
-        <div>
-          <Button
-            variant="primary"
+        <div className="mb-5">
+          <button
             type="button"
-            className="me-3"
+            className="me-3 btn btn-primary"
             onClick={handleconfirmClick}
             disabled={!isFormValid}
           >
             확인
-          </Button>
-          <Button
-            variant="secondary"
+          </button>
+          <button
             type="button"
-            className="me-3"
+            className="btn btn-secondary"
             onClick={handleCancelClick}
           >
             취소
-          </Button>
+          </button>
         </div>
       </Form.Group>
     </Form>

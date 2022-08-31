@@ -24,7 +24,7 @@ const AwardEditForm = ({ index, award, confirmEdit, cancelEdit }) => {
   };
 
   return (
-    <Form>
+    <Form className="mt-4">
       <Form.Group className="mb-3" controlId="awardAddTitle">
         <Form.Control
           type="text"

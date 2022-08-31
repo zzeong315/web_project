@@ -7,6 +7,7 @@ import apis from "../../apis/apis";
 import { CardContent, Title } from "../../assets/style/CategorySyled";
 
 const Certificate = ({ isEditable, portfolioOwnerId }) => {
+  const [isAdding, setIsAdding] = useState(false);
   const [certificates, setCertificates] = useState([]);
   const Api = apis.cerRepository;
 
@@ -110,8 +111,25 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
                 />
               );
             })}
+            <div className="text-center mt-4 mb-3">
+              {isEditable && (
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={(e) => setIsAdding(true)}
+                >
+                  +
+                </button>
+              )}
+            </div>
         </div>
-        {isEditable && <CertificateAddForm addCertificate={addCertificate} />}
+        {isEditable && 
+          <CertificateAddForm 
+            addCertificate={addCertificate} 
+            isAdding={isAdding} 
+            setIsAdding={setIsAdding} 
+          />
+        }
       </CardContent>
     </Card>
   );

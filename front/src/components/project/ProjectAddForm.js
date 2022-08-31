@@ -48,7 +48,7 @@ const ProjectAddForm = ({ isAdding, setIsAdding, setProjects, dateFormat }) => {
   return (
     <>
       <Form onSubmit={handleAddSubmit}>
-        <div className="mt-3">
+        <div className="mt-3 mb-3">
           <Form.Control
             type="text"
             name="name"
@@ -62,40 +62,39 @@ const ProjectAddForm = ({ isAdding, setIsAdding, setProjects, dateFormat }) => {
               프로젝트 제목을 2글자 이상으로 작성해 주세요. 
             </Form.Text>
           )}
-        </div>
-        <div className="mt-3">
-          <Form.Control
-            type="text"
-            name="description"
-            placeholder="상세내역"
-            value={addStr.description}
-            onChange={handleAddStrChange}
-          />
-          {!isDescriptionValid&& (
-            <Form.Text className="text-secondary">
-              상세내역을 5글자 이상으로 작성해 주세요. 
-            </Form.Text>
-          )}
-        </div>
-
-        <div className="calendars mt-3" style={{ display: "flex" }}>
-          <div>
-            <DatePicker
-              className="me-3"
-              selected={addStartDate}
-              onChange={(data) => setAddStartDate(data)}
+        
+          <div className="mt-3">
+            <Form.Control
+              type="text"
+              name="description"
+              placeholder="상세내역"
+              value={addStr.description}
+              onChange={handleAddStrChange}
             />
+            {!isDescriptionValid&& (
+              <Form.Text className="text-secondary">
+                상세내역을 5글자 이상으로 작성해 주세요. 
+              </Form.Text>
+            )}
           </div>
+          <div className="calendars mt-3" style={{ display: "flex" }}>
+            <div>
+              <DatePicker
+                className="me-3"
+                selected={addStartDate}
+                onChange={(data) => setAddStartDate(data)}
+              />
+            </div>
 
-          <div>
-            <DatePicker
-              selected={addEndDate}
-              onChange={(data) => setAddEndDate(data)}
-            />
+            <div>
+              <DatePicker
+                selected={addEndDate}
+                onChange={(data) => setAddEndDate(data)}
+              />
+            </div>
           </div>
         </div>
-
-        <div className="col-sm-20 mt-3 text-center">
+        <div className="col-sm-20 mb-5 text-center">
           <button 
             type="submit" 
             className="me-3 btn btn-primary"

@@ -7,6 +7,8 @@ import apis from "../../apis/apis";
 import { CardContent, Title } from "../../assets/style/CategorySyled";
 
 const Award = ({ isEditable, portfolioOwnerId }) => {
+  const [isAdding, setIsAdding] = useState(false);
+
   const awardApi = apis.awardRepository;
   useEffect(() => {
     try {
@@ -92,10 +94,27 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
                 />
               );
             })}
+            <div className="text-center mt-4 mb-3">
+              {isEditable && (
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={(e) => setIsAdding(true)}
+                >
+                  +
+                </button>
+              )}
+            </div>
         </div>
         {/* AwardAddList */}
 
-        {isEditable && <AwardAddForm addAward={addAward} />}
+        {isEditable && 
+          <AwardAddForm 
+            addAward={addAward}
+            isAdding={isAdding} 
+            setIsAdding={setIsAdding} 
+          />
+        }
       </CardContent>
     </Card>
   );

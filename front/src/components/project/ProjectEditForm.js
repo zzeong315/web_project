@@ -49,8 +49,8 @@ const ProjectEditForm = ({
 
   return (
     <>
-      <Form onSubmit={handleEditSubmit}>
-        <div className="mt-3">
+      <Form onSubmit={handleEditSubmit}  className="mt-4">
+        <div>
           <Form.Control
             type="text"
             name="name"

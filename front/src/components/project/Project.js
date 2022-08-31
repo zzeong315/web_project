@@ -69,7 +69,7 @@ const Project = ({ portfolioOwnerId, isEditable }) => {
             })}
         </div>
 
-        <div className="text-center mt-4">
+        <div className="text-center mt-4 mb-3">
           {isEditable ? (
             <button
               type="button"

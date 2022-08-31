@@ -38,38 +38,40 @@ const CertificateEditForm = ({
   };
 
   return (
-    <Form>
-      <Form.Group className="mb-3" controlId="certificateEditTitle">
-        <Form.Control
-          type="text"
-          placeholder="자격증 제목"
-          value={name}
-          autoFocus
-          onChange={(e) => setName(e.target.value)}
+    <Form className="mt-4">
+      <div className="mb-3">
+        <Form.Group className="mb-3" controlId="certificateEditTitle">
+          <Form.Control
+            type="text"
+            placeholder="자격증 제목"
+            value={name}
+            autoFocus
+            onChange={(e) => setName(e.target.value)}
+          />
+          {!isNameValid && (
+            <Form.Text className="text-secondary">
+              자격증을 2글자 이상으로 작성해 주세요.
+            </Form.Text>
+          )}
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="certificateEditDescription">
+          <Form.Control
+            type="text"
+            placeholder="상세내역"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          {!isDescriptionValid && (
+            <Form.Text className="text-secondary">
+              상세내역을 5글자 이상으로 작성해 주세요.
+            </Form.Text>
+          )}
+        </Form.Group>
+        <DatePicker
+          selected={certifiedDate}
+          onChange={(date) => setCertifiedDate(date)}
         />
-        {!isNameValid && (
-          <Form.Text className="text-secondary">
-            자격증을 2글자 이상으로 작성해 주세요.
-          </Form.Text>
-        )}
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="certificateEditDescription">
-        <Form.Control
-          type="text"
-          placeholder="상세내역"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        {!isDescriptionValid && (
-          <Form.Text className="text-secondary">
-            상세내역을 5글자 이상으로 작성해 주세요.
-          </Form.Text>
-        )}
-      </Form.Group>
-      <DatePicker
-        selected={certifiedDate}
-        onChange={(date) => setCertifiedDate(date)}
-      />
+      </div>
       <div className="mb-5">
         <div className="text-center">
           <button
