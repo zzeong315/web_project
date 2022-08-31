@@ -4,7 +4,7 @@ import AwardEditForm from "./AwardEditForm";
 import AwardList from "./AwardList";
 import AwardAddForm from "./AwardAddForm";
 import apis from "../../apis/apis";
-import { CardContent, Title } from "../../assets/style/CategorySyled";
+import CardList from "../../assets/style/CardListSyled";
 
 const Award = ({ isEditable, portfolioOwnerId }) => {
   const [isAdding, setIsAdding] = useState(false);
@@ -68,8 +68,8 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
 
   return (
     <Card className="mb-2">
-      <CardContent>
-        <Title>수상이력</Title>
+      <CardList>
+        <div className="title">수상이력</div>
 
         {/* Awards  & AwardEditForm */}
         <div>
@@ -115,7 +115,7 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
             setIsAdding={setIsAdding} 
           />
         }
-      </CardContent>
+      </CardList>
     </Card>
   );
 };

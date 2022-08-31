@@ -1,10 +1,4 @@
-import React, { useState, useEffect } from "react";
-import {
-  List,
-  ListName,
-  ListDescription,
-  ListRest,
-} from "../../assets/style/CategorySyled";
+import React from "react";
 
 const CertificateList = ({
   index,
@@ -15,16 +9,15 @@ const CertificateList = ({
 }) => {
   const { name, description, date } = certificate;
 
-  //
   return (
     <div className="align-items-center mt-4 row">
-      <List className="col">
-        <ListName className="d-block">{name}</ListName>
-        <ListDescription className="d-block text-muted">
+      <div className="col list">
+        <span className="name">{name}</span>
+        <span className="description">
           {description}
-        </ListDescription>
-        <ListRest className="text-muted">{date}</ListRest>
-      </List>
+        </span>
+        <div className="rest">{date}</div>
+      </div>
       {isEditable && (
         <div className="d-flex justify-content-center col-md-2 mt-3">
           <button

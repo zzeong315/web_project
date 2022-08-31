@@ -1,10 +1,4 @@
 import React from "react";
-import {
-  List,
-  ListName,
-  ListDescription,
-  ListRest,
-} from "../../assets/style/CategorySyled";
 
 const ProjectList = ({
   project,
@@ -14,15 +8,15 @@ const ProjectList = ({
 }) => {
   return (
     <div className="align-items-center mt-4 row" key={project._id}>
-      <List className="col">
-        <ListName className="d-block">{project.name}</ListName>
-        <ListDescription className="d-block text-muted">
+      <div className="col list">
+        <span className="name">{project.name}</span>
+        <span className="description">
           {project.description}
-        </ListDescription>
-        <ListRest className="text-muted">
+        </span>
+        <span className="rest">
           {project.start} ~ {project.end}
-        </ListRest>
-      </List>
+        </span>
+      </div>
 
       {isEditable ? (
         <div className="d-flex justify-content-center col-md-2 mt-3">

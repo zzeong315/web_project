@@ -1,9 +1,4 @@
-import React, { useState, useEffect } from "react";
-import {
-  List,
-  ListDescription,
-  ListName,
-} from "../../assets/style/CategorySyled";
+import React from "react";
 
 const AwardList = ({
   index,
@@ -16,10 +11,10 @@ const AwardList = ({
 
   return (
     <div className="align-items-center mt-4 row">
-      <List className="col">
-        <ListName className="d-block">{name}</ListName>
-        <ListDescription className="text-muted">{description}</ListDescription>
-      </List>
+      <div className="col list">
+        <span className="name">{name}</span>
+        <span className="description">{description}</span>
+      </div>
       {isEditable && (
         <div className="d-flex justify-content-center col-md-2 mt-3">
           <button

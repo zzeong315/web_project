@@ -4,7 +4,7 @@ import CertificateEditForm from "./CertificateEditForm";
 import CertificateList from "./CertificateList";
 import CertificateAddForm from "./CertificateAddForm";
 import apis from "../../apis/apis";
-import { CardContent, Title } from "../../assets/style/CategorySyled";
+import CardList from "../../assets/style/CardListSyled";
 
 const Certificate = ({ isEditable, portfolioOwnerId }) => {
   const [isAdding, setIsAdding] = useState(false);
@@ -87,8 +87,8 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
 
   return (
     <Card className="mb-2">
-      <CardContent>
-        <Title>자격증</Title>
+      <CardList>
+        <div className="title">자격증</div>
         <div>
           {certificates.length > 0 &&
             certificates.map((certificate, index) => {
@@ -130,7 +130,7 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
             setIsAdding={setIsAdding} 
           />
         }
-      </CardContent>
+      </CardList>
     </Card>
   );
 };

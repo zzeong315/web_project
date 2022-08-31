@@ -4,7 +4,7 @@ import EducationList from "./EducationList";
 import apis from "../../apis/apis";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Card } from "react-bootstrap";
-import { CardContent, Title } from "../../assets/style/CategorySyled";
+import CardList from "../../assets/style/CardListSyled";
 
 const Education = ({ portfolioOwnerId, isEditable }) => {
   const [educations, setEducations] = useState([]);
@@ -79,8 +79,8 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
 
   return (
     <Card className="mb-2">
-      <CardContent>
-        <Title>학력</Title>
+      <CardList>
+        <div className="title">학력</div>
         <div>
           {educations.length > 0 &&
             educations.map((education, index) => {
@@ -124,7 +124,7 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
         ) : (
           ""
         )}
-      </CardContent>
+      </CardList>
     </Card>
   );
 };

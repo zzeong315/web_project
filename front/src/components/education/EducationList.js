@@ -1,12 +1,6 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EducationForm from "./EducationForm";
-import {
-  List,
-  ListName,
-  ListDescription,
-  ListRest,
-} from "../../assets/style/CategorySyled";
 
 const EducationList = ({
   education,
@@ -51,15 +45,15 @@ const EducationList = ({
         </div>
       ) : (
         <div className="align-items-center mt-4 row">
-          <List className="col">
-            <ListName className="d-block">{education.name}</ListName>
-            <ListDescription className="text-muted">
+          <div className="col list">
+            <span className="name">{education.name}</span>
+            <span className="description inlineText">
               {education.major}
-            </ListDescription>
-            <ListRest className="text-muted">{`${
+            </span>
+            <span className="rest">{`${
               education.status || ""
-            }`}</ListRest>
-          </List>
+            }`}</span>
+          </div>
           {isEditable && (
             <div className="d-flex justify-content-center col-md-2 mt-3">
               <button
