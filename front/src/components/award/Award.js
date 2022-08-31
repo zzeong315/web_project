@@ -67,7 +67,7 @@ const Award = ({ isEditable, portfolioOwnerId }) => {
   };
 
   return (
-    <Card className="mb-2">
+    <Card className="mb-3">
       <CardList>
         <div className="title">수상이력</div>
 

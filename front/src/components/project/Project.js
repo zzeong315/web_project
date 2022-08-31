@@ -41,7 +41,7 @@ const Project = ({ portfolioOwnerId, isEditable }) => {
   };
 
   return (
-    <Card className="mb-2">
+    <Card className="mb-3">
       <CardList>
         <div className="title">프로젝트</div>
         <div>

@@ -78,7 +78,7 @@ const Education = ({ portfolioOwnerId, isEditable }) => {
   };
 
   return (
-    <Card className="mb-2">
+    <Card className="mb-3">
       <CardList>
         <div className="title">학력</div>
         <div>

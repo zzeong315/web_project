@@ -86,7 +86,7 @@ const Certificate = ({ isEditable, portfolioOwnerId }) => {
   };
 
   return (
-    <Card className="mb-2">
+    <Card className="mb-3">
       <CardList>
         <div className="title">자격증</div>
         <div>
