@@ -55,12 +55,12 @@ app.post("/upload", login_required, upload.single("file"), (req, res, next) => {
     fileType.length == 1 ||
     !(fileType[1] === "jpg" || fileType[1] === "jpeg" || fileType[1] === "png")
   ) {
-    fs.unlink(
-      `${__dirname}/../public/images/${req.userId}.${fileType[1]}`,
-      (err) => {
-        if (err) throw err;
-      }
-    );
+    // fs.unlink(
+    //   `${__dirname}/../public/images/${req.userId}.${fileType[1]}`,
+    //   (err) => {
+    //     if (err) throw err;
+    //   }
+    // );
     throw new Error("파일 확장자 확인 : jpg, jpeg, png");
   }
   let fileName = new Date().valueOf() + req.userId;
