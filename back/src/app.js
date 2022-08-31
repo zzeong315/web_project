@@ -72,7 +72,7 @@ app.post("/upload", login_required, upload.single("file"), (req, res, next) => {
 
   res.status(201).send({
     // imgUrl: `http://localhost:5001/images/${fileName}.jpg}`,
-    imgUrl: `http://kdt-ai5-team13.elicecoding.com:5001/images/${fileName}.${fileType[1]}`,
+    imgUrl: `http://kdt-ai5-team13.elicecoding.com:5001/images/${fileName}.jpg`,
   });
 });
 // 순서 중요 (router 에서 next() 시 아래의 에러 핸들링  middleware로 전달됨)
