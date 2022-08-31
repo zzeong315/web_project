@@ -72,12 +72,12 @@ app.post("/upload", login_required, upload.single("file"), (req, res, next) => {
       (err) => {
         if (err) throw err;
         // 원본 삭제
-        fs.unlink(
-          `${__dirname}/../public/images/${req.userId}.${fileType[1]}`,
-          (err) => {
-            if (err) throw err;
-          }
-        );
+        // fs.unlink(
+        //   `${__dirname}/../public/images/${req.userId}.${fileType[1]}`,
+        //   (err) => {
+        //     if (err) throw err;
+        //   }
+        // );
       }
     );
 
