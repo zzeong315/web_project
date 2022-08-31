@@ -3,13 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import apis from "../../apis/apis";
 import { DispatchContext } from "../../App";
-import {
-  CardContent,
-  ImgWarp,
-  ImgBox,
-  FileBtn,
-  WithdrawalBtn,
-} from "../../assets/style/UserSyled";
+import UserCardWrap from "../../assets/style/UserSyled";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 name 상태를 생성함.
@@ -87,14 +81,14 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
   return (
     <Card className="mb-2">
-      <CardContent>
+      <UserCardWrap>
         <Form onSubmit={handleSubmit}>
           <Row style={{ justifyContent: "center", position: "relative" }}>
-            <ImgWarp>
-              <ImgBox htmlFor="photo-upload" src={imgUrl} alt="profile image" />
-            </ImgWarp>
+            <div className="imgWrap">
+              <img htmlFor="photo-upload" src={imgUrl} alt="profile image" />
+            </div>
 
-            <FileBtn htmlFor="photo-upload">+</FileBtn>
+            <label className="fileBtn" htmlFor="photo-upload">+</label>
             <input
               type="file"
               name="file"
@@ -143,10 +137,10 @@ function UserEditForm({ user, setIsEditing, setUser }) {
           </Form.Group>
         </Form>
 
-        <WithdrawalBtn variant="link" onClick={handleDeleteClick}>
+        <button className="withdrawalBtn" variant="link" onClick={handleDeleteClick}>
           회원탈퇴
-        </WithdrawalBtn>
-      </CardContent>
+        </button>
+      </UserCardWrap>
     </Card>
   );
 }

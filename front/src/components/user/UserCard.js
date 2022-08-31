@@ -1,21 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import userDefaultImg from '../../assets/imgs/user.png';
-import { CardContent, ImgWarp, ImgBox, PortfolioBtn } from '../../assets/style/UserSyled'
+import UserCardWrap from '../../assets/style/UserSyled'
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
 
   return (
     <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
-      <CardContent>
+      <UserCardWrap>
         <Row style={{justifyContent: 'center'}}>
-          <ImgWarp>
-            <ImgBox
-            src={user?.imgUrl ?? userDefaultImg}
-            alt="profile image"
+          <div className="imgWrap">
+            <img
+              src={user?.imgUrl ?? userDefaultImg}
+              alt="profile image"
             />
-          </ImgWarp>
+          </div>
         </Row>
         <Card.Title className="mt-3">{user?.name}</Card.Title>
         <Card.Subtitle className="text-muted">{user?.email}</Card.Subtitle>
@@ -38,13 +38,13 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         )}
 
         {isNetwork && (
-          <PortfolioBtn
+          <button className="portfolioBtn"
           onClick={() => navigate(`/users/${user.id}`)}
           >
           포트폴리오 구경하기
-          </PortfolioBtn>
+          </button>
         )}
-      </CardContent>
+      </UserCardWrap>
     </Card>
   );
 }
