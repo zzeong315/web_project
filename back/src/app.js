@@ -15,19 +15,18 @@ const multer = require("multer");
 const imageDir = __dirname + "/../public/images";
 const upload = multer({
   storage: multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination(req, file, cb) {
       cb(null, imageDir);
     },
-    filename: function (req, file, cb) {
-      let fileType = file.mimetype;
-      fileType = fileType.split("/");
-      let ext = fileType[1];
-      let newFileName = req.userId + "." + ext;
+    filename(req, file, cb) {
+      const ext = path.extname(file.originalname);
+      const timestamp = new Date().getTime().valueOf();
+      const filename = path.basename(file.originalname, ext) + timestamp + ext;
       // 에러처리
-      if (!["png", "jpg", "jpeg"].includes(ext)) {
-        return cb(new Error("파일 확장자 확인: png, jpg, jpeg"));
-      }
-      cb(null, newFileName);
+      // if (!["png", "jpg", "jpeg"].includes(ext)) {
+      //   return cb(new Error("파일 확장자 확인: png, jpg, jpeg"));
+      // }
+      cb(null, filename);
     },
     limits: { fileSize: 5 * 1024 * 1024 },
   }),
@@ -56,23 +55,22 @@ app.use(awardRouter);
 app.use(certificateRouter);
 
 app.post("/upload", login_required, upload.single("file"), (req, res, next) => {
-  let fileType = req.file.mimetype;
-  fileType = fileType.split("/");
-  let fileName = new Date().valueOf() + req.userId;
-  sharp(req.file.path)
-    .resize({ width: 200, height: 200 })
-    .withMetadata()
-    .toFile(`${imageDir}/${fileName}.${fileType[1]}`, (err) => {
-      if (err) throw err;
-      // 원본 삭제
-      // fs.unlink(`${__dirname}/../public/images/${req.userId}.jpg}`, (err) => {
-      //   if (err) throw err;
-      // });
-    });
-
+  try {
+    sharp(req.file.path)
+      .resize({ width: 200, height: 200 })
+      .withMetadata()
+      .toBuffer((err, buffer) => {
+        if (err) throw err;
+        fs.writeFile(req.file.path, buffer, (err) => {
+          if (err) throw err;
+        });
+      });
+  } catch (error) {
+    next(error);
+  }
   res.status(201).send({
-    // imgUrl: `http://localhost:5001/images/${fileName}.${fileType[1]}`,
-    imgUrl: `http://kdt-ai5-team13.elicecoding.com:5001/images/${fileName}.${fileType[1]}`,
+    imgUrl: `http://localhost:5001/images/${req.file.filename}`,
+    // imgUrl: `http://kdt-ai5-team13.elicecoding.com:5001/images/${fileName}.${fileType[1]}`,
   });
 });
 // 순서 중요 (router 에서 next() 시 아래의 에러 핸들링  middleware로 전달됨)
