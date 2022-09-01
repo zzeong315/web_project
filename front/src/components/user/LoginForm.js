@@ -103,7 +103,7 @@ function LoginForm() {
               )}
 
               {errorMessage && (
-                <Form.Text className="text-secondary">{errorMessage}</Form.Text>
+                <Form.Text className="text-danger">{errorMessage}</Form.Text>
               )}
             </Form.Group>
 
