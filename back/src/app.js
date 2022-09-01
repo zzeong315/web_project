@@ -22,12 +22,12 @@ const upload = multer({
       let fileType = file.mimetype;
       fileType = fileType.split("/");
       let ext = fileType[1];
-      let newFileName = req.userId;
+      let newFileName = req.userId + "." + ext;
       // 에러처리
       if (!["png", "jpg", "jpeg"].includes(ext)) {
         return cb(new Error("파일 확장자 확인: png, jpg, jpeg"));
       }
-      cb(null, newFileName + ".jpg");
+      cb(null, newFileName);
     },
     limits: { fileSize: 5 * 1024 * 1024 },
   }),
@@ -62,7 +62,7 @@ app.post("/upload", login_required, upload.single("file"), (req, res, next) => {
   sharp(req.file.path)
     .resize({ width: 200, height: 200 })
     .withMetadata()
-    .toFile(`${imageDir}/${fileName}.jpg`, (err) => {
+    .toFile(`${imageDir}/${fileName}.${fileType[1]}`, (err) => {
       if (err) throw err;
       // 원본 삭제
       // fs.unlink(`${__dirname}/../public/images/${req.userId}.jpg}`, (err) => {
@@ -71,8 +71,8 @@ app.post("/upload", login_required, upload.single("file"), (req, res, next) => {
     });
 
   res.status(201).send({
-    // imgUrl: `http://localhost:5001/images/${fileName}.jpg}`,
-    imgUrl: `http://kdt-ai5-team13.elicecoding.com:5001/images/${fileName}.jpg`,
+    // imgUrl: `http://localhost:5001/images/${fileName}.${fileType[1]}`,
+    imgUrl: `http://kdt-ai5-team13.elicecoding.com:5001/images/${fileName}.${fileType[1]}`,
   });
 });
 // 순서 중요 (router 에서 next() 시 아래의 에러 핸들링  middleware로 전달됨)
