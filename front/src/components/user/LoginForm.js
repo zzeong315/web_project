@@ -89,7 +89,12 @@ function LoginForm() {
                 type="password"
                 autoComplete="on"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (e.target.value.length < 4) {
+                    setErrorMessage("");
+                  }
+                }}
               />
               {!isPasswordValid && (
                 <Form.Text className="text-secondary">
@@ -98,7 +103,7 @@ function LoginForm() {
               )}
 
               {errorMessage && (
-                <Form.Text className="text-secondary">{errorMessage}</Form.Text>
+                <Form.Text className="text-danger">{errorMessage}</Form.Text>
               )}
             </Form.Group>
 

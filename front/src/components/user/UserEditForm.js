@@ -4,6 +4,7 @@ import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import apis from "../../apis/apis";
 import { DispatchContext } from "../../App";
 import UserCardWrap from "../../assets/style/UserSyled";
+import userDefaultImg from "../../assets/imgs/user.png";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 name 상태를 생성함.
@@ -62,7 +63,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     const updatedUser = res.data;
     // 해당 유저 정보로 user을 세팅함.
     setUser(updatedUser);
-    dispatch({type: 'UPDATE_USER', payload: {...updatedUser}});
+    dispatch({ type: "UPDATE_USER", payload: { ...updatedUser } });
 
     // isEditing을 false로 세팅함.
     setIsEditing(false);
@@ -90,7 +91,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
             <div className="imgWrap">
               <img
                 htmlFor="photo-upload"
-                src={previewImgUrl}
+                src={previewImgUrl ?? userDefaultImg}
                 alt="profile image"
               />
             </div>
