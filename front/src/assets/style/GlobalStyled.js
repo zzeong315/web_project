@@ -1,17 +1,17 @@
 import { createGlobalStyle } from "styled-components";
-import TextStyle from "./fonts/DoHyeon-Regular.ttf";
+import TextStyle from "./fonts/AppleSDGothicNeoSB.ttf";
 
 const GlobalStyle = createGlobalStyle`
 @font-face {
-    font-family: DoHyen-Regular;
-    src: local("DoHyen-Regular"),
+    font-family: AppleSDGothicNeoSB;
+    src: local("AppleSDGothicNeoSB"),
     url(${TextStyle});
     font-weight: 50;
     font-style: normal;
 }
 
   * {
-    font-family: "DoHyen-Regular", "Arial", sans-serif;
+    font-family: "AppleSDGothicNeoSB", "Arial", sans-serif;
   }
 `;
 
