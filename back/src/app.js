@@ -23,9 +23,9 @@ const upload = multer({
       const timestamp = new Date().getTime().valueOf();
       const filename = path.basename(file.originalname, ext) + timestamp + ext;
       // 에러처리
-      // if (!["png", "jpg", "jpeg"].includes(ext)) {
-      //   return cb(new Error("파일 확장자 확인: png, jpg, jpeg"));
-      // }
+      if (![".png", ".jpg", ".jpeg"].includes(ext)) {
+        return cb(new Error("파일 확장자 확인: png, jpg, jpeg"));
+      }
       cb(null, filename);
     },
     limits: { fileSize: 5 * 1024 * 1024 },
