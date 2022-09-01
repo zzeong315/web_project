@@ -62,6 +62,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     const updatedUser = res.data;
     // 해당 유저 정보로 user을 세팅함.
     setUser(updatedUser);
+    dispatch({type: 'UPDATE_USER', payload: {...updatedUser}});
 
     // isEditing을 false로 세팅함.
     setIsEditing(false);
