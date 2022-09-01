@@ -47,6 +47,15 @@ class Award {
       throw new Error("user not found");
     }
     let awards = user.awards;
+    let flag = false;
+    awards.forEach((award) => {
+      if (award._id.valueOf() === awardId) {
+        flag = true;
+      }
+    });
+    if (!flag) {
+      throw new Error("award is not found");
+    }
     user.awards = awards.filter((award) => {
       return award._id.valueOf() !== awardId;
     });

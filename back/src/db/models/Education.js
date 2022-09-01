@@ -48,6 +48,15 @@ class Education {
       throw new Error("user not found");
     }
     let educations = user.educations;
+    let flag = false;
+    educations.forEach((education) => {
+      if (education._id.valueOf() === educationId) {
+        flag = true;
+      }
+    });
+    if (!flag) {
+      throw new Error("education is not found");
+    }
     user.educations = educations.filter((education) => {
       return education._id.valueOf() !== educationId;
     });
