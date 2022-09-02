@@ -28,8 +28,6 @@ const proRepository = (apiUri) => {
     },
     async updateProject(changeData) {
       const bodyData = JSON.stringify(changeData);
-      console.log(`%cPATCH 요청: ${apiUri}/project`, "color: #059c4b;");
-      console.log(`%cPATCH 요청 데이터: ${bodyData}`, "color: #059c4b;");
 
       return axios.patch(`${apiUri}/project`, bodyData, {
         headers: {
@@ -39,7 +37,6 @@ const proRepository = (apiUri) => {
       });
     },
     async deleteProjectById(projectId) {
-      console.log(`DELETE 요청 ${apiUri}/project/${projectId}`);
       return axios.delete(`${apiUri}/project/${projectId}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,

@@ -18,6 +18,7 @@ const AwardEditForm = ({ index, award, confirmEdit, cancelEdit }) => {
   const isFormValid = isNameValid && isDescriptionValid;
 
   const handleEditSumit = (e) => {
+    e.preventDefault();
     if (name && description) {
       confirmEdit(index, { awardId: award._id, name, description });
     }
@@ -55,9 +56,9 @@ const AwardEditForm = ({ index, award, confirmEdit, cancelEdit }) => {
       </Form.Group>
       <div className="mb-5">
         <div className="text-center">
-          <button 
+          <button
             className="me-3 btn btn-primary"
-            onClick={handleEditSumit} 
+            onClick={handleEditSumit}
             disabled={!isFormValid}
           >
             확인
